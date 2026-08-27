@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+  --bg: #0c0b10;
+  --panel: rgba(20, 18, 26, 0.92);
+  --panel-border: #7a6435;
+  --gold: #d4af6a;
+  --gold-dim: #9a814f;
+  --text: #e8e2d0;
+  --text-dim: #a89f8c;
+  --hp: #b4394a;
+  --mana: #3d6fa5;
+  --stamina: #4a9d5f;
+  --danger: #d64545;
+  --corrupt: #7a4ab1;
+  font-size: 15px;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; }
+button { font-family: inherit; cursor: pointer; }
+
+.screen { display: none; width: 100%; height: 100%; }
+.screen.active { display: block; }
+
+/* ---- Login ---- */
+#screen-login.active { display: flex; align-items: center; justify-content: center; background: radial-gradient(ellipse at center, #1a1622 0%, #08070b 100%); }
+.login-panel { width: min(90vw, 480px); background: var(--panel); border: 1px solid var(--panel-border); border-radius: 10px; padding: 32px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.6); }
+.title { font-family: 'Cinzel', serif; font-size: 2.2rem; letter-spacing: 0.15em; margin: 0 0 4px; color: var(--gold); }
+.title span { color: var(--text-dim); font-weight: 600; }
+.subtitle { color: var(--text-dim); font-size: 0.85rem; margin-bottom: 24px; }
+.login-panel label { display: block; text-align: left; font-size: 0.8rem; color: var(--text-dim); margin-bottom: 6px; }
+#input-name { width: 100%; padding: 10px 12px; background: #1a1822; border: 1px solid #3a3548; border-radius: 6px; color: var(--text); font-size: 1rem; margin-bottom: 18px; }
+.appearance-row { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 24px; }
+.swatch-group { flex: 1; text-align: left; }
+.swatch-group span { display: block; font-size: 0.75rem; color: var(--text-dim); margin-bottom: 6px; }
+.swatches { display: flex; gap: 6px; flex-wrap: wrap; }
+.swatches div { width: 22px; height: 22px; border-radius: 50%; border: 2px solid transparent; cursor: pointer; }
+.swatches div.selected { border-color: var(--gold); }
+.btn-primary { width: 100%; padding: 12px; background: linear-gradient(180deg, #c79a52, #8f6c31); border: none; border-radius: 6px; color: #1a1408; font-weight: 700; font-size: 1rem; letter-spacing: 0.03em; }
+.btn-primary:hover { filter: brightness(1.1); }
+.hint { font-size: 0.7rem; color: var(--text-dim); margin-top: 14px; }
+
+/* ---- Game screen ---- */
+#screen-game { position: relative; }
+#canvas { display: block; width: 100%; height: 100%; background: #000; image-rendering: pixelated; }
+
+.hud-panel { position: absolute; background: var(--panel); border: 1px solid var(--panel-border); border-radius: 8px; padding: 10px 14px; font-size: 0.8rem; pointer-events: none; }
+.hud-panel.hidden { display: none; }
+
+#hud-top-left { top: 12px; left: 12px; width: 220px; pointer-events: auto; }
+.bar { position: relative; height: 16px; border-radius: 4px; background: #1a1822; border: 1px solid #000; margin-bottom: 5px; overflow: hidden; }
+.bar.small { height: 10px; }
+.bar-fill { height: 100%; width: 50%; transition: width 0.2s; }
+.bar.hp .bar-fill { background: linear-gradient(90deg, #7a1f2a, var(--hp)); }
+.bar.mana .bar-fill { background: linear-gradient(90deg, #24466f, var(--mana)); }
+.bar.stamina .bar-fill { background: linear-gradient(90deg, #2f6d3f, var(--stamina)); }
+.bar span { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; text-shadow: 0 1px 2px #000; }
+.mini-stats { display: flex; justify-content: space-between; font-size: 0.7rem; color: var(--text-dim); margin-top: 6px; flex-wrap: wrap; gap: 4px; }
+#txt-outlaw { color: var(--danger); font-weight: 700; }
+#txt-outlaw.hidden { display: none; }
+
+#hud-top-right { top: 12px; right: 12px; text-align: right; color: var(--gold-dim); }
+#hud-top-right div { margin-bottom: 2px; }
+
+#hud-target { top: 90px; left: 50%; transform: translateX(-50%); width: 220px; text-align: center; }
+#target-name { font-weight: 600; margin-bottom: 4px; }
+
+#prompt-interact { bottom: 130px; left: 50%; transform: translateX(-50%); color: var(--gold); font-weight: 600; white-space: nowrap; }
+
+#hud-bottom-left { bottom: 12px; left: 12px; width: 340px; pointer-events: auto; padding: 8px; }
+#chat-log { height: 120px; overflow-y: auto; font-size: 0.75rem; margin-bottom: 6px; display: flex; flex-direction: column; gap: 2px; }
+#chat-log .sys { color: var(--gold-dim); font-style: italic; }
+#chat-log .discovery { color: #c58af0; font-weight: 600; }
+#chat-log .corrupt-msg { color: #b78ae0; }
+#chat-input { width: 100%; padding: 6px 8px; background: #1a1822; border: 1px solid #3a3548; border-radius: 4px; color: var(--text); font-size: 0.75rem; }
+
+#hud-hotbar { bottom: 12px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; pointer-events: auto; padding: 6px; }
+#hud-hotbar button { width: 42px; height: 42px; font-size: 1.2rem; background: #1a1822; border: 1px solid #3a3548; border-radius: 6px; }
+#hud-hotbar button:hover, #hud-hotbar button.active { border-color: var(--gold); background: #2a2438; }
+
+.panel { position: absolute; top: 60px; right: 12px; width: 320px; max-height: 78vh; overflow-y: auto; background: var(--panel); border: 1px solid var(--panel-border); border-radius: 10px; padding: 14px; pointer-events: auto; z-index: 5; }
+.panel.hidden { display: none; }
+.panel h3 { margin: 0 0 8px; font-family: 'Cinzel', serif; color: var(--gold); font-size: 1rem; display: flex; justify-content: space-between; align-items: center; }
+.panel .close { background: none; border: none; color: var(--text-dim); font-size: 1.1rem; }
+.panel-note { font-size: 0.7rem; color: var(--text-dim); margin: 0 0 10px; line-height: 1.4; }
+
+.item-list { display: flex; flex-direction: column; gap: 4px; }
+.item-row { display: flex; align-items: center; justify-content: space-between; background: #1a1822; padding: 6px 8px; border-radius: 5px; font-size: 0.75rem; }
+.item-row .item-actions { display: flex; gap: 4px; }
+.item-row button { font-size: 0.65rem; padding: 3px 6px; background: #2a2438; border: 1px solid #3a3548; color: var(--text); border-radius: 4px; }
+.item-row button:hover { border-color: var(--gold); }
+
+#skills-list, #factions-list { display: flex; flex-direction: column; gap: 8px; }
+.skill-row, .faction-row { font-size: 0.75rem; }
+.skill-row .label, .faction-row .label { display: flex; justify-content: space-between; margin-bottom: 3px; }
+.skill-bar, .faction-bar { height: 8px; border-radius: 4px; background: #1a1822; overflow: hidden; position: relative; }
+.skill-bar-fill { height: 100%; background: linear-gradient(90deg, #7a5a20, var(--gold)); }
+.faction-bar-fill { height: 100%; position: absolute; top:0; }
+
+#rune-picker { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+.rune-chip { padding: 8px 10px; background: #1a1822; border: 1px solid #3a3548; border-radius: 6px; font-size: 0.72rem; text-align: center; }
+.rune-chip.selected { border-color: var(--gold); background: #2a2438; }
+.rune-chip .qty { color: var(--text-dim); font-size: 0.62rem; }
+#spell-preview { font-size: 0.75rem; background: #1a1822; padding: 8px; border-radius: 6px; margin-bottom: 8px; min-height: 20px; }
+#spell-name-input { width: 100%; padding: 6px 8px; margin-bottom: 8px; background: #1a1822; border: 1px solid #3a3548; border-radius: 4px; color: var(--text); font-size: 0.75rem; }
+#btn-cast { padding: 8px; font-size: 0.8rem; }
+#codex-details { margin-top: 12px; font-size: 0.72rem; color: var(--text-dim); }
+#codex-list { margin-top: 6px; max-height: 140px; overflow-y: auto; }
+#codex-list div { padding: 3px 0; border-bottom: 1px solid #2a2438; }
+
+#map-canvas { width: 100%; border-radius: 6px; border: 1px solid #3a3548; }
+
+#toast-container { position: absolute; top: 70px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; gap: 6px; align-items: center; z-index: 20; pointer-events: none; }
+.toast { background: rgba(30, 22, 44, 0.95); border: 1px solid var(--gold); color: var(--gold); padding: 8px 16px; border-radius: 20px; font-size: 0.8rem; animation: fadein 0.3s; }
+@keyframes fadein { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+
+@media (max-width: 720px) {
+  .panel { width: 92vw; left: 4vw; right: 4vw; }
+  #hud-bottom-left { width: 60vw; }
+}

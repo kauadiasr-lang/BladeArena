@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Aldrune Online</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div id="screen-login" class="screen active">
+  <div class="login-panel">
+    <h1 class="title">ALDRUNE <span>ONLINE</span></h1>
+    <p class="subtitle">Um mundo aberto persistente, moldado por quem o habita.</p>
+    <label>Nome do seu personagem</label>
+    <input id="input-name" maxlength="16" placeholder="Ex: Eldric" autocomplete="off">
+    <div class="appearance-row">
+      <div class="swatch-group">
+        <span>Pele</span>
+        <div class="swatches" data-target="body"></div>
+      </div>
+      <div class="swatch-group">
+        <span>Cabelo</span>
+        <div class="swatches" data-target="hair"></div>
+      </div>
+      <div class="swatch-group">
+        <span>Traje</span>
+        <div class="swatches" data-target="outfit"></div>
+      </div>
+    </div>
+    <button id="btn-enter" class="btn-primary">Entrar em Aldrune</button>
+    <p class="hint">Personagens existentes carregam automaticamente pelo nome.</p>
+  </div>
+</div>
+
+<div id="screen-game" class="screen">
+  <canvas id="canvas"></canvas>
+
+  <div id="hud-top-left" class="hud-panel">
+    <div class="bar hp"><div class="bar-fill" id="bar-hp"></div><span id="txt-hp"></span></div>
+    <div class="bar mana"><div class="bar-fill" id="bar-mana"></div><span id="txt-mana"></span></div>
+    <div class="bar stamina"><div class="bar-fill" id="bar-stamina"></div><span id="txt-stamina"></span></div>
+    <div class="mini-stats">
+      <span id="txt-gold">0 ouro</span>
+      <span id="txt-corruption">Puro</span>
+      <span id="txt-outlaw" class="hidden">FORAGIDO</span>
+    </div>
+  </div>
+
+  <div id="hud-top-right" class="hud-panel">
+    <div id="txt-clock">Dia 0, 00:00</div>
+    <div id="txt-moon">Lua: Nova</div>
+    <div id="txt-weather">claro</div>
+  </div>
+
+  <div id="hud-target" class="hud-panel hidden">
+    <div id="target-name">-</div>
+    <div class="bar hp small"><div class="bar-fill" id="bar-target-hp"></div></div>
+  </div>
+
+  <div id="prompt-interact" class="hud-panel hidden"></div>
+
+  <div id="hud-bottom-left" class="hud-panel">
+    <div id="chat-log"></div>
+    <input id="chat-input" maxlength="200" placeholder="Pressione Enter para conversar...">
+  </div>
+
+  <div id="hud-hotbar" class="hud-panel">
+    <button data-action="attack" title="Atacar (clique num alvo e aperte Espaço)">⚔️</button>
+    <button data-action="toggle-spellcraft" title="Grimório Rúnico (G)">🔮</button>
+    <button data-action="toggle-inventory" title="Inventário (I)">🎒</button>
+    <button data-action="toggle-skills" title="Habilidades (K)">📜</button>
+    <button data-action="toggle-factions" title="Facções (F)">🛡️</button>
+    <button data-action="toggle-map" title="Mapa (M)">🗺️</button>
+    <button data-action="toggle-outlaw" title="Alternar Foragido (O)">🏴</button>
+  </div>
+
+  <div id="panel-inventory" class="panel hidden">
+    <h3>Inventário <button class="close">×</button></h3>
+    <div id="inventory-list" class="item-list"></div>
+    <div id="equip-row">Equipado: <span id="txt-equip-hand">-</span> / <span id="txt-equip-body">-</span></div>
+  </div>
+
+  <div id="panel-skills" class="panel hidden">
+    <h3>Habilidades <button class="close">×</button></h3>
+    <p class="panel-note">Sem níveis, sem XP: cada habilidade sobe pelo uso. O total é limitado — dominar uma exige abrir mão de outra.</p>
+    <div id="skills-list"></div>
+  </div>
+
+  <div id="panel-factions" class="panel hidden">
+    <h3>Facções de Aldrune <button class="close">×</button></h3>
+    <p class="panel-note">Sua reputação ecoa: agir contra uma facção também afeta suas aliadas e rivais.</p>
+    <div id="factions-list"></div>
+  </div>
+
+  <div id="panel-spellcraft" class="panel hidden">
+    <h3>Grimório Rúnico <button class="close">×</button></h3>
+    <p class="panel-note">Combine 1 a 3 fragmentos. Combinações inéditas ganham nome de quem as descobrir primeiro — e ficam para sempre no Grimório de todos.</p>
+    <div id="rune-picker"></div>
+    <div id="spell-preview">Selecione runas...</div>
+    <input id="spell-name-input" maxlength="32" placeholder="Nome da magia (se for uma descoberta)">
+    <button id="btn-cast" class="btn-primary">Conjurar (precisa de alvo p/ dano)</button>
+    <details id="codex-details"><summary>Grimório compartilhado (<span id="codex-count">0</span> feitiços conhecidos)</summary><div id="codex-list"></div></details>
+  </div>
+
+  <div id="panel-map" class="panel hidden">
+    <h3>Mapa de Aldrune <button class="close">×</button></h3>
+    <canvas id="map-canvas" width="384" height="384"></canvas>
+    <p class="panel-note">🏘️ Cidade · ⚔️ Masmorra · 🏠 Lote livre · 🏡 Lote seu</p>
+  </div>
+
+  <div id="panel-vendor" class="panel hidden">
+    <h3>Mercador de Aldrune <button class="close">×</button></h3>
+    <div id="vendor-buy-list" class="item-list"></div>
+    <p class="panel-note">Vender: abra o Inventário e use o botão Vender em cada item enquanto estiver perto.</p>
+  </div>
+
+  <div id="panel-housing" class="panel hidden">
+    <h3>Seu Lote de Terra <button class="close">×</button></h3>
+    <div id="housing-body"></div>
+  </div>
+
+  <div id="toast-container"></div>
+</div>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

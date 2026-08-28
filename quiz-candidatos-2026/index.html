@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bússola Eleitoral 2026</title>
+<style>
+  :root{
+    --bg:#0f1720;
+    --bg-soft:#16212c;
+    --card:#1c2a37;
+    --card-hover:#233242;
+    --border:#2c3d4d;
+    --text:#eaf0f4;
+    --text-dim:#9fb0bd;
+    --accent:#2fbf71;
+    --accent-2:#2f8fbf;
+    --accent-3:#e0b93c;
+    --danger:#e0603c;
+    --radius:14px;
+    --shadow:0 8px 24px rgba(0,0,0,.35);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);min-height:100vh;}
+  body{line-height:1.5;}
+  .app{max-width:920px;margin:0 auto;padding:24px 18px 64px;}
+  .hidden{display:none !important;}
+
+  header.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:28px;flex-wrap:wrap;}
+  .brand{display:flex;align-items:center;gap:10px;}
+  .brand .logo{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;color:#0b1218;flex-shrink:0;}
+  .brand h1{font-size:18px;margin:0;letter-spacing:.2px;}
+  .brand small{display:block;color:var(--text-dim);font-size:12px;}
+  .badge{font-size:11px;background:var(--card);border:1px solid var(--border);color:var(--text-dim);padding:4px 10px;border-radius:999px;}
+
+  .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px;}
+
+  /* INTRO */
+  #screen-intro h2{font-size:26px;margin:0 0 8px;}
+  #screen-intro p.lead{color:var(--text-dim);margin:0 0 20px;font-size:15px;}
+  .disclaimer{background:var(--bg-soft);border:1px solid var(--border);border-radius:10px;padding:14px 16px;font-size:13px;color:var(--text-dim);margin:18px 0;}
+  .disclaimer b{color:var(--text);}
+  .region-select{display:flex;gap:12px;margin:18px 0 24px;flex-wrap:wrap;}
+  .region-btn{flex:1;min-width:140px;background:var(--bg-soft);border:2px solid var(--border);border-radius:12px;padding:16px;text-align:left;cursor:pointer;color:var(--text);transition:.15s;}
+  .region-btn:hover{border-color:var(--accent-2);}
+  .region-btn.selected{border-color:var(--accent);background:rgba(47,191,113,.08);}
+  .region-btn .uf{font-size:22px;font-weight:800;}
+  .region-btn .name{font-size:13px;color:var(--text-dim);}
+  .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:18px 0 26px;}
+  .step{background:var(--bg-soft);border:1px solid var(--border);border-radius:10px;padding:14px;font-size:13px;color:var(--text-dim);}
+  .step b{display:block;color:var(--text);font-size:14px;margin-bottom:4px;}
+
+  .btn{appearance:none;border:none;cursor:pointer;border-radius:10px;padding:13px 22px;font-size:15px;font-weight:700;transition:.15s;}
+  .btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#06120c;}
+  .btn-primary:hover{filter:brightness(1.08);}
+  .btn-primary:disabled{opacity:.4;cursor:not-allowed;filter:none;}
+  .btn-ghost{background:transparent;border:1px solid var(--border);color:var(--text);}
+  .btn-ghost:hover{border-color:var(--text-dim);}
+  .btn-row{display:flex;gap:10px;justify-content:space-between;margin-top:22px;}
+
+  /* QUIZ */
+  .progress-wrap{display:flex;align-items:center;gap:12px;margin-bottom:22px;}
+  .progress-bar{flex:1;height:8px;background:var(--bg-soft);border-radius:999px;overflow:hidden;}
+  .progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-2));width:0%;transition:width .25s;}
+  .progress-label{font-size:12px;color:var(--text-dim);white-space:nowrap;}
+  .q-axis-tag{display:inline-block;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--accent-2);background:rgba(47,143,191,.12);border-radius:999px;padding:3px 10px;margin-bottom:14px;}
+  .q-text{font-size:20px;font-weight:600;margin:0 0 26px;min-height:80px;}
+  .likert{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:8px;}
+  .likert button{background:var(--bg-soft);border:2px solid var(--border);border-radius:10px;padding:14px 6px;color:var(--text);font-size:12px;cursor:pointer;text-align:center;transition:.15s;}
+  .likert button:hover{border-color:var(--accent-2);}
+  .likert button.picked{border-color:var(--accent);background:rgba(47,191,113,.12);color:var(--accent);font-weight:700;}
+  .likert-caps{display:flex;justify-content:space-between;font-size:11px;color:var(--text-dim);margin-bottom:22px;padding:0 2px;}
+
+  /* RESULTS */
+  .office-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;}
+  .office-tab{background:var(--bg-soft);border:1px solid var(--border);border-radius:999px;padding:9px 16px;font-size:13px;color:var(--text-dim);cursor:pointer;}
+  .office-tab.active{background:var(--accent);color:#06120c;border-color:var(--accent);font-weight:700;}
+  .region-note{font-size:12px;color:var(--text-dim);margin-bottom:16px;}
+  .cand-list{display:flex;flex-direction:column;gap:10px;}
+  .cand-row{display:flex;align-items:center;gap:14px;background:var(--bg-soft);border:1px solid var(--border);border-radius:12px;padding:14px 16px;cursor:pointer;transition:.15s;}
+  .cand-row:hover{background:var(--card-hover);border-color:var(--accent-2);}
+  .cand-rank{width:26px;text-align:center;font-weight:800;color:var(--text-dim);font-size:13px;}
+  .cand-avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#2c3d4d,#1c2a37);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;flex-shrink:0;border:1px solid var(--border);}
+  .cand-main{flex:1;min-width:0;}
+  .cand-name{font-weight:700;font-size:15px;}
+  .cand-party{font-size:12px;color:var(--text-dim);}
+  .cand-match{text-align:right;flex-shrink:0;}
+  .cand-match .pct{font-size:18px;font-weight:800;color:var(--accent);}
+  .cand-match .lbl{font-size:10px;color:var(--text-dim);text-transform:uppercase;}
+  .empty-note{font-size:13px;color:var(--text-dim);padding:18px;text-align:center;border:1px dashed var(--border);border-radius:10px;}
+
+  /* MODAL */
+  .modal-backdrop{position:fixed;inset:0;background:rgba(5,9,13,.72);display:flex;align-items:flex-start;justify-content:center;padding:40px 16px;overflow-y:auto;z-index:50;}
+  .modal{max-width:640px;width:100%;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:0;box-shadow:var(--shadow);}
+  .modal-head{padding:24px;border-bottom:1px solid var(--border);display:flex;gap:16px;align-items:center;}
+  .modal-head .cand-avatar{width:56px;height:56px;font-size:20px;}
+  .modal-head h3{margin:0;font-size:20px;}
+  .modal-head .sub{color:var(--text-dim);font-size:13px;margin-top:2px;}
+  .modal-close{margin-left:auto;background:var(--bg-soft);border:1px solid var(--border);color:var(--text);width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:16px;flex-shrink:0;}
+  .modal-body{padding:24px;}
+  .match-pill{display:inline-block;background:rgba(47,191,113,.12);color:var(--accent);border-radius:999px;padding:5px 14px;font-weight:800;font-size:14px;margin-bottom:18px;}
+  .tabbar{display:flex;gap:6px;border-bottom:1px solid var(--border);margin-bottom:18px;}
+  .tabbar button{background:none;border:none;color:var(--text-dim);padding:10px 4px;font-size:13px;font-weight:600;cursor:pointer;border-bottom:2px solid transparent;margin-right:14px;}
+  .tabbar button.active{color:var(--text);border-color:var(--accent);}
+  .tabpane{display:none;}
+  .tabpane.active{display:block;}
+  .axis-row{margin-bottom:14px;}
+  .axis-row .lbl{display:flex;justify-content:space-between;font-size:11px;color:var(--text-dim);margin-bottom:4px;}
+  .axis-track{position:relative;height:10px;background:var(--bg-soft);border-radius:999px;}
+  .axis-track .mid{position:absolute;left:50%;top:-3px;bottom:-3px;width:1px;background:var(--border);}
+  .axis-dot{position:absolute;top:50%;width:12px;height:12px;border-radius:50%;transform:translate(-50%,-50%);border:2px solid var(--bg);}
+  .axis-dot.you{background:var(--accent-3);z-index:2;}
+  .axis-dot.cand{background:var(--accent-2);z-index:1;}
+  .legend-mini{display:flex;gap:16px;font-size:11px;color:var(--text-dim);margin-bottom:14px;}
+  .legend-mini span{display:inline-flex;align-items:center;gap:5px;}
+  .dot-swatch{width:9px;height:9px;border-radius:50%;display:inline-block;}
+  ul.pros, ul.cons{margin:0 0 16px;padding-left:18px;font-size:13.5px;}
+  ul.pros li{color:#bfe9cf;margin-bottom:6px;}
+  ul.cons li{color:#f0c3b2;margin-bottom:6px;}
+  .section-h{font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--text-dim);margin:0 0 10px;font-weight:700;}
+  .no-record{font-size:13.5px;color:var(--text-dim);font-style:italic;}
+  .sources{font-size:11.5px;color:var(--text-dim);border-top:1px solid var(--border);padding-top:12px;margin-top:6px;word-break:break-word;}
+  .sources a{color:var(--accent-2);}
+
+  footer.app-footer{margin-top:40px;font-size:11.5px;color:var(--text-dim);border-top:1px solid var(--border);padding-top:18px;}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <header class="top">
+    <div class="brand">
+      <div class="logo">B26</div>
+      <div>
+        <h1>Bússola Eleitoral 2026</h1>
+        <small>Quiz de afinidade política — não oficial</small>
+      </div>
+    </div>
+    <span class="badge" id="region-badge">Nenhuma região selecionada</span>
+  </header>
+
+  <!-- SCREEN: INTRO -->
+  <section id="screen-intro" class="card">
+    <h2>Descubra com quais candidatos você mais se identifica</h2>
+    <p class="lead">Responda a 50 afirmações sobre temas políticos. Ao final, você verá o candidato mais alinhado com você em cada cargo — Presidente, Governador, Senador, Deputado Federal e Deputado Estadual — com base nas eleições de 2026.</p>
+
+    <div class="steps">
+      <div class="step"><b>1. Escolha sua região</b>Os candidatos a cargos estaduais mudam conforme o estado.</div>
+      <div class="step"><b>2. Responda 50 perguntas</b>Leva cerca de 8 a 12 minutos.</div>
+      <div class="step"><b>3. Veja seus resultados</b>Ranking completo por cargo, com vantagens e desvantagens de cada candidato.</div>
+    </div>
+
+    <div class="region-select" id="region-select">
+      <button class="region-btn" data-region="MG"><div class="uf">MG</div><div class="name">Minas Gerais</div></button>
+      <button class="region-btn" data-region="SC"><div class="uf">SC</div><div class="name">Santa Catarina</div></button>
+    </div>
+
+    <div class="disclaimer">
+      <b>Sobre os dados:</b> as informações de candidatos foram levantadas em fontes públicas e jornalísticas referentes ao pleito de 2026 e podem não refletir mudanças de última hora. Este quiz é um projeto independente, sem vínculo com o TSE, partidos ou candidatos, com fins educativos/informativos. Para os cargos de Deputado Federal e Deputado Estadual, dado o grande volume de candidatos por estado, apresentamos uma seleção dos nomes com maior relevância e cobertura pública — não a totalidade dos registrados (o número total, quando conhecido, é indicado na tela de resultado).
+    </div>
+
+    <div class="btn-row" style="justify-content:flex-end;">
+      <button class="btn btn-primary" id="btn-start" disabled>Começar o quiz</button>
+    </div>
+  </section>
+
+  <!-- SCREEN: QUIZ -->
+  <section id="screen-quiz" class="card hidden">
+    <div class="progress-wrap">
+      <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+      <div class="progress-label" id="progress-label">1 / 50</div>
+    </div>
+    <div class="q-axis-tag" id="q-axis-tag">TEMA</div>
+    <p class="q-text" id="q-text">...</p>
+    <div class="likert" id="likert"></div>
+    <div class="likert-caps"><span>Discordo totalmente</span><span>Concordo totalmente</span></div>
+    <div class="btn-row">
+      <button class="btn btn-ghost" id="btn-back">Voltar</button>
+      <button class="btn btn-ghost" id="btn-skip">Pular pergunta</button>
+    </div>
+  </section>
+
+  <!-- SCREEN: RESULTS -->
+  <section id="screen-results" class="hidden">
+    <div class="card" style="margin-bottom:18px;">
+      <h2 style="margin:0 0 6px;">Seus resultados</h2>
+      <p class="region-note" id="results-region-note">Região selecionada: —</p>
+      <div class="office-tabs" id="office-tabs"></div>
+      <div class="cand-list" id="cand-list"></div>
+    </div>
+    <div class="btn-row" style="justify-content:flex-start;">
+      <button class="btn btn-ghost" id="btn-restart">Refazer o quiz</button>
+    </div>
+  </section>
+
+  <footer class="app-footer">
+    Bússola Eleitoral 2026 · Ferramenta independente e não oficial · Dados de candidatos limitados a Minas Gerais e Santa Catarina, eleições de 2026.
+  </footer>
+</div>
+
+<div id="modal-root"></div>
+
+<script>
+/* ============================================================
+   EIXOS POLÍTICOS (escala -2 .. +2)
+   ============================================================ */
+const AXES = [
+  {id:'A1',  label:'Economia e papel do Estado', left:'Estado forte', right:'Estado mínimo'},
+  {id:'A2',  label:'Tributação', left:'Taxar mais os ricos', right:'Reduzir impostos'},
+  {id:'A3',  label:'Armamento e segurança', left:'Controle de armas', right:'Facilitar posse de armas'},
+  {id:'A4',  label:'Justiça penal', left:'Ressocialização', right:'Endurecimento penal'},
+  {id:'A5',  label:'Meio ambiente', left:'Proteção ambiental', right:'Flexibilizar p/ agro/mineração'},
+  {id:'A6',  label:'Costumes', left:'Pautas progressistas', right:'Valores conservadores'},
+  {id:'A7',  label:'Educação', left:'Escola pública/plural', right:'Vouchers / "escola sem partido"'},
+  {id:'A8',  label:'Saúde', left:'SUS público', right:'Parcerias privadas'},
+  {id:'A9',  label:'Programas sociais', left:'Ampliar renda básica', right:'Reduzir assistencialismo'},
+  {id:'A10', label:'Trabalho', left:'Proteção trabalhista', right:'Flexibilização trabalhista'},
+  {id:'A11', label:'Agropecuária e terras indígenas', left:'Demarcação indígena', right:'Expansão do agronegócio'},
+  {id:'A12', label:'Instituições', left:'Defesa do STF/TSE', right:'Reforma do sistema eleitoral/judiciário'},
+];
+
+/* ============================================================
+   50 PERGUNTAS  (axis, dir: +1 concordar empurra p/ direita do eixo,
+   -1 concordar empurra p/ esquerda do eixo)
+   ============================================================ */
+const QUESTIONS = [
+  {axis:'A1',dir:1, text:'O governo deveria privatizar mais empresas estatais para aumentar a eficiência econômica.'},
+  {axis:'A1',dir:-1,text:'O Estado deve manter o controle de setores estratégicos, como energia e petróleo.'},
+  {axis:'A1',dir:1, text:'Menos burocracia e menos intervenção do governo geram mais crescimento econômico.'},
+  {axis:'A1',dir:-1,text:'O governo deve atuar diretamente na criação de empregos por meio de empresas públicas.'},
+
+  {axis:'A2',dir:-1,text:'Grandes fortunas e lucros de bancos deveriam ser taxados com alíquotas maiores.'},
+  {axis:'A2',dir:1, text:'A carga tributária no Brasil é alta demais e deveria ser reduzida para todos.'},
+  {axis:'A2',dir:-1,text:'É justo cobrar mais impostos de quem ganha mais para financiar serviços públicos.'},
+  {axis:'A2',dir:1, text:'Reduzir impostos sobre empresas estimula investimento e geração de emprego.'},
+
+  {axis:'A3',dir:1, text:'Cidadãos de bem deveriam ter mais facilidade para possuir e portar armas de fogo.'},
+  {axis:'A3',dir:-1,text:'O controle rígido sobre armas de fogo reduz a violência e deveria ser mantido ou ampliado.'},
+  {axis:'A3',dir:1, text:'Facilitar o acesso a armas é uma forma legítima de autodefesa da população.'},
+  {axis:'A3',dir:-1,text:'As regras atuais do Estatuto do Desarmamento deveriam ser mantidas ou ficar mais rígidas.'},
+
+  {axis:'A4',dir:1, text:'A maioridade penal deveria ser reduzida para crimes graves.'},
+  {axis:'A4',dir:-1,text:'Investir em ressocialização é mais eficaz do que apenas endurecer penas.'},
+  {axis:'A4',dir:1, text:'Penas mais longas e regras prisionais mais rígidas reduzem a criminalidade.'},
+  {axis:'A4',dir:-1,text:'O sistema prisional deveria focar mais em reintegrar o preso à sociedade do que em punir.'},
+
+  {axis:'A5',dir:-1,text:'Proteger a Amazônia e combater o desmatamento deve ser prioridade, mesmo que limite algumas atividades econômicas.'},
+  {axis:'A5',dir:1, text:'As regras ambientais no Brasil atrapalham o desenvolvimento do agronegócio e da mineração.'},
+  {axis:'A5',dir:-1,text:'O Brasil deveria endurecer a fiscalização ambiental contra garimpo ilegal e desmatamento.'},
+  {axis:'A5',dir:1, text:'Flexibilizar o licenciamento ambiental ajuda a gerar mais empregos e renda no interior do país.'},
+
+  {axis:'A6',dir:-1,text:'A mulher deveria ter direito de decidir sobre interromper a gravidez em mais casos do que a lei permite hoje.'},
+  {axis:'A6',dir:1, text:'A família tradicional deve ser defendida e incentivada pelas políticas públicas.'},
+  {axis:'A6',dir:-1,text:'O casamento entre pessoas do mesmo sexo é um direito que deve ser garantido e respeitado.'},
+  {axis:'A6',dir:1, text:'O uso de drogas, incluindo maconha, deveria continuar sendo proibido e combatido pela lei.'},
+
+  {axis:'A7',dir:-1,text:'O governo deveria investir mais recursos nas escolas públicas em vez de incentivar bolsas para escolas privadas.'},
+  {axis:'A7',dir:1, text:'As famílias deveriam poder usar recursos públicos (vouchers) para matricular os filhos em escolas privadas.'},
+  {axis:'A7',dir:-1,text:'Professores devem ter liberdade para discutir temas sociais e políticos em sala de aula.'},
+  {axis:'A7',dir:1, text:'Deveria existir uma lei tipo "Escola sem Partido" para restringir opiniões políticas de professores em aula.'},
+
+  {axis:'A8',dir:-1,text:'O SUS deveria receber mais investimento público para se tornar ainda mais forte e universal.'},
+  {axis:'A8',dir:1, text:'Parcerias com hospitais e planos de saúde privados ajudam a melhorar o atendimento à população.'},
+  {axis:'A8',dir:-1,text:'A saúde é um direito que deve ser garantido prioritariamente pelo Estado, não pelo mercado.'},
+  {axis:'A8',dir:1, text:'Incentivos fiscais para quem contrata plano de saúde privado aliviam a pressão sobre o sistema público.'},
+
+  {axis:'A9',dir:-1,text:'Programas como o Bolsa Família deveriam ser ampliados e ter valores maiores.'},
+  {axis:'A9',dir:1, text:'Programas sociais de transferência de renda deveriam diminuir, priorizando o incentivo à geração de empregos.'},
+  {axis:'A9',dir:-1,text:'O Estado deve garantir uma renda mínima a quem não consegue se sustentar.'},
+  {axis:'A9',dir:1, text:'Depender de auxílios do governo por muito tempo desestimula as pessoas a buscarem trabalho.'},
+
+  {axis:'A10',dir:-1,text:'Os direitos trabalhistas da CLT deveriam ser mais protegidos, não flexibilizados.'},
+  {axis:'A10',dir:1, text:'A legislação trabalhista deveria ser mais flexível para se adaptar a diferentes tipos de contrato.'},
+  {axis:'A10',dir:-1,text:'A reforma trabalhista de 2017 prejudicou os trabalhadores e deveria ser revista.'},
+  {axis:'A10',dir:1, text:'Facilitar a contratação e a demissão ajuda a reduzir o desemprego.'},
+
+  {axis:'A11',dir:-1,text:'A demarcação de terras indígenas deve ser acelerada e respeitada.'},
+  {axis:'A11',dir:1, text:'A expansão de áreas para agricultura e pecuária é essencial para a economia e não deve ser travada por demarcações.'},
+  {axis:'A11',dir:-1,text:'Povos indígenas devem ter prioridade na definição do uso de suas terras tradicionais.'},
+  {axis:'A11',dir:1, text:'O agronegócio é o motor da economia brasileira e merece mais apoio do governo.'},
+
+  {axis:'A12',dir:-1,text:'O STF e o TSE têm papel importante para proteger a democracia brasileira e devem ser respeitados.'},
+  {axis:'A12',dir:1, text:'O sistema eleitoral brasileiro, incluindo a urna eletrônica, precisa de mais fiscalização e reformas para gerar confiança.'},
+  {axis:'A12',dir:-1,text:'As decisões do Supremo Tribunal Federal devem ser cumpridas mesmo quando um político discorda delas.'},
+  {axis:'A12',dir:1, text:'O Congresso deveria ter mais poder para revisar decisões do STF.'},
+
+  {axis:'A9',dir:-1,text:'Ampliar o acesso a creches e moradia popular financiada pelo governo deveria ser prioridade do Estado.'},
+  {axis:'A1',dir:1, text:'Reduzir o número de cargos e o tamanho da máquina pública tornaria o governo mais eficiente.'},
+];
+
+/* ============================================================
+   BASE DE CANDIDATOS — 2026
+   (preenchida a partir de apuração em fontes públicas/jornalísticas)
+   ============================================================ */
+const CANDIDATES = {
+  presidente: [],
+  governador: { MG: [], SC: [] },
+  senador:    { MG: [], SC: [] },
+  deputado_federal:  { MG: [], SC: [] },
+  deputado_estadual: { MG: [], SC: [] },
+};
+const DATASET_META = {
+  atualizado_em: '',
+  totais_estimados: {} // ex: {deputado_federal_MG: 700}
+};
+
+/* ============================================================
+   ESTADO / MOTOR
+   ============================================================ */
+let state = { region:null, idx:0, answers:new Array(QUESTIONS.length).fill(null) };
+
+const el = id => document.getElementById(id);
+
+document.querySelectorAll('.region-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('.region-btn').forEach(b=>b.classList.remove('selected'));
+    btn.classList.add('selected');
+    state.region = btn.dataset.region;
+    el('region-badge').textContent = 'Região: ' + (state.region==='MG' ? 'Minas Gerais' : 'Santa Catarina');
+    el('btn-start').disabled = false;
+  });
+});
+
+el('btn-start').addEventListener('click', ()=>{
+  el('screen-intro').classList.add('hidden');
+  el('screen-quiz').classList.remove('hidden');
+  renderQuestion();
+});
+
+function renderQuestion(){
+  const q = QUESTIONS[state.idx];
+  const axis = AXES.find(a=>a.id===q.axis);
+  el('q-axis-tag').textContent = axis.label;
+  el('q-text').textContent = q.text;
+  el('progress-label').textContent = (state.idx+1) + ' / ' + QUESTIONS.length;
+  el('progress-fill').style.width = ((state.idx)/QUESTIONS.length*100) + '%';
+
+  const labels = ['Discordo totalmente','Discordo','Neutro','Concordo','Concordo totalmente'];
+  const likert = el('likert');
+  likert.innerHTML = '';
+  labels.forEach((lbl,i)=>{
+    const val = i-2; // -2..2
+    const b = document.createElement('button');
+    b.textContent = lbl;
+    if(state.answers[state.idx]===val) b.classList.add('picked');
+    b.addEventListener('click', ()=>{
+      state.answers[state.idx] = val;
+      if(state.idx < QUESTIONS.length-1){
+        state.idx++;
+        renderQuestion();
+      } else {
+        finishQuiz();
+      }
+    });
+    likert.appendChild(b);
+  });
+
+  el('btn-back').disabled = state.idx===0;
+}
+
+el('btn-back').addEventListener('click', ()=>{
+  if(state.idx>0){ state.idx--; renderQuestion(); }
+});
+el('btn-skip').addEventListener('click', ()=>{
+  if(state.idx < QUESTIONS.length-1){ state.idx++; renderQuestion(); }
+  else finishQuiz();
+});
+
+function computeUserAxisScores(){
+  const sums = {}, counts = {};
+  AXES.forEach(a=>{sums[a.id]=0;counts[a.id]=0;});
+  QUESTIONS.forEach((q,i)=>{
+    const ans = state.answers[i];
+    if(ans===null || ans===undefined) return;
+    sums[q.axis] += ans * q.dir;
+    counts[q.axis] += 1;
+  });
+  const scores = {};
+  AXES.forEach(a=>{
+    scores[a.id] = counts[a.id] ? sums[a.id]/counts[a.id] : 0;
+  });
+  return scores;
+}
+
+function matchPct(userScores, candScores){
+  let sq = 0, n = 0;
+  AXES.forEach(a=>{
+    const u = userScores[a.id] ?? 0;
+    const c = candScores[a.id] ?? 0;
+    sq += (u-c)*(u-c);
+    n++;
+  });
+  const dist = Math.sqrt(sq);
+  const maxDist = Math.sqrt(n * 16); // max diff per axis = 4 -> squared 16
+  const pct = 100 * (1 - dist/maxDist);
+  return Math.max(0, Math.round(pct));
+}
+
+let userScores = null;
+let currentOffice = 'presidente';
+
+function finishQuiz(){
+  userScores = computeUserAxisScores();
+  el('screen-quiz').classList.add('hidden');
+  el('screen-results').classList.remove('hidden');
+  el('results-region-note').textContent = 'Região selecionada: ' + (state.region==='MG' ? 'Minas Gerais' : 'Santa Catarina') + ' · Presidente é o mesmo em qualquer região.';
+  renderOfficeTabs();
+  renderCandList();
+}
+
+const OFFICE_LABELS = {
+  presidente: 'Presidente',
+  governador: 'Governador',
+  senador: 'Senador',
+  deputado_federal: 'Deputado Federal',
+  deputado_estadual: 'Deputado Estadual',
+};
+
+function getOfficeList(office){
+  if(office==='presidente') return CANDIDATES.presidente;
+  return CANDIDATES[office][state.region] || [];
+}
+
+function renderOfficeTabs(){
+  const wrap = el('office-tabs');
+  wrap.innerHTML = '';
+  Object.keys(OFFICE_LABELS).forEach(office=>{
+    const b = document.createElement('button');
+    b.className = 'office-tab' + (office===currentOffice?' active':'');
+    b.textContent = OFFICE_LABELS[office];
+    b.addEventListener('click', ()=>{ currentOffice = office; renderOfficeTabs(); renderCandList(); });
+    wrap.appendChild(b);
+  });
+}
+
+function initials(name){
+  return name.split(' ').filter(Boolean).slice(0,2).map(w=>w[0]).join('').toUpperCase();
+}
+
+function renderCandList(){
+  const list = getOfficeList(currentOffice).slice();
+  const container = el('cand-list');
+  container.innerHTML = '';
+  if(list.length===0){
+    const note = document.createElement('div');
+    note.className = 'empty-note';
+    note.textContent = 'Base de candidatos para este cargo/região ainda não carregada nesta versão do arquivo.';
+    container.appendChild(note);
+    return;
+  }
+  const withScores = list.map(c=>({c, pct: matchPct(userScores, c.scores)}));
+  withScores.sort((a,b)=>b.pct-a.pct);
+  withScores.forEach((item, i)=>{
+    const row = document.createElement('div');
+    row.className = 'cand-row';
+    row.innerHTML = `
+      <div class="cand-rank">${i+1}º</div>
+      <div class="cand-avatar">${initials(item.c.nome)}</div>
+      <div class="cand-main">
+        <div class="cand-name">${item.c.nome}</div>
+        <div class="cand-party">${item.c.partido}${item.c.coligacao ? ' · '+item.c.coligacao : ''}</div>
+      </div>
+      <div class="cand-match"><div class="pct">${item.pct}%</div><div class="lbl">afinidade</div></div>
+    `;
+    row.addEventListener('click', ()=>openModal(item.c, item.pct));
+    container.appendChild(row);
+  });
+}
+
+function axisPosToPercent(v){
+  // v in -2..2 -> 0..100
+  return ((v+2)/4)*100;
+}
+
+function openModal(cand, pct){
+  const root = el('modal-root');
+  const axisRows = AXES.map(a=>{
+    const u = userScores[a.id] ?? 0;
+    const c = cand.scores[a.id] ?? 0;
+    return `
+      <div class="axis-row">
+        <div class="lbl"><span>${a.left}</span><span>${a.label}</span><span>${a.right}</span></div>
+        <div class="axis-track">
+          <div class="mid"></div>
+          <div class="axis-dot cand" style="left:${axisPosToPercent(c)}%"></div>
+          <div class="axis-dot you" style="left:${axisPosToPercent(u)}%"></div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  const pros = (cand.vantagens||[]).map(v=>`<li>${v}</li>`).join('');
+  const cons = (cand.desvantagens||[]).map(v=>`<li>${v}</li>`).join('');
+
+  let mandatoHtml = '<p class="no-record">Este(a) candidato(a) não ocupou cargo eletivo anteriormente, segundo o levantamento realizado.</p>';
+  if(cand.mandatoAnterior){
+    const mp = (cand.mandatoAnterior.vantagens||[]).map(v=>`<li>${v}</li>`).join('');
+    const mc = (cand.mandatoAnterior.desvantagens||[]).map(v=>`<li>${v}</li>`).join('');
+    mandatoHtml = `
+      <p style="font-size:13px;color:var(--text-dim);margin-top:0;">${cand.mandatoAnterior.resumo || ''}</p>
+      <p class="section-h" style="margin-top:14px;">Pontos positivos do mandato</p>
+      <ul class="pros">${mp || '<li>Não identificado no levantamento.</li>'}</ul>
+      <p class="section-h">Pontos negativos / críticas ao mandato</p>
+      <ul class="cons">${mc || '<li>Não identificado no levantamento.</li>'}</ul>
+    `;
+  }
+
+  const sources = (cand.fontes||[]).map(f=>`<a href="${f}" target="_blank" rel="noopener">${f}</a>`).join('<br>');
+
+  const backdrop = document.createElement('div');
+  backdrop.className = 'modal-backdrop';
+  backdrop.innerHTML = `
+    <div class="modal">
+      <div class="modal-head">
+        <div class="cand-avatar">${initials(cand.nome)}</div>
+        <div>
+          <h3>${cand.nome}</h3>
+          <div class="sub">${cand.partido}${cand.coligacao ? ' · '+cand.coligacao : ''} · ${OFFICE_LABELS[currentOffice]}${currentOffice!=='presidente' ? ' — '+state.region : ''}</div>
+        </div>
+        <button class="modal-close" aria-label="Fechar">✕</button>
+      </div>
+      <div class="modal-body">
+        <span class="match-pill">${pct}% de afinidade com suas respostas</span>
+
+        <div class="tabbar">
+          <button data-tab="perfil" class="active">Perfil</button>
+          <button data-tab="posicoes">Posições x você</button>
+          <button data-tab="mandato">Mandato anterior</button>
+        </div>
+
+        <div class="tabpane active" data-pane="perfil">
+          <p class="section-h">Cargo anterior</p>
+          <p style="font-size:13.5px;color:var(--text-dim);margin-top:0;">${cand.cargoAnterior || 'Sem cargo eletivo anterior identificado.'}</p>
+          <p class="section-h">Vantagens (pontos fortes da candidatura)</p>
+          <ul class="pros">${pros || '<li>Não identificado no levantamento.</li>'}</ul>
+          <p class="section-h">Desvantagens / críticas</p>
+          <ul class="cons">${cons || '<li>Não identificado no levantamento.</li>'}</ul>
+        </div>
+
+        <div class="tabpane" data-pane="posicoes">
+          <div class="legend-mini">
+            <span><i class="dot-swatch" style="background:var(--accent-3)"></i>Você</span>
+            <span><i class="dot-swatch" style="background:var(--accent-2)"></i>${cand.nome.split(' ')[0]}</span>
+          </div>
+          ${axisRows}
+        </div>
+
+        <div class="tabpane" data-pane="mandato">
+          ${mandatoHtml}
+        </div>
+
+        <div class="sources">${sources ? '<b style="color:var(--text)">Fontes:</b><br>'+sources : 'Fontes não disponíveis nesta versão.'}</div>
+      </div>
+    </div>
+  `;
+  root.appendChild(backdrop);
+  backdrop.addEventListener('click', e=>{ if(e.target===backdrop) backdrop.remove(); });
+  backdrop.querySelector('.modal-close').addEventListener('click', ()=>backdrop.remove());
+  backdrop.querySelectorAll('.tabbar button').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      backdrop.querySelectorAll('.tabbar button').forEach(b=>b.classList.remove('active'));
+      backdrop.querySelectorAll('.tabpane').forEach(p=>p.classList.remove('active'));
+      btn.classList.add('active');
+      backdrop.querySelector(`.tabpane[data-pane="${btn.dataset.tab}"]`).classList.add('active');
+    });
+  });
+}
+
+el('btn-restart').addEventListener('click', ()=>{
+  state = { region:state.region, idx:0, answers:new Array(QUESTIONS.length).fill(null) };
+  el('screen-results').classList.add('hidden');
+  el('screen-intro').classList.remove('hidden');
+});
+</script>
+</body>
+</html>

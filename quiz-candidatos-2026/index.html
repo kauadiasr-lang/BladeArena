@@ -100,6 +100,7 @@
   .modal-close{margin-left:auto;background:var(--bg-soft);border:1px solid var(--border);color:var(--text);width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:16px;flex-shrink:0;}
   .modal-body{padding:24px;}
   .match-pill{display:inline-block;background:rgba(47,191,113,.12);color:var(--accent);border-radius:999px;padding:5px 14px;font-weight:800;font-size:14px;margin-bottom:18px;}
+  .alert-box{background:rgba(224,96,60,.12);border:1px solid var(--danger);color:#f3c8ba;border-radius:10px;padding:12px 14px;font-size:13px;margin:0 0 18px;line-height:1.5;}
   .tabbar{display:flex;gap:6px;border-bottom:1px solid var(--border);margin-bottom:18px;}
   .tabbar button{background:none;border:none;color:var(--text-dim);padding:10px 4px;font-size:13px;font-weight:600;cursor:pointer;border-bottom:2px solid transparent;margin-right:14px;}
   .tabbar button.active{color:var(--text);border-color:var(--accent);}
@@ -187,6 +188,7 @@
       <h2 style="margin:0 0 6px;">Seus resultados</h2>
       <p class="region-note" id="results-region-note">Região selecionada: —</p>
       <div class="office-tabs" id="office-tabs"></div>
+      <p class="region-note" id="office-note"></p>
       <div class="cand-list" id="cand-list"></div>
     </div>
     <div class="btn-row" style="justify-content:flex-start;">
@@ -294,15 +296,1024 @@ const QUESTIONS = [
    (preenchida a partir de apuração em fontes públicas/jornalísticas)
    ============================================================ */
 const CANDIDATES = {
-  presidente: [],
-  governador: { MG: [], SC: [] },
-  senador:    { MG: [], SC: [] },
-  deputado_federal:  { MG: [], SC: [] },
-  deputado_estadual: { MG: [], SC: [] },
+  presidente: [
+    {
+      nome:'Luiz Inácio Lula da Silva ("Lula")', partido:'PT',
+      coligacao:'Federação Brasil da Esperança (PT+PCdoB+PV), com apoio de PSB, PSOL-Rede e PDT',
+      cargoAnterior:'Presidente da República (2003–2010 e 2023–atual, 3º mandato); Deputado Federal por SP (a partir de 1986)',
+      scores:{A1:-1.5,A2:-2,A3:-2,A4:-1,A5:-2,A6:-1.5,A7:-1.5,A8:-2,A9:-2,A10:-2,A11:-1,A12:-2},
+      vantagens:[
+        'Reúne a maior aliança partidária do campo progressista desde 1989 (PT, PCdoB, PV, PSB, PSOL-Rede, PDT), o que amplia sua base no Congresso.',
+        'Plano de governo prevê reindustrialização, fortalecimento do SUS e ampliação de programas sociais e do salário mínimo.',
+        'Mantém o controle rígido sobre armas de fogo e metas de redução do desmatamento na Amazônia (que caiu cerca de 41% frente a 2019–2022).'
+      ],
+      desvantagens:[
+        'Não apresenta agenda explícita de corte de gastos, o que preocupa parte do mercado diante do atual nível de endividamento público.',
+        'Sofreu derrotas recentes no Congresso em pautas de aborto e drogas, mostrando dificuldade de aprovar parte de sua agenda social.',
+        'Vetou o marco temporal de terras indígenas, mas o veto foi derrubado pelo Congresso, evidenciando limites de sua influência legislativa no tema.'
+      ],
+      mandatoAnterior:{
+        resumo:'Referente ao mandato presidencial em curso (2023–2026):',
+        vantagens:[
+          'Desemprego caiu a 5,4% em meados de 2026, a menor média desde 2012.',
+          'Rendimento médio real do trabalhador subiu 9,7% desde o início do mandato, recorde da série histórica do IBGE.',
+          'Sancionou a Lei Complementar 214/2025, iniciando a implementação da Reforma Tributária do consumo.'
+        ],
+        desvantagens:[
+          'A dívida bruta do governo subiu para 81,9% do PIB em meados de 2026, alta de mais de 10 pontos percentuais desde o início do mandato.',
+          'Mais de R$170 bilhões em despesas ficaram fora do arcabouço fiscal entre 2023 e 2025.',
+          'Recorde de gastos com o cartão corporativo presidencial, com questionamentos sobre uso da máquina pública em ano eleitoral.'
+        ]
+      },
+      fontes:['https://www.poder360.com.br/poder-eleicoes-2026/lula-e-o-unico-candidato-a-presidencia-apoiado-por-outros-partidos/','https://www.gazetadopovo.com.br/eleicoes/2026/plano-de-governo-lula-economia/','https://wp.ufpel.edu.br/superavit/2026/05/22/bolsonaro-x-lula-comparacao-entre-governos-mostra-melhora-em-emprego-e-inflacao-com-desafios-persistentes/','https://www.oestopim.com.br/post/cinco-cr%C3%ADticas-ao-governo-lula-que-podem-pesar-contra-sua-reelei%C3%A7%C3%A3o-em-2026']
+    },
+    {
+      nome:'Flávio Bolsonaro', partido:'PL',
+      coligacao:'Sem coligação nacional formal; apoios regionais de PP, Republicanos, Podemos, União Brasil, PSD, PSDB e Novo',
+      cargoAnterior:'Senador pelo Rio de Janeiro (desde 2019); Deputado Estadual do RJ anteriormente',
+      scores:{A1:1.5,A2:2,A3:2,A4:2,A5:1,A6:2,A7:1.5,A8:1,A9:0,A10:2,A11:1.5,A12:2},
+      vantagens:[
+        'Propõe retomada de privatizações, corte de ao menos 10 ministérios e reversão da política de controle de armas.',
+        'Defende redução da maioridade penal (de 18 para 16 anos) e expansão de 500 mil vagas no sistema prisional.',
+        'Apresentou 62 projetos como autor principal e participou de mais de 100 como coautor no Senado, incluindo a chamada Lei Anti-Facção.'
+      ],
+      desvantagens:[
+        'Seu plano de governo não detalha posição sobre programas sociais como o Bolsa Família.',
+        'O tema das terras indígenas está ausente de seu plano de governo.',
+        'Promete anistia aos condenados pelos atos de 8 de janeiro de 2023 e critica publicamente o STF.'
+      ],
+      mandatoAnterior:{
+        resumo:'Referente ao mandato de Senador pelo RJ (desde 2019):',
+        vantagens:[
+          'Foi relator de projeto aprovado que acaba com saídas temporárias de presos (2024).',
+          'Autor de projeto que eleva penas para ataques a aeronaves a até 30 anos, em tramitação no Congresso.'
+        ],
+        desvantagens:[
+          'Em mais de 7 anos de mandato, teve apenas 1 projeto de lei próprio efetivamente sancionado.',
+          'Foi alvo do chamado caso da "rachadinha" — apontamento do MP-RJ de apropriação de salários de servidores de seu gabinete via Fabrício Queiroz; a investigação foi encerrada em 2026 após anulação de provas pelo STF/STJ.',
+          'Uma mansão financiada pelo BRB entrou no escrutínio público de sua candidatura.'
+        ]
+      },
+      fontes:['https://www.gazetadopovo.com.br/eleicoes/2026/pl-tenta-atrair-republicanos-enquanto-prepara-plano-b-chapa-flavio/','https://www.portaltela.com/politica/2026/08/14/plano-de-governo-de-flavio-bolsonaro-tem-9-eixos-veja-propostas/','https://www.brasildefato.com.br/2026/04/02/em-sete-anos-flavio-bolsonaro-teve-apenas-um-projeto-de-lei-aprovado-no-congresso/','https://www.cartacapital.com.br/politica/o-que-aconteceu-com-o-caso-da-rachadinha-de-flavio-bolsonaro-suposto-candidato-em-2026/']
+    },
+    {
+      nome:'Ronaldo Caiado', partido:'PSD',
+      coligacao:'Candidatura sem coligação com outras legendas ("chapa pura-sangue")',
+      cargoAnterior:'Governador de Goiás (2019–março/2026, renunciou para concorrer); Deputado Federal por GO (5 mandatos, 1991–2015)',
+      scores:{A1:1.5,A2:1,A3:0.5,A4:2,A5:0.5,A6:1.5,A7:0,A8:0.5,A9:1,A10:1,A11:1.5,A12:0.5},
+      vantagens:[
+        'Propõe privatização parcial da Petrobras (mantendo o pré-sal) e um "Orçamento da Verdade" para revisar subsídios.',
+        'Discurso duro contra o crime organizado, com proposta de integração das forças de segurança.',
+        'Histórico ruralista consolidado (ex-presidente da UDR), com foco em agregar valor à produção agropecuária.'
+      ],
+      desvantagens:[
+        'Não detalha posição sobre posse e porte civil de armas de fogo.',
+        'Sem proposta explícita localizada sobre flexibilização da CLT ou programas sociais federais.',
+        'Defende PEC pelo fim da reeleição, mas evita confronto direto com o STF, o que pode frustrar o eleitorado mais crítico às instituições.'
+      ],
+      mandatoAnterior:{
+        resumo:'Referente ao governo de Goiás (2019–2026):',
+        vantagens:[
+          'Chegou a 86% de aprovação em pesquisa Genial/Quaest (fev/2025).',
+          'Goiás obteve a melhor nota do país no IDEB do ensino médio (4,8 pontos).',
+          'Governo destaca queda de mais de 90% em roubos e 60% em homicídios frente a 2018, segundo dados oficiais do estado.'
+        ],
+        desvantagens:[
+          'Investigação do Intercept Brasil aponta que centenas de mortes classificadas como "a esclarecer" reduziriam artificialmente as taxas oficiais de homicídio do estado.',
+          'Goiás ficou em 23º lugar em qualidade da informação sobre criminalidade no Anuário Brasileiro de Segurança Pública 2024.',
+          'Escândalo de corrupção na Saúde estadual envolveu repasses a empresa de fachada ligada a familiar de ex-secretário.'
+        ]
+      },
+      fontes:['https://www.camara.leg.br/deputados/74813/biografia','https://www.correiobraziliense.com.br/politica/2026/07/7468206-faccionado-so-fala-com-deus-afirma-caiado-sobre-seguranca-publica-em-goias.html','https://www.intercept.com.br/2025/04/04/quem-vai-parar-policia-de-caiado-goias/','https://goias.gov.br/caiado-destaca-queda-superior-a-90-em-indices-criminais-de-goias/']
+    },
+    {
+      nome:'Romeu Zema', partido:'Novo',
+      coligacao:'Candidatura solteira, sem coligação (vice: Eduardo Girão, senador-CE)',
+      cargoAnterior:'Governador de Minas Gerais (2019–março/2026, dois mandatos, renunciou para concorrer)',
+      scores:{A1:2,A2:1.5,A3:2,A4:2,A5:1.5,A6:1,A7:1.5,A8:2,A9:1,A10:2,A11:1.5,A12:2},
+      vantagens:[
+        'Agenda liberal de redução do tamanho do Estado, com plano de governo detalhado ("Plano Implacável", 81 páginas).',
+        'Propõe classificar facções como organizações terroristas e criar superpresídio em área isolada.',
+        'Defende telemedicina e redução de filas do SUS via contratação da rede privada.'
+      ],
+      desvantagens:[
+        'Propõe restringir decisões monocráticas do STF e mudar competências criminais da Corte, em posição de forte atrito institucional.',
+        'Plano de flexibilização trabalhista propõe regras paralelas à CLT, o que pode reduzir proteções atuais.',
+        'Condiciona parte do programa social Pé-de-Meia a nota mínima no Enem, o que pode excluir parte do público-alvo original.'
+      ],
+      mandatoAnterior:{
+        resumo:'Referente ao governo de Minas Gerais (2019–2026):',
+        vantagens:[
+          'Atraiu R$ 506 bilhões em investimentos privados para o estado ao longo do mandato.',
+          'Cerca de 1 milhão de empregos gerados em Minas Gerais entre 2019 e agosto de 2025.',
+          'Contas de 2021 e 2022 receberam parecer de aprovação do Tribunal de Contas do Estado (TCE-MG).'
+        ],
+        desvantagens:[
+          'Isenções fiscais somaram R$ 128 bilhões ao longo do mandato — cerca de dois terços da dívida do estado com a União.',
+          'A dívida consolidada de Minas Gerais ultrapassou R$ 200 bilhões.',
+          'Críticos (incluindo veículos ligados a centrais sindicais) apontam que parte das obras do Acordo de Brumadinho (R$ 37,69 bi) não se converteu em melhorias estruturais duradouras na Saúde.'
+        ]
+      },
+      fontes:['https://www.em.com.br/politica/2026/08/7475589-plano-implacavel-veja-as-propostas-de-zema-na-disputa-pela-presidencia.html','https://www.jota.info/eleicoes/eleicoes-2026/romeu-zema-redobra-criticas-ao-stf-como-tentativa-de-se-viabilizar-para-a-presidencia','https://www.agenciaminas.mg.gov.br/noticia/governo-de-minas-bate-recorde-e-ultrapassa-r-475-bilhoes-de-investimentos-privados-atraidos-para-o-estado','https://www.atualidadepolitica.com.br/2026/08/ex-governador-tucano-confirma-que-zema-quebrou-mg.html']
+    },
+    {
+      nome:'Pablo Marçal', partido:'PRTB',
+      coligacao:'Sem coligação (vice: Leonardo Avalanche, presidente nacional do PRTB)',
+      cargoAnterior:'Nunca ocupou cargo público eletivo. Concorreu (sem se eleger) a prefeito de São Paulo em 2024.',
+      alerta:'Atenção: em agosto de 2026 o TSE concedeu liminar suspendendo os atos de campanha deste candidato (uso de fundo partidário/eleitoral, propaganda gratuita e debates), a pedido do Ministério Público Eleitoral, que alega inelegibilidade até 2032. A candidatura consta registrada no TSE, mas sua viabilidade eleitoral é juridicamente incerta.',
+      scores:{A1:1.5,A2:1,A3:0,A4:1,A5:0,A6:2,A7:0,A8:-0.5,A9:-0.5,A10:1,A11:-1,A12:1},
+      vantagens:[
+        'Propõe um Ministério do Empreendedorismo e desburocratização para pequenos negócios.',
+        'Mantém compromisso declarado de preservar o Bolsa Família.',
+        'Cita compromisso com direitos constitucionais de povos indígenas e quilombolas e regularização fundiária.'
+      ],
+      desvantagens:[
+        'Sua candidatura está sob liminar do TSE que suspende atos de campanha, o que compromete sua viabilidade eleitoral (ver alerta acima).',
+        'Plano de governo pouco detalhado nas fontes jornalísticas consultadas em diversos eixos (armas, meio ambiente, educação).',
+        'Foi condenado em 2010 por furto qualificado (pena de 4 anos e 5 meses em regime semiaberto).'
+      ],
+      fontes:['https://www.tse.jus.br/comunicacao/noticias/2026/Agosto/tse-concede-liminar-proibindo-pablo-marcal-de-usar-recursos-oficiais-para-campanha','https://www.mpf.mp.br/o-mpf/unidades/procuradoria-geral-da-republica-pgr/noticias/ao-atender-pedido-do-mp-eleitoral-tse-suspende-campanha-de-pablo-marcal-a-presidencia-da-republica','https://www.otempo.com.br/eleicoes/2026/candidatos/presidente/pablo-marcal-28']
+    },
+    {
+      nome:'Augusto Cury', partido:'Avante',
+      coligacao:'Apoio formalizado do partido Agir (vice: Júlio Delgado, Avante)',
+      cargoAnterior:'Nunca ocupou cargo público eletivo. Psiquiatra e escritor, é a primeira vez que disputa um cargo eletivo.',
+      scores:{A1:0.5,A2:0,A3:0,A4:0.5,A5:0,A6:0,A7:-1.5,A8:-1.5,A9:0,A10:0.5,A11:0,A12:1.5},
+      vantagens:[
+        'Propõe semipresidencialismo, mandato fixo de 8 anos para ministros do STF e redução de 11 para 9 membros na Corte.',
+        'Plano prevê ensino em tempo integral com nova grade curricular na escola pública e Programa Nacional de Saúde Mental.',
+        'Propõe telemedicina para 80% das consultas básicas do SUS, mantendo o caráter público do atendimento.'
+      ],
+      desvantagens:[
+        'Sem experiência prévia em cargo eletivo ou gestão pública.',
+        'Posições sobre armas, meio ambiente e terras indígenas não foram localizadas com clareza em seu plano de governo.',
+        'Propostas de reforma do pacto federativo e do desenho institucional do STF são amplas e podem enfrentar forte resistência no Congresso.'
+      ],
+      fontes:['https://www.cnnbrasil.com.br/eleicoes/quem-e-o-escritor-augusto-cury-candidato-do-avante-a-presidencia/','https://www.congressoemfoco.com.br/noticia/121272/augusto-cury-propoe-semipresidencialismo-e-mandato-de-8-anos-no-stf','https://www.terra.com.br/noticias/eleicoes/eleicoes-2026-plano-de-augusto-cury-preve-semipresidencialismo-gestao-da-emocao-e-telemedicina,275f8d4dd7b40fb5b714d19aeb7b0f1c9tfiftut.html']
+    },
+    {
+      nome:'Renan Santos', partido:'Missão',
+      coligacao:'Partido fundado em 2025 pelos fundadores do MBL (vice: Coronel Medina)',
+      cargoAnterior:'Nunca ocupou cargo público eletivo. Cofundou o Movimento Brasil Livre (MBL) em 2013–2014.',
+      scores:{A1:1,A2:1,A3:1,A4:2,A5:0,A6:1,A7:0,A8:0,A9:2,A10:2,A11:0,A12:2},
+      vantagens:[
+        'Rejeita explicitamente a ideia de "privatizar tudo", combinando liberalismo fiscal com nacionalismo industrial.',
+        'Propõe reforma ampla do Estado, incluindo fim do Bolsa Família substituído por "Frentes Cidadãs" ligadas a emprego formal.',
+        'Cofundou um dos maiores movimentos de mobilização de rua da última década (MBL), com longa experiência em articulação política.'
+      ],
+      desvantagens:[
+        'Defende o chamado "Direito Penal do Inimigo", que eliminaria a presunção de inocência para determinados crimes.',
+        'Declarou que não cumprirá decisões do STF que considerar "ilegais", em rota de forte colisão institucional.',
+        'Propõe extinguir a Justiça do Trabalho e substituir a CLT por negociação direta, reduzindo proteções trabalhistas atuais.'
+      ],
+      fontes:['https://apublica.org/2026/07/partido-missao-o-projeto-de-poder-de-renan-santos-e-do-mbl/','https://www.gazetadopovo.com.br/eleicoes/2026/plano-de-governo-renan-santos-missao/','https://www.jota.info/eleicoes/eleicoes-2026/de-vargas-a-milei-plano-de-renan-santos-propoe-ampla-reforma-do-estado','https://www.polemicaparaiba.com.br/polemicas/renan-santos-promete-r-6-bilhoes-para-presidios-e-propoe-regime-de-excecao-em-favelas/']
+    },
+  ],
+  governador: { MG: [
+    {
+      nome:'Mateus Simões', partido:'PSD',
+      coligacao:'Coligação com União Brasil, PP, Novo, Avante, PRD, Solidariedade, Mobiliza, DC e Agir',
+      cargoAnterior:'Vice-Governador de MG (2023–mar/2026); assumiu o governo em 22/03/2026 após a renúncia de Romeu Zema para concorrer à Presidência da República',
+      scores:{A1:1.5,A2:1,A3:0,A4:0.5,A5:1,A6:0,A7:1,A8:0.5,A9:0,A10:1,A11:1,A12:0},
+      vantagens:[
+        'Dá continuidade ao ajuste fiscal e à atração de investimentos do governo anterior (Zema), incluindo o programa social "Poupança Já", condicionado à frequência escolar.',
+        'Assumiu o governo em uma transição institucional tranquila, sem crise de governabilidade.'
+      ],
+      desvantagens:[
+        'Está no cargo há poucos meses (desde março de 2026), o que dificulta avaliar resultados próprios de gestão.',
+        'Posições pessoais sobre segurança pública, costumes e meio ambiente não foram localizadas com clareza nas fontes consultadas.'
+      ],
+      fontes:['https://agenciaminas.mg.gov.br/noticia/mateus-simoes-e-empossado-governador-e-reforca-projeto-de-desenvolvimento-de-minas-gerais']
+    },
+    {
+      nome:'Alexandre Kalil', partido:'PDT',
+      coligacao:'Coligação com a Federação PSDB-Cidadania',
+      cargoAnterior:'Prefeito de Belo Horizonte (2017–2022, reeleito em 2020 com 63,4% dos votos); presidente do Atlético Mineiro por 6 anos',
+      scores:{A1:-1,A2:-0.5,A3:0,A4:-0.5,A5:-0.5,A6:-0.5,A7:-1,A8:-1,A9:-1,A10:-1,A11:0,A12:-0.5},
+      vantagens:[
+        'Foi reeleito prefeito de BH em 2020 com 63,4% dos votos, alta aprovação popular.',
+        'Perfil de proximidade com a população e forte investimento em comunicação durante o mandato.'
+      ],
+      desvantagens:[
+        'Críticos apontam falta de obras de contenção de enchentes durante seu mandato como prefeito.',
+        'Isolamento político em relação aos governos estadual e federal na época.',
+        'Ele mesmo reconheceu publicamente limitações da saúde municipal durante a gestão.'
+      ],
+      mandatoAnterior:{
+        resumo:'Referente ao mandato de Prefeito de Belo Horizonte (2017–2022):',
+        vantagens:['Reeleito com 63,4% dos votos em 2020, alta aprovação popular.','Investimento forte em comunicação e proximidade com a população via redes sociais.'],
+        desvantagens:['Falta de obras de contenção de enchentes apontada por críticos.','Isolamento político em relação a governos estadual e federal da época.','Reconheceu publicamente limitações da rede de saúde municipal durante a gestão.']
+      },
+      fontes:['https://exame.com/brasil/alexandre-kalil-e-reeleito-prefeito-de-belo-horizonte-com-63-dos-votos/']
+    },
+    {
+      nome:'Patrus Ananias', partido:'PT',
+      coligacao:'Federação Brasil da Esperança (PT/PCdoB/PV) + PSB',
+      cargoAnterior:'Prefeito de Belo Horizonte (1993–1996); Ministro do Desenvolvimento Social e Combate à Fome (2004–2010); Ministro do Desenvolvimento Agrário (2015); Deputado Federal',
+      scores:{A1:-1.5,A2:-1.5,A3:-1,A4:-1.5,A5:-1.5,A6:-1.5,A7:-1.5,A8:-2,A9:-2,A10:-1.5,A11:-1,A12:-1.5},
+      vantagens:[
+        'Foi o Ministro responsável por consolidar o Bolsa Família, programa que chegou a atender cerca de 13 milhões de famílias.',
+        'Foi o primeiro prefeito do PT eleito em Belo Horizonte, em 1992.',
+        'Longa carreira pública sem grandes escândalos de corrupção pessoal amplamente noticiados nas fontes consultadas.'
+      ],
+      desvantagens:[
+        'O levantamento não localizou controvérsias específicas e verificáveis sobre sua gestão à frente dos ministérios que ocupou.'
+      ],
+      mandatoAnterior:{
+        resumo:'Referente à passagem pelo Ministério do Desenvolvimento Social e Combate à Fome (2004–2010):',
+        vantagens:['Consolidação do Bolsa Família como maior programa de combate à desigualdade do país, atingindo cerca de 13 milhões de famílias.','Foi o primeiro prefeito do PT eleito em Belo Horizonte, abrindo espaço institucional ao partido na capital.'],
+        desvantagens:['O levantamento não localizou, nas fontes consultadas, controvérsias específicas e verificáveis sobre seu período como ministro.']
+      },
+      fontes:['https://pt.org.br/patrus-ananias-o-ministro-do-bolsa-familia-trajetoria-marcada-pela-justica-social/']
+    },
+    {
+      nome:'Cleitinho Azevedo', partido:'Republicanos',
+      coligacao:'Republicanos + Podemos',
+      cargoAnterior:'Senador por Minas Gerais (desde 2023, eleito em 2022 com 4,26 milhões de votos); vereador e deputado estadual anteriormente',
+      scores:{A1:1,A2:1,A3:1,A4:1,A5:2,A6:1,A7:0.5,A8:0.5,A9:0,A10:1,A11:2,A12:1},
+      vantagens:[
+        'Foi o senador mais votado do país em 2022, com 4,26 milhões de votos.',
+        'Protocolou mais de 300 projetos de lei durante o mandato.',
+        'Construiu imagem de crítico a privilégios do funcionalismo público e a gastos do Legislativo.'
+      ],
+      desvantagens:[
+        'Votou a favor do chamado "PL da Devastação", que flexibiliza regras de licenciamento ambiental.',
+        'Votou a favor do PL do Marco Temporal, que restringe a demarcação de terras indígenas.',
+        'Votou a favor da anistia aos condenados pelos atos golpistas de 8 de janeiro de 2023.'
+      ],
+      mandatoAnterior:{
+        resumo:'Referente ao mandato de Senador por Minas Gerais (desde 2023):',
+        vantagens:['Protocolou mais de 300 projetos de lei no mandato.','Construiu imagem de crítico a privilégios do funcionalismo público e a gastos do Legislativo.'],
+        desvantagens:['Votou a favor do "PL da Devastação" (flexibilização do licenciamento ambiental).','Votou a favor do PL do Marco Temporal (restringe demarcação de terras indígenas).','Votou a favor da anistia aos condenados pelos atos de 8 de janeiro de 2023.']
+      },
+      fontes:['https://www.em.com.br/politica/2026/07/7466073-quem-e-cleitinho-azevedo-a-trajetoria-do-senador-mineiro-em-brasilia.html','https://www.brasildefato.com.br/2026/08/26/cleitinho-se-apresenta-como-antissistema-mas-acumula-votos-em-pautas-antipopulares/']
+    },
+    {
+      nome:'Flávio Roscoe', partido:'PL',
+      coligacao:'',
+      cargoAnterior:'Nunca ocupou cargo público eletivo. Presidiu a Federação das Indústrias de Minas Gerais (Fiemg) de 2018 a 2026 (licenciou-se em abril/2026); é jornalista de formação.',
+      scores:{A1:2,A2:1,A3:1,A4:1,A5:1.5,A6:1.5,A7:1,A8:1,A9:1,A10:1.5,A11:1.5,A12:0},
+      vantagens:[
+        'Longa experiência à frente da principal entidade patronal industrial do estado (Fiemg).',
+        'Plataforma "Pacto por Minas" propõe expansão da formação técnica-profissional (Sesi/Senai) e modernização energética.'
+      ],
+      desvantagens:[
+        'Nunca ocupou cargo público eletivo nem função de gestão governamental.',
+        'Posições pessoais sobre segurança, costumes e meio ambiente foram estimadas a partir do perfil empresarial, sem declaração específica localizada.'
+      ],
+      fontes:['https://www.otempo.com.br/eleicoes/2026/governadores/2026/8/5/quem-e-flavio-roscoe-candidato-indicado-pelo-pl-ao-governo-de-minas-gerais']
+    },
+    {
+      nome:'Gabriel Azevedo', partido:'MDB',
+      coligacao:'',
+      cargoAnterior:'Vereador de Belo Horizonte por dois mandatos; presidente da Câmara Municipal de BH (2023/24); candidato a prefeito de BH em 2024 (não eleito)',
+      scores:{A1:0,A2:0,A3:0,A4:0,A5:0,A6:0,A7:0,A8:0,A9:0,A10:0,A11:0,A12:0},
+      vantagens:[
+        'Presidiu a Câmara Municipal de Belo Horizonte, acumulando experiência de articulação institucional.',
+        'Professor universitário, com experiência em diálogo com diferentes públicos.'
+      ],
+      desvantagens:[
+        'Não foi eleito prefeito de BH em 2024.',
+        'Perfil do MDB é historicamente pragmático e de centro, com posições pouco definidas nos 12 eixos avaliados; não foram localizadas declarações específicas suficientes para posicioná-lo com confiança nesses eixos.'
+      ],
+      fontes:['https://www.cnnbrasil.com.br/eleicoes/quem-sao-os-candidatos-a-governador-de-minas-gerais-em-2026/']
+    },
+    {
+      nome:'Ben Mendes', partido:'Missão',
+      coligacao:'',
+      cargoAnterior:'Nunca ocupou cargo público eletivo. Advogado e jornalista, influenciador digital; primeira candidatura a um cargo eletivo.',
+      scores:{A1:0.5,A2:0.5,A3:0.5,A4:0.5,A5:0,A6:1,A7:0.5,A8:0,A9:0,A10:0.5,A11:0,A12:0.5},
+      vantagens:[
+        'Alcance digital como influenciador pode ampliar o debate público sobre a eleição.'
+      ],
+      desvantagens:[
+        'Nunca ocupou cargo público eletivo nem função de gestão governamental.',
+        'Plataforma de governo detalhada não foi localizada nas fontes consultadas; posições estimadas com baixa confiança a partir do perfil geral do partido (religioso-conservador).'
+      ],
+      fontes:['https://www.cnnbrasil.com.br/eleicoes/quem-sao-os-candidatos-a-governador-de-minas-gerais-em-2026/']
+    },
+    {
+      nome:'Henrique Áreas', partido:'PCO',
+      coligacao:'',
+      cargoAnterior:'Nunca foi eleito para cargo público (concorreu, sem se eleger, a prefeito de SP em 2016, deputado federal em 2018 e vice-prefeito de SP em 2020). Cientista social.',
+      scores:{A1:-2,A2:-2,A3:-1.5,A4:-2,A5:-1.5,A6:-1.5,A7:-2,A8:-2,A9:-2,A10:-2,A11:-1,A12:-1},
+      vantagens:[
+        'Representa uma linha política de extrema-esquerda independente, ampliando o espectro de opções no debate eleitoral.'
+      ],
+      desvantagens:[
+        'Nunca foi eleito para nenhum cargo público.',
+        'Posições estimadas a partir da linha programática do PCO (partido trotskista), sem plano de governo detalhado localizado.'
+      ],
+      fontes:['https://www.cnnbrasil.com.br/eleicoes/quem-sao-os-candidatos-a-governador-de-minas-gerais-em-2026/']
+    },
+    {
+      nome:'Indira Xavier', partido:'UP',
+      coligacao:'',
+      cargoAnterior:'Nunca ocupou cargo público eletivo. Coordenadora do Movimento de Mulheres Olga Benário; concorreu sem se eleger em 2022 e 2024.',
+      scores:{A1:-2,A2:-2,A3:-1,A4:-2,A5:-1.5,A6:-2,A7:-2,A8:-2,A9:-2,A10:-2,A11:-1.5,A12:-1},
+      vantagens:[
+        'Longa militância em movimentos sociais de base.'
+      ],
+      desvantagens:[
+        'Nunca ocupou cargo público eletivo.',
+        'Posições estimadas a partir da linha programática da Unidade Popular (partido marxista-leninista), sem plano de governo detalhado localizado.'
+      ],
+      fontes:['https://www.cnnbrasil.com.br/eleicoes/quem-sao-os-candidatos-a-governador-de-minas-gerais-em-2026/']
+    },
+    {
+      nome:'Rafael Duda', partido:'PSTU',
+      coligacao:'',
+      cargoAnterior:'Nunca ocupou cargo público eletivo. Técnico em mineração/metalurgia/geologia, presidente do Sindicato Metabase; concorreu sem se eleger em 2020, 2022 e 2024.',
+      scores:{A1:-2,A2:-2,A3:-1.5,A4:-2,A5:-1.5,A6:-1.5,A7:-2,A8:-2,A9:-2,A10:-2,A11:-1,A12:-0.5},
+      vantagens:[
+        'Vem da base sindical de trabalhadores da mineração, setor central na economia mineira.'
+      ],
+      desvantagens:[
+        'Nunca ocupou cargo público eletivo.',
+        'Posições estimadas a partir da linha programática do PSTU (partido trotskista), sem plano de governo detalhado localizado.'
+      ],
+      fontes:['https://www.cnnbrasil.com.br/eleicoes/quem-sao-os-candidatos-a-governador-de-minas-gerais-em-2026/']
+    },
+    {
+      nome:'Túlio Lopes', partido:'PCB',
+      coligacao:'',
+      cargoAnterior:'Nunca ocupou cargo público eletivo. Historiador, professor da UEMG, dirigente estadual do PCB; concorreu sem se eleger em 2014 e 2018.',
+      scores:{A1:-1.5,A2:-1.5,A3:-1.5,A4:-1.5,A5:-1.5,A6:-1.5,A7:-1.5,A8:-1.5,A9:-1.5,A10:-1.5,A11:-1,A12:-0.5},
+      vantagens:[
+        'Longa trajetória acadêmica e de militância partidária consolidada em Minas Gerais.'
+      ],
+      desvantagens:[
+        'Nunca ocupou cargo público eletivo.',
+        'Posições estimadas a partir da linha programática do PCB (partido comunista tradicional), sem plano de governo detalhado localizado.'
+      ],
+      fontes:['https://www.cnnbrasil.com.br/eleicoes/quem-sao-os-candidatos-a-governador-de-minas-gerais-em-2026/']
+    }
+  ], SC: [
+    {
+      nome:'Jorginho Mello', partido:'PL',
+      coligacao:'"Fé no Trabalho e Pé na Tábua" (PL, Avante, Agir, DC, Novo, Republicanos, Podemos, entre outros)',
+      cargoAnterior:'Governador de Santa Catarina (desde 2023, buscando reeleição); foi vereador, deputado estadual, deputado federal e Senador (2019–2022)',
+      scores:{A1:1,A2:1,A3:1.5,A4:1.5,A5:1,A6:1.5,A7:1,A8:0,A9:0.5,A10:1,A11:1.5,A12:1},
+      vantagens:['Início da rodovia Via Mar (Biguaçu–Joinville) para desafogar o tráfego da BR-101.','Instalação de ar-condicionado em 100% das escolas estaduais.','Integração de 3.200 policiais e 1.700 policiais penais, com plano de 9.000 novas vagas no sistema prisional.'],
+      desvantagens:['A fila cirúrgica da saúde estadual cresceu 10% em 3 anos, segundo dados citados por opositores.','Redução do efetivo de Polícia Militar e Polícia Civil apontada por críticos, apesar do discurso de reforço à segurança.'],
+      mandatoAnterior:{resumo:'Referente ao mandato atual de Governador de SC (desde 2023):',vantagens:['Início da rodovia Via Mar (Biguaçu–Joinville).','Instalação de ar-condicionado em 100% das escolas estaduais.','Integração de 3.200 policiais e 1.700 policiais penais.'],desvantagens:['Fila cirúrgica da saúde estadual cresceu 10% em 3 anos, segundo dados citados por opositores.','Redução do efetivo de PM e Polícia Civil apontada por críticos.']},
+      fontes:['https://www.nsctotal.com.br/noticias/jorginho-mello-faz-balanco-do-ano-e-aponta-obras-e-assuntos-que-serao-prioridade-em-2026','https://www.gazetadopovo.com.br/eleicoes/2026/santa-catarina-2026/eleicoes-candidatos-esquerda-direita-desafiam-reeleicao-jorginho-mello-sc/']
+    },
+    {
+      nome:'João Rodrigues', partido:'PSD',
+      coligacao:'"Santa Catarina Acima de Tudo" (PSD, MDB, UPB)',
+      cargoAnterior:'Prefeito de Chapecó por 4 mandatos (renunciou em 2026 para concorrer ao governo); ex-deputado federal e deputado estadual',
+      scores:{A1:1,A2:0.5,A3:1,A4:1,A5:1,A6:1,A7:-0.5,A8:-0.5,A9:0.5,A10:0.5,A11:2,A12:0},
+      vantagens:['R$ 1,7 bilhão em investimentos em Chapecó desde 2021, incluindo arena esportiva, autódromo e novas escolas.','Reeleito prefeito em 2024 com 83% dos votos válidos.'],
+      desvantagens:['Foi alvo de ação civil pública do Ministério Público Federal por suposta improbidade administrativa (sobrepreço na merenda escolar) — absolvido judicialmente em 2020 por insuficiência de provas.','Durante a pandemia, sua gestão flexibilizou regras sanitárias e adotou "tratamento precoce" contra a Covid-19, período seguido de aumento de casos e mortes.'],
+      mandatoAnterior:{resumo:'Referente aos mandatos de Prefeito de Chapecó (até 2026):',vantagens:['R$ 1,7 bilhão em investimentos desde 2021.','Reeleito em 2024 com 83% dos votos válidos.'],desvantagens:['Foi alvo de ação civil pública do MPF por suposta improbidade administrativa (absolvido em 2020 por insuficiência de provas).','Flexibilizou regras sanitárias e adotou "tratamento precoce" contra a Covid-19 durante a pandemia.']},
+      fontes:['https://ndmais.com.br/politica/joao-rodrigues-psd-enumera-obras-em-chapeco-e-fala-em-rompimento-com-a-casan/']
+    },
+    {
+      nome:'Gelson Merísio', partido:'PSB',
+      coligacao:'"Coragem para Mudar" (PSB + outras 4 legendas/federações)',
+      cargoAnterior:'Deputado Estadual de SC por 3 mandatos; presidiu a Assembleia Legislativa de SC (Alesc) em dois períodos; nunca ocupou cargo executivo',
+      scores:{A1:-1,A2:-0.5,A3:-0.5,A4:-0.5,A5:-0.5,A6:-1,A7:-1,A8:-1,A9:-1,A10:-0.5,A11:-0.5,A12:-1},
+      vantagens:['Propõe manter a Casan (companhia estadual de saneamento) pública, sem privatização.','Foi o mais votado no 1º turno da eleição para governador em 2018.','Presidiu a Assembleia Legislativa de SC em dois períodos, com experiência de articulação institucional.'],
+      desvantagens:['Nunca ocupou cargo executivo (prefeito ou governador); toda sua experiência é legislativa.'],
+      fontes:['https://ndmais.com.br/politica/o-que-merisio-promete-para-santa-catarina-veja-o-plano-de-governo/']
+    },
+    {
+      nome:'Marcelo Brigadeiro', partido:'Missão', coligacao:'',
+      cargoAnterior:'Nunca ocupou cargo público eletivo. Empresário e ex-lutador de MMA; estreante na política.',
+      scores:{A1:1.5,A2:1,A3:1.5,A4:1.5,A5:1,A6:2,A7:1,A8:1,A9:1,A10:1,A11:1,A12:1},
+      vantagens:['Perfil de estreante pode trazer uma perspectiva fora da política tradicional.'],
+      desvantagens:['Nunca ocupou cargo público eletivo.','Plano de governo detalhado não foi localizado nas fontes consultadas; posições estimadas com baixa confiança a partir do perfil do partido (evangélico-conservador).'],
+      fontes:['https://www.gazetadopovo.com.br/eleicoes/2026/santa-catarina-2026/quem-sao-candidatos-governador-santa-catarina-2026/']
+    },
+    {
+      nome:'Professor Marcus Sodré', partido:'PSTU', coligacao:'',
+      cargoAnterior:'Nunca ocupou cargo público eletivo. Concorreu sem se eleger a prefeito de Itajaí e a deputado estadual anteriormente.',
+      scores:{A1:-2,A2:-2,A3:-1.5,A4:-2,A5:-1.5,A6:-2,A7:-2,A8:-2,A9:-2,A10:-2,A11:-1,A12:-1},
+      vantagens:['Representa uma linha política de extrema-esquerda independente no debate eleitoral catarinense.'],
+      desvantagens:['Nunca ocupou cargo público eletivo.','Posições estimadas a partir do programa histórico do PSTU nacional, sem posições individuais detalhadas localizadas.'],
+      fontes:['https://www.gazetadopovo.com.br/eleicoes/2026/santa-catarina-2026/quem-sao-candidatos-governador-santa-catarina-2026/']
+    },
+    {
+      nome:'Ralf Zimmer', partido:'PRD', coligacao:'',
+      cargoAnterior:'Nunca ocupou cargo público eletivo. Advogado e defensor público; 2ª candidatura consecutiva ao governo de SC (obteve 3.828 votos em 2022 pelo PROS).',
+      scores:{A1:1,A2:1,A3:1,A4:1,A5:0.5,A6:1,A7:0.5,A8:0,A9:0,A10:0.5,A11:1,A12:1},
+      vantagens:['Segunda candidatura ao governo, com alguma experiência prévia de campanha estadual.'],
+      desvantagens:['Nunca ocupou cargo público eletivo.','Propostas específicas e detalhadas não foram localizadas nas fontes consultadas; posições estimadas a partir da linha do partido (centro-direita popular).'],
+      fontes:['https://www.gazetadopovo.com.br/eleicoes/2026/santa-catarina-2026/quem-sao-candidatos-governador-santa-catarina-2026/']
+    },
+    {
+      nome:'Bruno Pedreiro', partido:'PCO', coligacao:'',
+      cargoAnterior:'Nunca ocupou cargo público eletivo. Concorreu a prefeito de Florianópolis em 2024 (95 votos).',
+      scores:{A1:-2,A2:-2,A3:-1.5,A4:-2,A5:-1.5,A6:-2,A7:-2,A8:-2,A9:-2,A10:-2,A11:-1,A12:-1},
+      vantagens:['Representa uma linha política de extrema-esquerda independente no debate eleitoral catarinense.'],
+      desvantagens:['Nunca ocupou cargo público eletivo.','Propostas específicas e detalhadas não foram localizadas nas fontes consultadas; posições estimadas a partir da linha do PCO (partido trotskista).'],
+      fontes:['https://www.gazetadopovo.com.br/eleicoes/2026/santa-catarina-2026/quem-sao-candidatos-governador-santa-catarina-2026/']
+    },
+    {
+      nome:'Laís Chaud', partido:'UP', coligacao:'',
+      cargoAnterior:'Nunca ocupou cargo público eletivo. Psicóloga, coordenadora do Movimento de Luta nos Bairros, Vilas e Favelas (MLB).',
+      scores:{A1:-2,A2:-2,A3:-1.5,A4:-2,A5:-1.5,A6:-2,A7:-2,A8:-2,A9:-2,A10:-2,A11:-1,A12:-1},
+      vantagens:['Vem da base de movimentos sociais de moradia e reforma urbana.'],
+      desvantagens:['Nunca ocupou cargo público eletivo.','Propostas específicas e detalhadas não foram localizadas nas fontes consultadas além de sua ligação com o movimento de moradia.'],
+      fontes:['https://www.gazetadopovo.com.br/eleicoes/2026/santa-catarina-2026/quem-sao-candidatos-governador-santa-catarina-2026/']
+    }
+  ] },
+  senador: { MG: [
+    {
+      nome:'Carlos Viana', partido:'PSD',
+      coligacao:'',
+      cargoAnterior:'Senador por Minas Gerais (desde 2019, eleito em 2018 com 3.568.658 votos); jornalista por 23 anos antes da política',
+      scores:{A1:1,A2:0.5,A3:0.5,A4:0.5,A5:0,A6:0.5,A7:0,A8:0,A9:0,A10:0.5,A11:0.5,A12:0},
+      vantagens:[
+        'Recebeu alta votação em 2018 (3,5 milhões de votos).',
+        'Longa exposição midiática pré-política, como jornalista em veículos de TV e rádio de Minas Gerais.'
+      ],
+      desvantagens:[
+        'Trocou de partido diversas vezes desde a eleição (passou por PHS, PSD, PL e Podemos, hoje concorrendo pelo PSD), o que pode indicar falta de enraizamento ideológico fixo.',
+        'O levantamento não localizou votações nominais específicas dele em pautas-chave do Senado.'
+      ],
+      mandatoAnterior:{
+        resumo:'Referente ao mandato de Senador por MG (desde 2019):',
+        vantagens:['Alta votação em 2018 (3,5 milhões de votos); presidência estadual do PSD-MG.'],
+        desvantagens:['Trocou de partido pelo menos 4 vezes desde a eleição de 2018.','Votações nominais específicas em pautas-chave do Senado não foram localizadas nas fontes consultadas.']
+      },
+      fontes:['https://www25.senado.leg.br/web/senadores/senador/-/perfil/5990']
+    },
+    {
+      nome:'Domingos Sávio', partido:'PL',
+      coligacao:'',
+      cargoAnterior:'Deputado Federal por MG desde 2010 (reeleito em 2014, 2018 e 2022); ex-prefeito de Divinópolis (1996); ex-deputado estadual',
+      scores:{A1:1.5,A2:1,A3:1.5,A4:1.5,A5:1,A6:1.5,A7:1,A8:0.5,A9:0.5,A10:1,A11:1.5,A12:2},
+      vantagens:[
+        'Trajetória eletiva contínua desde 1992, com base eleitoral consistente no Centro-Oeste mineiro.',
+        'Presidiu a Câmara Municipal de Divinópolis ainda jovem.'
+      ],
+      desvantagens:[
+        'Defendeu publicamente a aprovação de anistia aos condenados pelos atos golpistas de 8 de janeiro de 2023.',
+        'Migrou do PSDB (centro) para o PL (direita) em movimento de alinhamento com o bolsonarismo.'
+      ],
+      mandatoAnterior:{
+        resumo:'Referente ao mandato de Deputado Federal por MG (desde 2010):',
+        vantagens:['Trajetória eletiva contínua desde 1992, com base eleitoral consolidada no Centro-Oeste mineiro.'],
+        desvantagens:['Defendeu publicamente a anistia aos condenados pelos atos de 8 de janeiro de 2023.','Migrou do PSDB para o PL, alinhando-se ao bolsonarismo.']
+      },
+      fontes:['https://www.camara.leg.br/deputados/160758/biografia','https://www.cnnbrasil.com.br/politica/pl-da-anistia-deputados-rogerio-correia-e-domingos-savio-avaliam-aprovacao/']
+    },
+    {
+      nome:'Áurea Carolina', partido:'PSOL',
+      coligacao:'',
+      cargoAnterior:'Deputada Federal por MG (2019–2023, não reeleita em 2022); vereadora de BH (2016, mais votada da história da cidade); cientista política',
+      scores:{A1:-2,A2:-2,A3:-1.5,A4:-2,A5:-2,A6:-2,A7:-2,A8:-2,A9:-2,A10:-1.5,A11:-1.5,A12:-1.5},
+      vantagens:[
+        'Foi pioneira do modelo de "gabinete compartilhado" com colegas de partido.',
+        'Atuação consistente em direitos de mulheres, população negra, LGBTQIA+ e combate a danos da mineração.'
+      ],
+      desvantagens:[
+        'Não conseguiu se reeleger em 2022, perdendo o mandato de deputada federal.'
+      ],
+      mandatoAnterior:{
+        resumo:'Referente ao mandato de Deputada Federal por MG (2019–2023):',
+        vantagens:['Modelo pioneiro de "gabinete compartilhado" com colegas de partido.','Atuação consistente em pautas de direitos humanos e combate a danos da mineração.'],
+        desvantagens:['Não se reelegeu em 2022, perdendo o mandato federal.']
+      },
+      fontes:['https://believe.earth/pt-br/aurea-carolina-por-uma-politica-mais-feminina-e-plural/']
+    },
+    {
+      nome:'Marília Campos', partido:'PT',
+      coligacao:'',
+      cargoAnterior:'Prefeita de Contagem (eleita em 2004, reeleita em 2008, 2020 e 2024, atual prefeita); presidiu o Sindicato dos Bancários de BH; psicóloga (UFMG)',
+      scores:{A1:-1.5,A2:-1.5,A3:-1,A4:-1.5,A5:-1,A6:-1.5,A7:-1.5,A8:-2,A9:-2,A10:-1.5,A11:-1,A12:-1.5},
+      vantagens:[
+        'Foi a primeira mulher a governar Contagem (2004) e teve múltiplas reeleições ao longo de mais de 20 anos.',
+        'Consolidou uma das principais bases eleitorais do PT em Minas Gerais.'
+      ],
+      desvantagens:[
+        'O levantamento não localizou, com detalhe suficiente, controvérsias específicas e verificáveis sobre seus mandatos em Contagem.'
+      ],
+      mandatoAnterior:{
+        resumo:'Referente aos mandatos de Prefeita de Contagem (desde 2004, com reeleições):',
+        vantagens:['Primeira mulher a governar Contagem; múltiplas reeleições ao longo de mais de 20 anos indicam aprovação sustentada.'],
+        desvantagens:['O levantamento não localizou controvérsias específicas e verificáveis sobre os mandatos nas fontes consultadas.']
+      },
+      fontes:['https://obrasilianista.com.br/caio-vicente-almeida/saiba-quem-e-marilia-campos/']
+    },
+    {
+      nome:'Gustavo Galassi', partido:'PSDB',
+      coligacao:'Federação PSDB-Cidadania, na chapa de Alexandre Kalil (PDT) ao governo',
+      cargoAnterior:'Nunca ocupou cargo eletivo. Engenheiro agrônomo, produtor rural, presidiu o Sindicato Rural de Uberlândia; candidato a vice-prefeito de Uberlândia em 2024 (não eleito).',
+      scores:{A1:1,A2:0.5,A3:0,A4:0,A5:1.5,A6:0,A7:0,A8:0,A9:0.5,A10:1,A11:2,A12:0},
+      vantagens:[
+        'Experiência de liderança no setor produtivo como presidente do Sindicato Rural de Uberlândia.',
+        'Discurso focado em produção, infraestrutura, emprego e desenvolvimento regional.'
+      ],
+      desvantagens:[
+        'Nunca ocupou cargo público eletivo.',
+        'Posições sobre segurança, costumes e educação não foram localizadas com detalhe nas fontes consultadas.'
+      ],
+      fontes:['https://www.em.com.br/politica/2026/08/7480785-psdb-indica-gustavo-galassi-para-disputar-vaga-no-senado-por-minas.html']
+    },
+    {
+      nome:'Marcelo Heringer', partido:'PDT',
+      coligacao:'Coligação "Cuidar de Minas" com a Federação PSDB-Cidadania, na chapa de Alexandre Kalil',
+      cargoAnterior:'Médico; eleito vice-prefeito em 2008; concorreu a eleições municipais entre 2008 e 2024',
+      scores:{A1:-1,A2:-0.5,A3:0,A4:-0.5,A5:0,A6:-0.5,A7:-0.5,A8:-1.5,A9:-1,A10:-0.5,A11:0,A12:-0.5},
+      vantagens:[
+        'Formação médica pode reforçar foco em políticas de saúde pública.',
+        'Longa trajetória em disputas eleitorais municipais desde 2008.'
+      ],
+      desvantagens:[
+        'Declarações específicas sobre a maioria dos 12 eixos avaliados não foram localizadas nas fontes consultadas.'
+      ],
+      fontes:['https://www.infomoney.com.br/politica/candidatos-senado-minas-gerais-2026/']
+    },
+    {
+      nome:'Marcelo Aro', partido:'PP',
+      coligacao:'',
+      cargoAnterior:'Deputado Federal por MG (2015–2023, dois mandatos); chefiou a Casa Civil do governo de Minas Gerais até abril/2026; vereador de BH; advogado/jornalista',
+      scores:{A1:1.5,A2:1,A3:0.5,A4:1,A5:0.5,A6:1,A7:0.5,A8:0.5,A9:0.5,A10:2,A11:1,A12:1},
+      vantagens:[
+        'Experiência de gestão executiva como chefe da Casa Civil do governo de Minas Gerais.',
+        'Dois mandatos consecutivos como deputado federal.'
+      ],
+      desvantagens:[
+        'Votou a favor do impeachment de Dilma Rousseff em 2016, posição controversa e polarizadora.',
+        'Votou a favor da reforma trabalhista de 2017, criticada por setores sindicais como redução de direitos dos trabalhadores.'
+      ],
+      mandatoAnterior:{
+        resumo:'Referente ao mandato de Deputado Federal por MG (2015–2023):',
+        vantagens:['Dois mandatos consecutivos na Câmara dos Deputados.'],
+        desvantagens:['Votou a favor do impeachment de Dilma Rousseff (2016).','Votou a favor da reforma trabalhista de 2017.']
+      },
+      fontes:['https://www.metropoles.com/minas-gerais/quem-e-marcelo-aro-escolha-da-direita-em-mg-na-ausencia-de-cleitinho']
+    },
+    {
+      nome:'Carlin Moura', partido:'Avante',
+      coligacao:'',
+      cargoAnterior:'Prefeito de Contagem (eleito em 2012 com 65,9% dos votos, não reeleito); deputado estadual de MG (2007–2012); vice-presidente da UNE (1991–93)',
+      scores:{A1:-1,A2:-1,A3:-0.5,A4:-1,A5:-0.5,A6:-1,A7:-1,A8:-1,A9:-1,A10:-1,A11:-0.5,A12:-0.5},
+      vantagens:[
+        'Foi eleito prefeito de Contagem com votação recorde na história da cidade até então (65,9%).',
+        'Longa militância em movimento estudantil e sindical.'
+      ],
+      desvantagens:[
+        'Não conseguiu se reeleger prefeito de Contagem em 2016.',
+        'Trocou de partido diversas vezes (PCdoB, PSB, Avante), o que pode indicar falta de enraizamento ideológico fixo.'
+      ],
+      mandatoAnterior:{
+        resumo:'Referente ao mandato de Prefeito de Contagem (2013–2016):',
+        vantagens:['Eleito com votação recorde na história de Contagem até então (65,9% dos votos).'],
+        desvantagens:['Não conseguiu se reeleger em 2016.']
+      },
+      fontes:['https://www.otempo.com.br/eleicoes/2026/senadores/2026/8/7/ex-prefeito-de-contagem-carlin-moura-sera-candidato-ao-senado-pelo-avante']
+    }
+  ], SC: [
+    {
+      nome:'Esperidião Amin', partido:'PP', coligacao:'',
+      cargoAnterior:'Senador por SC (desde 2019, buscando reeleição); 2x Governador de SC; 2x Prefeito de Florianópolis; ex-Deputado Federal',
+      scores:{A1:0.5,A2:0,A3:0.5,A4:0.5,A5:1.5,A6:0.5,A7:0,A8:0,A9:0,A10:0.5,A11:1.5,A12:0.5},
+      vantagens:['Longa experiência institucional: dois mandatos como governador e dois como prefeito de Florianópolis, além do atual mandato de senador.','Autor do substitutivo do Marco Temporal aprovado no Senado, incluindo regras de compensação a ocupantes de áreas demarcáveis.','Votou contra a indicação de Cristiano Zanin ao STF e criticou publicamente "excessos" em propostas que enfraquecem prerrogativas de fiscalização do Legislativo.'],
+      desvantagens:['Seu substitutivo do Marco Temporal é criticado por movimentos indígenas como um retrocesso na demarcação de terras.','O voto contrário à indicação de Zanin ao STF gerou desgaste com o governo Lula.'],
+      mandatoAnterior:{resumo:'Referente ao mandato de Senador por SC (desde 2019):',vantagens:['Autor do substitutivo do Marco Temporal aprovado no Senado, com regras de compensação.','Posição crítica a "excessos" em pautas que enfraquecem prerrogativas de fiscalização do Legislativo.'],desvantagens:['Substitutivo do Marco Temporal criticado por movimentos indígenas como retrocesso.','Votou contra a indicação de Zanin ao STF, gerando desgaste com o governo Lula.']},
+      fontes:['https://www25.senado.leg.br/web/senadores/senador/-/perfil/22','https://www12.senado.leg.br/noticias/materias/2025/09/24/amin-critica-voto-secreto-e-excessos-da-pec-do-mandato']
+    },
+    {
+      nome:'Carlos Bolsonaro', partido:'PL', coligacao:'',
+      cargoAnterior:'Vereador do Rio de Janeiro (cargo atual); nunca ocupou cargo eletivo em Santa Catarina — primeira candidatura no estado, após mudança de domicílio eleitoral',
+      scores:{A1:1,A2:1,A3:2,A4:2,A5:1.5,A6:2,A7:1.5,A8:0.5,A9:1,A10:1,A11:2,A12:2},
+      vantagens:['Longa experiência política na família Bolsonaro, com articulação nacional relevante.'],
+      desvantagens:['Nunca ocupou cargo eletivo em Santa Catarina; concorre após mudar seu domicílio eleitoral do Rio de Janeiro para o estado.','Posições estimadas majoritariamente pelo alinhamento à linha do PL e da família Bolsonaro, sem votos ou atos específicos dele mesmo em SC.'],
+      fontes:['https://www.gazetadopovo.com.br/eleicoes/2026/santa-catarina-2026/carlos-confirma-lancamento-de-pre-candidatura-ao-senado-por-sc-com-presenca-de-flavio-bolsonaro/']
+    },
+    {
+      nome:'Caroline de Toni', partido:'PL', coligacao:'',
+      cargoAnterior:'Deputada Federal por SC desde 2019 (2º mandato); presidente da Comissão de Constituição e Justiça (CCJ) da Câmara dos Deputados',
+      scores:{A1:1,A2:1,A3:2,A4:1.5,A5:1.5,A6:2,A7:1,A8:0.5,A9:1,A10:1,A11:2,A12:1.5},
+      vantagens:['Foi a mulher mais votada de SC em 2018 e a parlamentar mais votada do estado em 2022 (227.632 votos).','Eleita presidente da CCJ da Câmara, uma das comissões mais estratégicas do Legislativo.'],
+      desvantagens:['Mudou o local de votação de uma PEC que restringe o aborto para evitar protestos, ato criticado por movimentos feministas.','Posiciona-se contra a obrigatoriedade de vacinas, posição criticada por especialistas em saúde pública.'],
+      mandatoAnterior:{resumo:'Referente ao mandato de Deputada Federal por SC (desde 2019):',vantagens:['Mulher mais votada de SC em 2018; parlamentar mais votada do estado em 2022 (227.632 votos).','Eleita presidente da CCJ da Câmara dos Deputados.'],desvantagens:['Mudou o local de votação de uma PEC que restringe o aborto para evitar protestos.','Posiciona-se contra a obrigatoriedade de vacinas.']},
+      fontes:['https://ndmais.com.br/politica/projetos-e-trajetoria-quem-e-carol-de-toni-politica-de-sc/','https://www.cartacapital.com.br/cartaexpressa/para-evitar-protestos-deputada-do-pl-muda-local-de-votacao-de-pec-que-proibe-o-aborto/']
+    },
+    {
+      nome:'Décio Lima', partido:'PT', coligacao:'',
+      cargoAnterior:'Prefeito de Blumenau (1997–2005); ex-Deputado Federal por SC (2007–2019); atual presidente do Sebrae/SC (cargo não eletivo)',
+      scores:{A1:-1.5,A2:-1,A3:-1.5,A4:-1.5,A5:-1,A6:-1.5,A7:-1.5,A8:-1.5,A9:-1.5,A10:-1.5,A11:-1,A12:-1.5},
+      vantagens:['Revitalizou a Rua XV de Novembro, principal via histórica e comercial de Blumenau, como prefeito.','Cinco mandatos como deputado federal (2007–2019) demonstram ampla capilaridade eleitoral.','Propõe isenção de ICMS sobre cesta básica e proteínas, e reversão da taxação sobre aposentados e pensionistas.'],
+      desvantagens:['Sua administração em Blumenau foi marcada por CPIs na Câmara Municipal.','Perdeu a Policlínica Regional para o município vizinho de Indaial durante sua gestão como prefeito.'],
+      mandatoAnterior:{resumo:'Referente ao mandato de Prefeito de Blumenau (1997–2005):',vantagens:['Revitalização da Rua XV de Novembro, principal via histórica/comercial da cidade.','Eleito com amplo mandato popular em 1996.'],desvantagens:['Administração marcada por escândalos e CPIs na Câmara Municipal.','Perda da Policlínica Regional para o município vizinho de Indaial.','Crise inicial na merenda escolar e municipalização problemática do Sesi.']},
+      fontes:['https://www.camara.leg.br/deputados/141413/biografia','https://www.nsctotal.com.br/colunistas/estela-benetti/decio-lima-e-jorginho-mello-planejam-reducao-da-carga-tributaria-no']
+    },
+    {
+      nome:'Antídio Lunelli', partido:'MDB', coligacao:'',
+      cargoAnterior:'Deputado Estadual de SC (eleito 2022); ex-Prefeito de Jaraguá do Sul por 2 mandatos (renunciou em 2026); empresário do setor têxtil',
+      scores:{A1:1,A2:0.5,A3:0.5,A4:1,A5:0,A6:0.5,A7:0,A8:0,A9:0.5,A10:1,A11:1,A12:0},
+      vantagens:['Jaraguá do Sul tornou-se referência em segurança pública sob sua gestão, com premiações e 1º lugar nacional em desenvolvimento socioeconômico e ordem pública entre municípios com mais de 100 mil habitantes.','22% da arrecadação municipal foi revertida em investimento, com corte de gastos considerados desnecessários.'],
+      desvantagens:['Reagiu de forma considerada agressiva a questionamentos de servidores públicos sobre cortes no plano de carreira.','Rompeu politicamente com seu sucessor na prefeitura de Jaraguá do Sul.'],
+      mandatoAnterior:{resumo:'Referente aos mandatos de Prefeito de Jaraguá do Sul (até 2026):',vantagens:['Cidade tornou-se referência nacional em segurança pública e desenvolvimento socioeconômico.','22% da arrecadação revertida em investimento, com corte de gastos considerados desnecessários.'],desvantagens:['Reagiu de forma considerada agressiva a críticas de servidores públicos sobre cortes no plano de carreira.','Rompimento político com seu sucessor na prefeitura.']},
+      fontes:['https://www.gazetadopovo.com.br/eleicoes/2026/santa-catarina-2026/mdb-confirma-antidio-lunelli-senado-alianca-esperidiao-amin/']
+    },
+    {
+      nome:'Afrânio Boppré', partido:'PSOL', coligacao:'',
+      cargoAnterior:'Vereador de Florianópolis (desde 2013); ex-Vice-Prefeito de Florianópolis (1993–1996); ex-Secretário Municipal de Finanças; ex-Deputado Estadual (2003–2007)',
+      scores:{A1:-2,A2:-2,A3:-1.5,A4:-1.5,A5:-2,A6:-2,A7:-1.5,A8:-2,A9:-1.5,A10:-1.5,A11:-1.5,A12:-1},
+      vantagens:['Vereador de Florianópolis por múltiplos mandatos consecutivos desde 2013.','Experiência prévia em gestão executiva municipal como Secretário de Finanças de Florianópolis.'],
+      desvantagens:['O levantamento não localizou controvérsias específicas e verificáveis associadas ao seu mandato nas fontes consultadas.'],
+      fontes:['https://memoriapolitica.alesc.sc.gov.br/biografia/1071-Afranio_Boppre']
+    },
+    {
+      nome:'Jeferson Rocha', partido:'PRD', coligacao:'',
+      cargoAnterior:'Nunca ocupou cargo público eletivo. Advogado e produtor rural, ligado a entidades do agronegócio catarinense.',
+      scores:{A1:0.5,A2:0.5,A3:1,A4:1,A5:1.5,A6:1,A7:0.5,A8:0,A9:0,A10:0.5,A11:2,A12:1.5},
+      vantagens:['Propõe teto de 12% nos juros rurais e resgate de preços mínimos para socorrer produtores catarinenses.'],
+      desvantagens:['Nunca ocupou cargo público eletivo.','Declarou em convenção partidária que ministros do STF "precisam de um freio" e defendeu limitar atribuições do Judiciário.'],
+      fontes:['https://ndmais.com.br/politica/pre-candidato-ao-senado-pelo-prd-em-sc-propoe-teto-de-12-nos-juros-rurais-para-socorrer-o-agro-catarinense/']
+    }
+  ] },
+  deputado_federal:  { MG: [
+    {
+      nome:'Nikolas Ferreira', partido:'PL', coligacao:'',
+      cargoAnterior:'Deputado Federal por MG desde 2023 (1º mandato); nunca ocupou outro cargo eletivo antes',
+      scores:{A1:1.5,A2:1,A3:2,A4:2,A5:1,A6:2,A7:1.5,A8:0.5,A9:1,A10:1,A11:1.5,A12:2},
+      vantagens:['Maior alcance digital entre políticos brasileiros, segundo dados citados pela Politize, superando inclusive o presidente Lula em engajamento.','Foi o deputado federal mais votado do Brasil em 2022, com 1,47 milhão de votos.'],
+      desvantagens:['A Polícia Federal pediu abertura de inquérito ao STF após ele chamar publicamente o presidente Lula de "ladrão que deveria estar preso".','Há uma petição pública (change.org) pedindo a cassação de seu mandato por conduta considerada polêmica.'],
+      mandatoAnterior:{resumo:'Referente ao mandato de Deputado Federal por MG (desde 2023):',vantagens:['Maior alcance digital entre políticos brasileiros, segundo dados citados pela Politize.','Deputado federal mais votado do Brasil em 2022 (1,47 milhão de votos).'],desvantagens:['A PF pediu abertura de inquérito ao STF por declarações públicas contra o presidente Lula.','Existe petição pública pedindo cassação de seu mandato.']},
+      fontes:['https://www.gazetadopovo.com.br/eleicoes/2026/minas-gerais/pl-aposta-nikolas-ferreira-bancada-deputados-minas/','https://www.politize.com.br/nikolas-ferreira/']
+    },
+    {
+      nome:'André Janones', partido:'Rede', coligacao:'',
+      cargoAnterior:'Deputado Federal por MG desde 2019 (buscando reeleição); ex-cobrador de ônibus e advogado',
+      scores:{A1:-1.5,A2:-1.5,A3:-1,A4:-1,A5:-1,A6:-1,A7:-1,A8:-1.5,A9:-2,A10:-1,A11:-1,A12:-0.5},
+      vantagens:['Grande capacidade de mobilização digital em defesa de auxílio emergencial e programas sociais.','Ficou conhecido por liderar mobilizações em defesa de categorias de trabalhadores, como caminhoneiros em 2018.'],
+      desvantagens:['Teve o mandato suspenso entre julho e outubro de 2025; o motivo específico não foi detalhado com clareza nas fontes consultadas.','O STF formou maioria para abrir ação penal contra ele por injúria contra o então presidente Jair Bolsonaro.'],
+      mandatoAnterior:{resumo:'Referente ao mandato de Deputado Federal por MG (desde 2019):',vantagens:['Grande capacidade de mobilização digital em defesa de auxílio emergencial e programas sociais.'],desvantagens:['Mandato suspenso entre julho e outubro de 2025 (motivo não detalhado com clareza nas fontes consultadas).','STF formou maioria para abrir ação penal contra ele por injúria contra o então presidente Jair Bolsonaro.']},
+      fontes:['https://en.wikipedia.org/wiki/Andr%C3%A9_Janones']
+    },
+    {
+      nome:'Duda Salabert', partido:'PSOL', coligacao:'',
+      cargoAnterior:'Deputada Federal por MG desde 2023 (1º mandato federal; foi vereadora mais votada de BH em 2020)',
+      scores:{A1:-1.5,A2:-1.5,A3:-1.5,A4:-1.5,A5:-2,A6:-2,A7:-1.5,A8:-1.5,A9:-1.5,A10:-1,A11:-1,A12:-1},
+      vantagens:['Primeira deputada federal trans eleita na história de Minas Gerais.','Deputada federal mais votada da história de MG (208.332 votos em 2022).','Titular da Frente Parlamentar Ambientalista e atua em comissões de Educação, Segurança Pública e Meio Ambiente.'],
+      desvantagens:['O levantamento não localizou controvérsias específicas e verificáveis sobre seu mandato nas fontes consultadas.'],
+      fontes:['https://moonbh.com.br/politica-e-poder/2026/03/21/duda-salabert-deputada-mais-votada-minas-gerais-historia/']
+    },
+    {
+      nome:'Reginaldo Lopes', partido:'PT', coligacao:'',
+      cargoAnterior:'Deputado Federal por MG desde 2003; economista, ex-líder do PT na Câmara e ex-presidente do PT-MG',
+      scores:{A1:-1.5,A2:-1.5,A3:-1,A4:-1.5,A5:-1,A6:-1,A7:-1.5,A8:-1.5,A9:-1.5,A10:-1.5,A11:-1,A12:-1.5},
+      vantagens:['Autor da Lei de Acesso à Informação (Lei 12.527/2011), marco de transparência pública no Brasil.','Autor da Lei 14.128/2021, que garante indenização a profissionais de saúde vítimas da Covid-19.','Foi o deputado mais votado de Minas Gerais em 2014.'],
+      desvantagens:['O levantamento não localizou controvérsias específicas e verificáveis sobre seu mandato nas fontes consultadas.'],
+      mandatoAnterior:{resumo:'Referente aos mandatos como Deputado Federal por MG (desde 2003):',vantagens:['Autoria da Lei de Acesso à Informação (Lei 12.527/2011).','Autoria da Lei 14.128/2021 (indenização a profissionais de saúde vítimas da Covid-19).'],desvantagens:['O levantamento não localizou controvérsias específicas e verificáveis nas fontes consultadas.']},
+      fontes:['https://pt.org.br/reginaldo-lopes/']
+    },
+    {
+      nome:'Rogério Correia', partido:'PT', coligacao:'',
+      cargoAnterior:'Deputado Federal por MG (2º mandato federal); ex-vereador de BH (1988–1998) e ex-deputado estadual (desde 1999)',
+      scores:{A1:-1.5,A2:-1.5,A3:-1,A4:-1.5,A5:-1.5,A6:-1,A7:-1.5,A8:-1.5,A9:-1.5,A10:-1.5,A11:-1,A12:-1.5},
+      vantagens:['Foi relator da CPI da Brumadinho na Câmara dos Deputados, que investigou o acordo entre a Vale e o governo de Minas Gerais.','Coordena a Frente Parlamentar em Defesa do Serviço Público.'],
+      desvantagens:['O levantamento não localizou controvérsias específicas e verificáveis sobre seu mandato nas fontes consultadas.'],
+      mandatoAnterior:{resumo:'Referente ao mandato de Deputado Federal por MG:',vantagens:['Relator da CPI da Brumadinho na Câmara dos Deputados.','Coordena a Frente Parlamentar em Defesa do Serviço Público.'],desvantagens:['O levantamento não localizou controvérsias específicas e verificáveis nas fontes consultadas.']},
+      fontes:['https://ptnacamara.org.br/rogerio-correia-mg/']
+    },
+    {
+      nome:'Marcelo Álvaro Antônio', partido:'PL', coligacao:'',
+      cargoAnterior:'Deputado Federal por MG desde 2015; foi Ministro do Turismo no governo Bolsonaro (jan/2019–dez/2020, demitido)',
+      scores:{A1:1.5,A2:1,A3:1.5,A4:1.5,A5:1,A6:1.5,A7:1,A8:0.5,A9:0.5,A10:1,A11:1.5,A12:1.5},
+      vantagens:['Foi o deputado federal mais votado de Minas Gerais em 2018, com 230.008 votos.','Ocupou o Ministério do Turismo no governo Bolsonaro (2019–2020).'],
+      desvantagens:['Foi denunciado pelo Ministério Público Eleitoral de MG por falsidade ideológica, apropriação indébita eleitoral e associação criminosa, relacionados a candidaturas "laranjas" do PSL em 2018.','Foi demitido do Ministério do Turismo pelo presidente Bolsonaro (motivo específico não detalhado com clareza nas fontes consultadas).'],
+      mandatoAnterior:{resumo:'Referente à passagem pelo Ministério do Turismo (2019–2020):',vantagens:['Ocupou o Ministério do Turismo no governo Bolsonaro.'],desvantagens:['Foi denunciado pelo MP Eleitoral de MG por falsidade ideológica, apropriação indébita eleitoral e associação criminosa ligadas a candidaturas "laranjas" do PSL em 2018.','Foi demitido do cargo de ministro pelo presidente Bolsonaro, sem motivo detalhado nas fontes consultadas.']},
+      fontes:['https://en.wikipedia.org/wiki/Marcelo_%C3%81lvaro_Ant%C3%B4nio']
+    },
+    {
+      nome:'Bella Gonçalves', partido:'PT', coligacao:'',
+      cargoAnterior:'Deputada Estadual de MG desde 2022, candidata a Deputada Federal em 2026; ex-vereadora de BH (2018–2022); cientista política',
+      scores:{A1:-1.5,A2:-1.5,A3:-1,A4:-1.5,A5:-2,A6:-1.5,A7:-1.5,A8:-1.5,A9:-1.5,A10:-1,A11:-1.5,A12:-1},
+      vantagens:['Uma das vozes mais combativas na Assembleia Legislativa de MG em defesa de territórios atingidos pela mineração.','Convite para migrar ao PT partiu diretamente do presidente Lula.'],
+      desvantagens:['O levantamento não localizou controvérsias específicas e verificáveis sobre seu mandato nas fontes consultadas.'],
+      fontes:['https://www.otempo.com.br/eleicoes/2026/deputados-federais/2026/3/31/bella-goncalves-oficializa-saida-do-psol-e-se-filia-ao-pt']
+    },
+    {
+      nome:'Cristiano Caporezzo', partido:'PL', coligacao:'',
+      cargoAnterior:'Deputado Estadual de MG desde 2023, candidato a Deputado Federal em 2026; ex-vereador de Uberlândia (2021–2023); policial militar',
+      scores:{A1:1,A2:0.5,A3:2,A4:2,A5:0.5,A6:1.5,A7:1,A8:0.5,A9:0.5,A10:0.5,A11:1,A12:1},
+      vantagens:['Experiência prévia como policial militar pode reforçar foco em políticas de segurança pública.'],
+      desvantagens:['Posições detalhadas sobre a maioria dos 12 eixos avaliados não foram localizadas nas fontes consultadas; estimadas a partir do perfil profissional e partidário.'],
+      fontes:['https://ndmais.com.br/eleicoes/2026/candidatos/mg/deputado-federal/2212-caporezzo/']
+    },
+    {
+      nome:'Cássio Soares', partido:'PSD', coligacao:'',
+      cargoAnterior:'Deputado Estadual de MG desde 2011 (4 mandatos), candidato a Deputado Federal em 2026; foi Secretário de Desenvolvimento Social de MG (2012–2014); economista',
+      scores:{A1:1,A2:0.5,A3:0,A4:0,A5:0.5,A6:0,A7:0.5,A8:0,A9:0,A10:0.5,A11:0.5,A12:0},
+      vantagens:['Quatro mandatos consecutivos como deputado estadual, com base política consolidada.','Experiência de gestão executiva como Secretário de Desenvolvimento Social de MG.'],
+      desvantagens:['Posições detalhadas sobre a maioria dos 12 eixos avaliados não foram localizadas nas fontes consultadas; estimadas a partir do perfil partidário (bloco governista).'],
+      fontes:['https://divinews.com/2024/10/29/presidente-do-psd-minas-ressalta-excelente-resultado-do-partido-em-minas-e-no-brasil-sinaliza-que-em-2026-pretende-ser-candidato-a-deputado-federal/']
+    },
+    {
+      nome:'Carlos Pimenta', partido:'PSB', coligacao:'',
+      cargoAnterior:'Deputado Estadual de MG desde cerca de 1999 (8 mandatos), candidato a Deputado Federal em 2026; médico cirurgião; foi Secretário de Trabalho e Emprego de MG (2011–2012)',
+      scores:{A1:0,A2:0,A3:0,A4:0,A5:0,A6:0,A7:0,A8:-0.5,A9:0,A10:0,A11:0.5,A12:0},
+      vantagens:['Oito mandatos consecutivos como deputado estadual indicam base eleitoral extremamente consolidada no Norte de Minas.','Experiência de gestão executiva como Secretário de Trabalho e Emprego de MG.'],
+      desvantagens:['Perfil pragmático e regionalista, sem posições ideológicas fortes documentadas na maioria dos 12 eixos avaliados.'],
+      fontes:['https://pt.wikipedia.org/wiki/Carlos_Pimenta_(pol%C3%ADtico,_1954)']
+    },
+    {
+      nome:'Lohanna França', partido:'PV', coligacao:'',
+      cargoAnterior:'Deputada Estadual de MG desde 2022, candidata a Deputada Federal em 2026; primeira mulher eleita deputada estadual por Divinópolis',
+      scores:{A1:-1,A2:-1,A3:-1,A4:-1,A5:-2,A6:-1.5,A7:-1.5,A8:-1.5,A9:-1,A10:-1,A11:-1,A12:-0.5},
+      vantagens:['Presidiu a maior bancada feminina da história da Assembleia Legislativa de MG.','Plataforma consistente em pautas de proteção ambiental, educação pública, saúde e direitos das mulheres e da população LGBTQIAPN+.'],
+      desvantagens:['O levantamento não localizou controvérsias específicas e verificáveis sobre seu mandato nas fontes consultadas.'],
+      fontes:['https://www.em.com.br/politica/2025/03/7093126-com-foco-em-pauta-ambiental-lohanna-pleiteia-camara-dos-deputados-em-2026.html']
+    }
+  ], SC: [
+    {
+      nome:'Pedro Uczai', partido:'PT', coligacao:'',
+      cargoAnterior:'Deputado Federal por SC desde 2011 (buscando reeleição); líder do PT na Câmara dos Deputados',
+      scores:{A1:-1.5,A2:-1.5,A3:-1.5,A4:-1.5,A5:-1.5,A6:-1.5,A7:-1.5,A8:-2,A9:-1.5,A10:-1.5,A11:-1.5,A12:-1.5},
+      vantagens:['Confirmou candidatura à reeleição após se recuperar de um AVC, demonstrando continuidade de mandato.','Defende expansão de universidades e institutos federais públicos.','Defende explicitamente o fortalecimento do SUS.'],
+      desvantagens:['O levantamento não localizou controvérsias específicas e verificáveis sobre seu mandato nas fontes consultadas.'],
+      fontes:['https://ndmais.com.br/politica/apos-avc-pedro-uczai-confirma-candidatura-a-reeleicao-para-deputado-federal-por-sc/']
+    },
+    {
+      nome:'Zé Trovão', partido:'PL', coligacao:'',
+      cargoAnterior:'Deputado Federal por SC desde 2023; ex-caminhoneiro, liderança dos movimentos de caminhoneiros de 2018 e 2022',
+      scores:{A1:1,A2:1,A3:2,A4:2,A5:1,A6:2,A7:1,A8:0.5,A9:1,A10:1,A11:1.5,A12:2},
+      vantagens:['Liderança consolidada nos movimentos de caminhoneiros de 2018 e 2022, com forte capacidade de mobilização.'],
+      desvantagens:['Defendeu publicamente a anistia aos condenados pelos atos golpistas de 8 de janeiro de 2023 e é crítico público recorrente do STF.'],
+      fontes:['https://www.gazetadopovo.com.br/vozes/entrelinhas/ze-trovao-centrao-nao-tera-coragem-de-barrar-anistia-e-senado-esta-de-joelhos-para-o-stf/']
+    },
+    {
+      nome:'Julia Zanatta', partido:'PL', coligacao:'',
+      cargoAnterior:'Deputada Federal por SC desde 2023 (buscando reeleição)',
+      scores:{A1:1,A2:1,A3:2,A4:1.5,A5:1,A6:1.5,A7:1,A8:0.5,A9:1,A10:1,A11:1.5,A12:2},
+      vantagens:['Defende abertamente o direito à posse e porte de armas para autodefesa.','Autora de projeto que garante a pais o direito de impedir a participação dos filhos em atividades educacionais sobre gênero.'],
+      desvantagens:['Defende projetos contra a moeda digital do Banco Central (Drex) sob a bandeira de "liberdade financeira", posição controversa entre especialistas em regulação financeira.'],
+      fontes:['https://www.soucatarina.com.br/noticias/631-defesa-armada-da-vida-e-da-familia-conheca-julia-zanatta-uma-das-deputadas-federais-mais-votadas-de-sc']
+    },
+    {
+      nome:'Daniel Freitas', partido:'PL', coligacao:'',
+      cargoAnterior:'Deputado Federal por SC desde 2019 (3º mandato); ex-vereador de Criciúma (2013–2018)',
+      scores:{A1:1,A2:1,A3:2,A4:2,A5:1.5,A6:2,A7:1,A8:0.5,A9:1,A10:1,A11:2,A12:2},
+      vantagens:['Três mandatos consecutivos como deputado federal indicam base eleitoral consolidada.'],
+      desvantagens:['Posições detalhadas sobre a maioria dos 12 eixos avaliados não foram localizadas nas fontes consultadas; estimadas a partir do perfil autodeclarado "antiesquerda" e da linha do PL.'],
+      fontes:['https://www.camara.leg.br/deputados/204367/biografia']
+    },
+    {
+      nome:'Daniela Reinehr', partido:'PL', coligacao:'',
+      cargoAnterior:'Deputada Federal por SC desde 2023; ex-Vice-Governadora de SC (2019–2022), assumiu interinamente o governo durante afastamento do então governador Carlos Moisés',
+      scores:{A1:1,A2:1,A3:1.5,A4:1.5,A5:1,A6:1.5,A7:1,A8:0.5,A9:1,A10:1,A11:1.5,A12:1.5},
+      vantagens:['Exerceu a governança do estado durante o afastamento do então governador Carlos Moisés em 2021, dando continuidade administrativa em momento de crise institucional.'],
+      desvantagens:['Por ter sido vice na chapa de Carlos Moisés, ficou associada às controvérsias daquela gestão, incluindo o processo de impeachment do então governador.'],
+      mandatoAnterior:{resumo:'Referente ao mandato de Vice-Governadora de SC (2019–2022):',vantagens:['Exerceu a governança do estado durante o afastamento do governador Carlos Moisés em 2021.'],desvantagens:['Ficou associada às controvérsias da gestão de Carlos Moisés, que sofreu processo de impeachment.']},
+      fontes:['https://www.poder360.com.br/justica/governador-de-santa-catarina-carlos-moises-e-afastado-novamente/']
+    },
+    {
+      nome:'Gilson Marques', partido:'Novo', coligacao:'',
+      cargoAnterior:'Deputado Federal por SC desde 2019 (2º mandato)',
+      scores:{A1:2,A2:2,A3:1,A4:0,A5:0,A6:0,A7:1.5,A8:1.5,A9:1.5,A10:2,A11:1,A12:0},
+      vantagens:['Descrito como o deputado mais econômico da história de Santa Catarina, tendo renunciado a benesses e economizado cerca de R$ 5 milhões em recursos públicos.','Defende posições liberais em economia com maior liberalidade em costumes, diferenciando-se de outros partidos de direita.'],
+      desvantagens:['Cogitou concorrer ao Senado, mas recuou e disputará a reeleição como deputado, o que pode ser lido como indecisão estratégica.'],
+      fontes:['https://www.nsctotal.com.br/colunistas/anderson-silva/gilson-marques-admite-recuo-na-corrida-ao-senado-em-sc-nao-serei-burro']
+    },
+    {
+      nome:'Ana Paula Lima', partido:'PT', coligacao:'',
+      cargoAnterior:'Deputada Federal por SC (eleita em 2022 com 148.781 votos)',
+      scores:{A1:-1.5,A2:-1.5,A3:-1.5,A4:-1.5,A5:-1.5,A6:-1.5,A7:-1.5,A8:-2,A9:-1.5,A10:-1.5,A11:-1.5,A12:-1.5},
+      vantagens:['Votou a favor da reforma tributária de 2024, reforçando uma posição de apoio à redistribuição tributária.'],
+      desvantagens:['O levantamento não localizou controvérsias específicas e verificáveis sobre seu mandato nas fontes consultadas.'],
+      fontes:['https://ndmais.com.br/politica/reforma-tributaria-divide-bancada-catarinense-veja-como-votaram-os-deputados-de-sc-na-camara/']
+    },
+    {
+      nome:'Rafael Pezenti', partido:'MDB', coligacao:'',
+      cargoAnterior:'Deputado Federal por SC desde 2023 (eleito com 68.208 votos)',
+      scores:{A1:0.5,A2:-0.5,A3:0.5,A4:0.5,A5:0,A6:0,A7:0,A8:0,A9:0,A10:0.5,A11:1,A12:0},
+      vantagens:['Votou a favor da regulamentação da reforma tributária de 2024.','Atua na Frente Parlamentar da Agropecuária e propôs lei de proteção a Indicações Geográficas de produtos regionais catarinenses.'],
+      desvantagens:['Seu índice de fidelidade partidária ao MDB em 2024 foi de apenas 28,93% (57 de 197 votações alinhadas ao partido), indicando votação relativamente independente da orientação partidária.'],
+      fontes:['https://www.camara.leg.br/deputados/161440','https://portalmakingof.com.br/rafael-pezenti-leva-rasteira-de-seus-pares-na-camara-dos-deputados/']
+    },
+    {
+      nome:'Julio Garcia', partido:'PSD', coligacao:'',
+      cargoAnterior:'Deputado Estadual de SC (7 mandatos), atual presidente da Assembleia Legislativa de SC (4ª vez); candidato a Deputado Federal em 2026; ex-conselheiro/presidente do Tribunal de Contas do Estado (2014–2015)',
+      scores:{A1:1,A2:0.5,A3:0.5,A4:0.5,A5:0,A6:0.5,A7:0,A8:0,A9:0,A10:0.5,A11:1,A12:0},
+      vantagens:['Eleito presidente da Assembleia Legislativa de SC quatro vezes, sinal de ampla capacidade de articulação política.','Reeleito à presidência da Alesc em 2025 com 37 dos 40 votos dos pares.'],
+      desvantagens:['O levantamento não localizou controvérsias específicas e verificáveis sobre seu mandato nas fontes consultadas.'],
+      fontes:['https://ndmais.com.br/politica/quem-e-julio-garcia-psd-novo-presidente-da-alesc/']
+    },
+    {
+      nome:'Raimundo Colombo', partido:'PSD', coligacao:'',
+      cargoAnterior:'Governador de SC por 2 mandatos (2011–2018); candidato ao Senado em 2018 e 2022 (não eleito)',
+      scores:{A1:1,A2:0.5,A3:0.5,A4:0.5,A5:0,A6:0.5,A7:0,A8:0,A9:0,A10:0.5,A11:1,A12:0},
+      vantagens:['Contratou mais de 9.300 agentes de segurança pública (PM, Polícia Civil e bombeiros) entre 2011 e 2018.','Santa Catarina saltou da 7ª para a 2ª posição no Ranking de Competitividade dos Estados em 2017, durante seu governo.','Criou o Portal da Transparência do estado em 2012.'],
+      desvantagens:['Foi percebido por analistas políticos como um governador indeciso, "fraco diante da pressão de aliados".','Foi citado por delatores da Operação Lava Jato.','Ficou em 4º lugar na disputa ao Senado em 2018, após desgaste de sua ampla aliança política.'],
+      mandatoAnterior:{resumo:'Referente ao governo de Santa Catarina (2011–2018):',vantagens:['Contratação de mais de 9.300 agentes de segurança pública.','SC saltou da 7ª para a 2ª posição no Ranking de Competitividade dos Estados em 2017.','Criação do Portal da Transparência do estado em 2012.'],desvantagens:['Percebido como governador indeciso, "fraco diante da pressão de aliados".','Foi citado por delatores da Operação Lava Jato.','4º lugar na disputa ao Senado em 2018, após desgaste político.']},
+      fontes:['https://www.nsctotal.com.br/colunistas/upiara-boschi/o-que-explica-o-novo-estilo-de-raimundo-colombo','https://ndmais.com.br/politica/em-carta-de-renuncia-raimundo-colombo-apresenta-legado-e-projetos-leia-a-integra/']
+    },
+    {
+      nome:'Angela Amin', partido:'PP', coligacao:'',
+      cargoAnterior:'Prefeita de Florianópolis por 2 mandatos (1997–2004); ex-Deputada Federal por 3 mandatos (1991–95, 2007–11, 2019–23); ex-vereadora de Florianópolis',
+      scores:{A1:0.5,A2:0.5,A3:0.5,A4:0.5,A5:0,A6:1,A7:0,A8:-0.5,A9:-0.5,A10:0.5,A11:1,A12:0},
+      vantagens:['Erradicou a desnutrição infantil em Florianópolis durante sua gestão como prefeita.','Recebeu o prêmio da ONU "100 Best Practices in the World" pelo Programa Capital Criança, de redução da mortalidade infantil.','Foi reeleita prefeita em 2000 no 1º turno, com 57% dos votos válidos.'],
+      desvantagens:['Enfrentou resistência de lideranças partidárias internas que duvidavam de sua capacidade de liderar sozinha a gestão.'],
+      mandatoAnterior:{resumo:'Referente aos mandatos de Prefeita de Florianópolis (1997–2004):',vantagens:['Erradicação da desnutrição infantil na cidade.','Prêmio da ONU pelo Programa Capital Criança.','Reeleita em 2000 no 1º turno com 57% dos votos válidos.'],desvantagens:['Enfrentou resistência de lideranças partidárias internas.']},
+      fontes:['https://pt.wikipedia.org/wiki/%C3%82ngela_Amin']
+    },
+    {
+      nome:'Jair Renan Bolsonaro', partido:'PL', coligacao:'',
+      cargoAnterior:'Vereador de Balneário Camboriú (eleito em 2024, mandato atual)',
+      alerta:'Este candidato registrou a candidatura usando o nome de urna "Jair Bolsonaro" — o mesmo nome de seu pai, o ex-presidente Jair Bolsonaro, que está inelegível até 2030 e foi condenado a 27 anos de prisão por participação em trama golpista, e que NÃO é candidato em 2026. O candidato aqui avaliado é o filho, vereador de Balneário Camboriú.',
+      scores:{A1:1,A2:1,A3:2,A4:2,A5:1.5,A6:2,A7:1,A8:0.5,A9:1,A10:1,A11:2,A12:2},
+      vantagens:['Já ocupa mandato eletivo como vereador de Balneário Camboriú.'],
+      desvantagens:['Reduziu expressivamente sua produção legislativa em 2026 (2 projetos de lei ordinária, contra 12 no ciclo anterior), atribuída ao foco na pré-campanha federal.','Registrou a candidatura usando o nome de urna do pai, estratégia já usada nas eleições municipais de 2024.'],
+      mandatoAnterior:{resumo:'Referente ao mandato de Vereador de Balneário Camboriú (desde 2024):',vantagens:[],desvantagens:['Redução expressiva da produção legislativa em 2026 (2 projetos de lei, contra 12 no ciclo anterior), atribuída ao foco na pré-campanha federal.']},
+      fontes:['https://www.poder360.com.br/poder-eleicoes/jair-renan-anuncia-pre-candidatura-a-deputado-federal-por-sc/','https://jovempan.com.br/colunistas/bruno-pinheiro/de-olho-em-brasilia-jair-renan-reduz-atuacao-como-vereador-em-balneario-camboriu/']
+    }
+  ] },
+  deputado_estadual: { MG: [
+    {
+      nome:'Andreia de Jesus', partido:'PT', coligacao:'',
+      cargoAnterior:'Deputada Estadual de MG desde 2019 (2º mandato); primeira deputada preta retinta eleita na Assembleia Legislativa de MG',
+      scores:{A1:-1.5,A2:-1.5,A3:-1.5,A4:-1.5,A5:-1,A6:-2,A7:-1.5,A8:-1.5,A9:-1.5,A10:-1,A11:-1,A12:-1.5},
+      vantagens:['Presidiu a Comissão de Direitos Humanos da Assembleia Legislativa de MG (2023–2025).','Reeleita em 2022 com 51.120 votos.'],
+      desvantagens:['O levantamento não localizou controvérsias específicas e verificáveis sobre seu mandato nas fontes consultadas.'],
+      fontes:['https://pt.wikipedia.org/wiki/Andr%C3%A9ia_de_Jesus']
+    },
+    {
+      nome:'Bruno Engler', partido:'PL', coligacao:'',
+      cargoAnterior:'Deputado Estadual de MG; ex-candidato a prefeito de BH em 2020 (derrotado por Kalil)',
+      scores:{A1:1.5,A2:1,A3:1.5,A4:1.5,A5:0.5,A6:2,A7:1,A8:0.5,A9:0.5,A10:1,A11:1,A12:1.5},
+      vantagens:['O levantamento não localizou realizações legislativas específicas e verificáveis do mandato.'],
+      desvantagens:['Esteve ausente em 55,14% das reuniões plenárias da Assembleia Legislativa de MG em 2024.','Apresentou apenas 6 projetos de lei na legislatura iniciada em 2023, ficando na 65ª posição entre 77 deputados em número de proposições.','Votou favoravelmente a um projeto de isenção fiscal a locadoras de veículos que beneficiou sócios de uma empresa doadora da campanha de Romeu Zema.'],
+      fontes:['https://www.brasildefato.com.br/2024/10/15/ausencia-em-sessoes-e-poucas-propostas-saiba-como-e-a-atuacao-de-bruno-engler-na-almg/']
+    },
+    {
+      nome:'Sargento Rodrigues', partido:'PL', coligacao:'',
+      cargoAnterior:'Deputado Estadual de MG (7º mandato); ex-policial militar, expulso da corporação em 1997 após liderar movimento grevista da PM de MG',
+      scores:{A1:0.5,A2:0.5,A3:2,A4:2,A5:0,A6:1.5,A7:0.5,A8:0,A9:0,A10:0,A11:0.5,A12:0.5},
+      vantagens:['Preside a Comissão de Segurança Pública da Assembleia Legislativa de MG.','Autor de 37 leis aprovadas, muitas voltadas a trabalhadores da segurança pública (dado divulgado por fontes ligadas ao próprio candidato, recomenda-se verificação independente).'],
+      desvantagens:['O levantamento não localizou controvérsias específicas de fontes independentes sobre seu mandato — a principal fonte disponível é o site do próprio candidato.'],
+      fontes:['https://www.sargentorodrigues.com.br/index.php/9-biografia']
+    },
+    {
+      nome:'Macaé Evaristo', partido:'PT', coligacao:'',
+      cargoAnterior:'Deputada Estadual de MG desde 2023; foi Ministra dos Direitos Humanos e Cidadania (set/2024–mar/2026); ex-Secretária Municipal de Educação de BH e ex-Secretária Estadual de Educação de MG',
+      scores:{A1:-1.5,A2:-1.5,A3:-1,A4:-1.5,A5:-1,A6:-1.5,A7:-2,A8:-1.5,A9:-1.5,A10:-1,A11:-1,A12:-1.5},
+      vantagens:['Trajetória consolidada em gestão educacional em três níveis de governo (municipal, estadual e federal).','Foi a primeira mulher negra a ocupar a Secretaria Municipal de Educação de BH.'],
+      desvantagens:['O levantamento não localizou controvérsias específicas e verificáveis sobre sua gestão nas fontes consultadas.'],
+      mandatoAnterior:{resumo:'Referente à passagem pelo Ministério dos Direitos Humanos e Cidadania (set/2024–mar/2026):',vantagens:['Trajetória consolidada em gestão educacional em três níveis de governo.'],desvantagens:['O levantamento não localizou controvérsias específicas e verificáveis nas fontes consultadas.']},
+      fontes:['https://www.gov.br/mdh/pt-br/assuntos/noticias/2024/setembro/macae-evaristo-e-nomeada-ministra-dos-direitos-humanos-e-da-cidadania']
+    },
+    {
+      nome:'Doorgal Andrada', partido:'PP', coligacao:'',
+      cargoAnterior:'Deputado Estadual de MG desde 2018; ex-vereador de BH eleito aos 23 anos; oficial da reserva do Exército',
+      scores:{A1:1,A2:0.5,A3:1.5,A4:1.5,A5:0.5,A6:1.5,A7:0.5,A8:0,A9:0,A10:0.5,A11:1,A12:1},
+      vantagens:['Vice-líder do bloco independente na Assembleia Legislativa de MG.','Longa trajetória política, eleito vereador de BH ainda jovem.'],
+      desvantagens:['Posições detalhadas sobre a maioria dos 12 eixos avaliados não foram localizadas nas fontes consultadas; estimadas a partir do perfil partidário e de formação militar.'],
+      fontes:['https://doorgalandrada.com.br/site/?inc=biografia.php']
+    },
+    {
+      nome:'Delegada Sheila', partido:'PL', coligacao:'',
+      cargoAnterior:'Deputada Estadual de MG desde 2019 (2º mandato); delegada de polícia civil desde 2006 em Ubá e Juiz de Fora',
+      scores:{A1:0.5,A2:0.5,A3:1.5,A4:2,A5:0,A6:1.5,A7:0.5,A8:0,A9:0,A10:0,A11:0.5,A12:0.5},
+      vantagens:['Participou de operações de combate à pedofilia infantojuvenil ("Luz na Infância 1 e 2") como delegada.','Foi a primeira mulher titular da 1ª Delegacia Regional de Polícia Civil de Juiz de Fora.'],
+      desvantagens:['O levantamento não localizou controvérsias específicas e verificáveis sobre seu mandato nas fontes consultadas.'],
+      fontes:['https://pt.wikipedia.org/wiki/Delegada_Sheila']
+    },
+    {
+      nome:'Cristiano Silveira', partido:'PT', coligacao:'',
+      cargoAnterior:'Deputado Estadual de MG desde 2015; preside o Diretório Estadual do PT-MG desde 2019; líder da minoria/oposição na ALMG desde 2025',
+      scores:{A1:-1.5,A2:-1.5,A3:-1,A4:-1.5,A5:-1,A6:-1.5,A7:-1.5,A8:-1.5,A9:-1.5,A10:-1.5,A11:-1,A12:-1.5},
+      vantagens:['Preside o Diretório Estadual do PT-MG desde 2019.','Atua como líder da oposição na Assembleia Legislativa de MG, com crítica pública recorrente ao governo estadual.'],
+      desvantagens:['O levantamento não localizou controvérsias específicas e verificáveis sobre seu mandato nas fontes consultadas.'],
+      fontes:['https://pt.wikipedia.org/wiki/Cristiano_Silveira']
+    },
+    {
+      nome:'Arlen Santiago', partido:'MDB', coligacao:'',
+      cargoAnterior:'Deputado Estadual de MG desde 1999 (7º mandato); médico, advogado e empresário; ex-vice-prefeito de Montes Claros e ex-prefeito de Coração de Jesus',
+      scores:{A1:0,A2:0,A3:0,A4:0,A5:0,A6:0,A7:0,A8:-1,A9:0,A10:0,A11:0.5,A12:0},
+      vantagens:['Presidiu a Comissão de Saúde da Assembleia Legislativa de MG (2015–2016).','Foi o 6º deputado estadual mais votado de MG em 2022 (107.236 votos).'],
+      desvantagens:['Perfil pragmático e regionalista, sem posições ideológicas fortes documentadas na maioria dos 12 eixos avaliados.'],
+      fontes:['https://pt.wikipedia.org/wiki/Arlen_Santiago']
+    }
+  ], SC: [
+    {
+      nome:'Ana Campagnolo', partido:'PL', coligacao:'',
+      cargoAnterior:'Deputada Estadual de SC desde 2019 (2º mandato, a mais votada da história da Alesc com 196.571 votos em 2022); foi Secretária de Modalidade de Educação Escolar Indígena, do Campo e Quilombola no MEC durante o governo Bolsonaro',
+      scores:{A1:1,A2:1,A3:1.5,A4:1.5,A5:1,A6:2,A7:1.5,A8:0.5,A9:1,A10:1,A11:1.5,A12:2},
+      vantagens:['Foi a deputada estadual mais votada da história da Assembleia Legislativa de SC, com 196.571 votos em 2022.','Professora e escritora, com plataforma consistente em torno do movimento "Escola sem Partido".'],
+      desvantagens:['Defende restringir a discussão de temas de gênero na escola pública, posição criticada por educadores e movimentos LGBTQIA+.'],
+      fontes:['https://en.wikipedia.org/wiki/Ana_Caroline_Campagnolo']
+    },
+    {
+      nome:'Marquito', partido:'PSOL', coligacao:'',
+      cargoAnterior:'Deputado Estadual de SC desde 2022 (1º mandato); preside a Comissão de Meio Ambiente e Desenvolvimento Sustentável da Alesc; ex-vereador de Florianópolis por 6 anos',
+      scores:{A1:-1.5,A2:-1.5,A3:-1,A4:-1.5,A5:-2,A6:-1.5,A7:-1.5,A8:-1.5,A9:-1.5,A10:-1.5,A11:-2,A12:-1},
+      vantagens:['Autor de leis pioneiras: Lei de Compostagem, Política Municipal de Agroecologia e a "Zona Livre de Agrotóxicos" de Florianópolis.','Autor da Lei dos Direitos da Natureza, apresentada como referência internacional na ONU em 2022.','Representou a Assembleia Legislativa de SC na COP30, em Belém.'],
+      desvantagens:['O levantamento não localizou controvérsias específicas e verificáveis sobre seu mandato nas fontes consultadas.'],
+      fontes:['https://marquitoagroecologia.com/mandato/']
+    },
+    {
+      nome:'Luciane Carminatti', partido:'PT', coligacao:'',
+      cargoAnterior:'Deputada Estadual de SC (múltiplos mandatos)',
+      scores:{A1:-1.5,A2:-1.5,A3:-1.5,A4:-1.5,A5:-1,A6:-1.5,A7:-1,A8:-1.5,A9:-1.5,A10:-1.5,A11:-1,A12:-1.5},
+      vantagens:['Autora de projetos de combate à violência doméstica e de promoção da igualdade salarial entre homens e mulheres.','Criou o programa "Escola de Mulheres" voltado à capacitação política feminina.'],
+      desvantagens:['O levantamento não localizou controvérsias específicas e verificáveis sobre seu mandato nas fontes consultadas.'],
+      fontes:['https://lucianecarminatti.com.br/']
+    },
+    {
+      nome:'Neodi Saretta', partido:'PT', coligacao:'',
+      cargoAnterior:'Deputado Estadual de SC (6 mandatos: 1995, 1999, 2010, 2014, 2018, 2022); ex-Prefeito de Concórdia',
+      scores:{A1:-1.5,A2:-1.5,A3:-1.5,A4:-1.5,A5:-1,A6:-1.5,A7:-1.5,A8:-1.5,A9:-1.5,A10:-1.5,A11:-1,A12:-1.5},
+      vantagens:['Seis mandatos consecutivos como deputado estadual indicam base eleitoral extremamente consolidada no Oeste catarinense.','Experiência de gestão executiva como ex-prefeito de Concórdia.'],
+      desvantagens:['O levantamento não localizou controvérsias específicas e verificáveis sobre seu mandato nas fontes consultadas.'],
+      fontes:['https://pt.org.br/neodi-saretta/']
+    },
+    {
+      nome:'Fabiano da Luz', partido:'PT', coligacao:'',
+      cargoAnterior:'Deputado Estadual de SC desde 2019 (2º mandato); ex-Prefeito de Pinhalzinho (2009–2016); preside o PT-SC',
+      scores:{A1:-1.5,A2:-1.5,A3:-1.5,A4:-1.5,A5:-1,A6:-1.5,A7:-1,A8:-1.5,A9:-1.5,A10:-1.5,A11:-1,A12:-1.5},
+      vantagens:['Recebeu o prêmio "Prefeito Educador do Brasil" em 2012.','1º lugar regional no Prêmio Município Sustentável em 2014.','Recebeu o prêmio "Prefeito Empreendedor" do Sebrae/SC em 2015.'],
+      desvantagens:['O levantamento não localizou controvérsias específicas e verificáveis sobre sua gestão em Pinhalzinho nas fontes consultadas.'],
+      mandatoAnterior:{resumo:'Referente ao mandato de Prefeito de Pinhalzinho (2009–2016):',vantagens:['Prêmio "Prefeito Educador do Brasil" (2012).','1º lugar regional no Prêmio Município Sustentável (2014).','Prêmio "Prefeito Empreendedor" do Sebrae/SC (2015).'],desvantagens:['O levantamento não localizou controvérsias específicas e verificáveis nas fontes consultadas.']},
+      fontes:['https://pt.wikipedia.org/wiki/Fabiano_da_Luz']
+    },
+    {
+      nome:'Napoleão Bernardes', partido:'PSD', coligacao:'',
+      cargoAnterior:'Deputado Estadual de SC desde 2022, líder do bloco PSD/União/PTB na Alesc; ex-Prefeito de Blumenau por 2 mandatos (2013–2019, o mais jovem da história da cidade)',
+      scores:{A1:1,A2:0.5,A3:0.5,A4:0.5,A5:0,A6:0.5,A7:0,A8:0,A9:0,A10:0.5,A11:1,A12:0},
+      vantagens:['Foi o prefeito mais jovem da história de Blumenau, com dois mandatos consecutivos.','Lidera o bloco PSD/União/PTB na Assembleia Legislativa de SC, com capacidade de articulação política.'],
+      desvantagens:['Posições detalhadas sobre a maioria dos 12 eixos avaliados não foram localizadas nas fontes consultadas; estimadas a partir do perfil partidário centrista.'],
+      fontes:['https://memoriapolitica.alesc.sc.gov.br/biografia/1417-Napoleao_Bernardes']
+    },
+    {
+      nome:'Rodrigo Minotto', partido:'PDT', coligacao:'',
+      cargoAnterior:'Deputado Estadual de SC',
+      scores:{A1:-1,A2:-1,A3:-0.5,A4:-0.5,A5:-0.5,A6:-1,A7:-1,A8:-1,A9:-1,A10:-1,A11:-0.5,A12:-1},
+      vantagens:['Representa a linha trabalhista/brizolista de centro-esquerda na Assembleia Legislativa de SC.'],
+      desvantagens:['Posições detalhadas sobre a maioria dos 12 eixos avaliados não foram localizadas nas fontes consultadas; estimadas com baixa confiança a partir da linha partidária.'],
+      fontes:['https://www.alesc.sc.gov.br/deputados/rodrigo-minotto']
+    },
+    {
+      nome:'Ivan Naatz', partido:'PL', coligacao:'',
+      cargoAnterior:'Deputado Estadual de SC, buscando 3º mandato consecutivo; líder do PL na Alesc',
+      scores:{A1:1,A2:1,A3:1.5,A4:1.5,A5:1,A6:1.5,A7:1,A8:0.5,A9:1,A10:1,A11:1.5,A12:1.5},
+      vantagens:['Líder do PL na Assembleia Legislativa de SC, com capacidade de articulação política.','Perfil descrito como voltado a emendas parlamentares e demandas municipais.'],
+      desvantagens:['Posições detalhadas sobre a maioria dos 12 eixos avaliados não foram localizadas nas fontes consultadas; estimadas a partir da linha partidária.'],
+      fontes:['https://www.mesorregional.com.br/ivan-naatz-tem-candidatura-a-reeleicao-homologada-pelo-pl/']
+    },
+    {
+      nome:'Marcos Vieira', partido:'PSDB', coligacao:'',
+      cargoAnterior:'Deputado Estadual de SC desde 2007 (6º mandato); preside a Comissão de Finanças e Tributação da Alesc há 12 anos consecutivos; presidente estadual do PSDB e vice-presidente nacional do partido',
+      scores:{A1:1,A2:0,A3:0.5,A4:0.5,A5:0,A6:0.5,A7:0.5,A8:0,A9:0,A10:0.5,A11:1,A12:-0.5},
+      vantagens:['Preside a Comissão de Finanças e Tributação da Assembleia Legislativa de SC há 12 anos consecutivos, perfil técnico em orçamento público.','Seis mandatos consecutivos indicam base eleitoral extremamente consolidada.'],
+      desvantagens:['Posições detalhadas sobre a maioria dos 12 eixos avaliados não foram localizadas nas fontes consultadas; estimadas a partir do perfil histórico social-democrata do PSDB.'],
+      fontes:['https://pt.wikipedia.org/wiki/Marcos_Vieira']
+    },
+    {
+      nome:'Jessé Lopes', partido:'PL', coligacao:'',
+      cargoAnterior:'Deputado Estadual de SC (2º mandato, eleito 1ª vez em 2018 pelo PSL, reeleito em 2022 com 55.013 votos)',
+      scores:{A1:1,A2:1,A3:1.5,A4:2,A5:1,A6:1.5,A7:1,A8:0.5,A9:1,A10:1,A11:1.5,A12:1.5},
+      vantagens:['Atuação declarada em defesa da valorização das forças de segurança pública e no combate às drogas.'],
+      desvantagens:['Posições detalhadas sobre os demais eixos avaliados não foram localizadas nas fontes consultadas; estimadas a partir da linha partidária.'],
+      fontes:['https://www.partidoliberalsc.com.br/team/deputado-estadual-jess%C3%A9-lopes']
+    },
+    {
+      nome:'Fernando Krelling', partido:'MDB', coligacao:'',
+      cargoAnterior:'Deputado Estadual de SC desde 2018 (3º mandato, reeleito em 2022 com 54.320 votos); ex-vereador de Joinville, ex-presidente da Câmara de Vereadores',
+      scores:{A1:0.5,A2:0,A3:0.5,A4:0.5,A5:0,A6:0.5,A7:0,A8:0,A9:0,A10:0.5,A11:0.5,A12:0},
+      vantagens:['Foi o vereador mais votado de Joinville em 2016 e presidiu a Câmara de Vereadores.','Três mandatos consecutivos como deputado estadual.'],
+      desvantagens:['Posições detalhadas sobre a maioria dos 12 eixos avaliados não foram localizadas nas fontes consultadas; estimadas a partir do perfil partidário centrista.'],
+      fontes:['https://pt.wikipedia.org/wiki/Fernando_Krelling']
+    },
+    {
+      nome:'Pepê Collaço', partido:'PP', coligacao:'',
+      cargoAnterior:'Deputado Estadual de SC, preside a Comissão de Constituição e Justiça (CCJ) da Alesc; ex-vereador, ex-presidente da Câmara, ex-vice-prefeito e ex-prefeito de Tubarão',
+      scores:{A1:1,A2:0.5,A3:1,A4:1,A5:0.5,A6:1,A7:0.5,A8:0,A9:0,A10:0.5,A11:1,A12:0.5},
+      vantagens:['Preside a Comissão de Constituição e Justiça da Assembleia Legislativa de SC.','Coordena a Frente Parlamentar em Defesa da Pessoa com Autismo.','Experiência de gestão executiva como ex-prefeito de Tubarão.'],
+      desvantagens:['Posições detalhadas sobre a maioria dos 12 eixos avaliados não foram localizadas nas fontes consultadas; estimadas a partir do perfil partidário.'],
+      fontes:['https://www.pepecollaco.com/']
+    }
+  ] },
 };
 const DATASET_META = {
-  atualizado_em: '',
-  totais_estimados: {} // ex: {deputado_federal_MG: 700}
+  atualizado_em: '28 de agosto de 2026',
+};
+
+const OFFICE_NOTES = {
+  presidente: 'Há 13 candidaturas registradas ao todo (TSE). Além dos 7 candidatos comparados aqui, também estão registrados: Edmilson Costa (PCB), Hertz Dias (PSTU), Samara Martins (UP), Rui Costa Pimenta (PCO), Wilson Grassi Júnior (Democrata) e Clariana Barão (DC) — não incluídos no comparador por não terem plano de governo detalhado disponível nas fontes consultadas.',
+  governador: {
+    MG: 'Todos os 11 candidatos oficialmente registrados ao governo de Minas Gerais estão incluídos no comparador.',
+    SC: 'Todos os 8 candidatos oficialmente registrados ao governo de Santa Catarina estão incluídos no comparador.'
+  },
+  senador: {
+    MG: 'De 17 candidatos registrados ao Senado por MG (2 vagas), 8 têm cobertura jornalística suficiente e estão no comparador. Os outros 9 (Ana Luiza do MLB, Arcanjo Pimenta, Fidélis Alcântara, Jordano Metalúrgico, Juiz Ramon Moreira, Manoel Carvalho, Marco Antônio "Superman", Tião Pessoa e Victória Mello) não têm plataforma detalhada disponível nas fontes consultadas. Observação: havia notícias de pressão para que Aécio Neves (PSDB) disputasse uma vaga, mas ele não consta na lista oficial de registrados apurada após o prazo — não incluído.',
+    SC: 'De 13 candidatos registrados ao Senado por SC (2 vagas), 7 têm cobertura jornalística suficiente e estão no comparador. Os outros 6 (Ana Lucia da Silveira Machado, Caroline Sant\'Anna, Joaninha de Oliveira, Marcos Dorval, Marlenne Soccas e Túlio Pfuetzenreiter) não têm plataforma detalhada disponível nas fontes consultadas.'
+  },
+  deputado_federal: {
+    MG: 'MG tem 749 candidatos registrados para 53 vagas de Deputado Federal — é inviável avaliar todos individualmente. Selecionamos 11 nomes de maior relevância e cobertura pública (majoritariamente atuais deputados buscando reeleição).',
+    SC: 'SC tem cerca de 229 candidatos registrados para 16 vagas de Deputado Federal — é inviável avaliar todos individualmente. Selecionamos 12 nomes de maior relevância e cobertura pública (majoritariamente atuais deputados buscando reeleição).'
+  },
+  deputado_estadual: {
+    MG: 'MG tem 988 candidatos registrados para 77 vagas de Deputado Estadual — é inviável avaliar todos individualmente. Selecionamos os 8 nomes com cobertura jornalística mais robusta entre os 68 deputados atuais que buscam reeleição.',
+    SC: 'SC tem cerca de 411 candidatos registrados para 40 vagas de Deputado Estadual — é inviável avaliar todos individualmente. Selecionamos 12 nomes de maior relevância e cobertura pública (majoritariamente atuais deputados buscando reeleição).'
+  }
 };
 
 /* ============================================================
@@ -438,10 +1449,18 @@ function initials(name){
   return name.split(' ').filter(Boolean).slice(0,2).map(w=>w[0]).join('').toUpperCase();
 }
 
+function getOfficeNote(office){
+  const n = OFFICE_NOTES[office];
+  if(!n) return '';
+  if(typeof n === 'string') return n;
+  return n[state.region] || '';
+}
+
 function renderCandList(){
   const list = getOfficeList(currentOffice).slice();
   const container = el('cand-list');
   container.innerHTML = '';
+  el('office-note').textContent = getOfficeNote(currentOffice);
   if(list.length===0){
     const note = document.createElement('div');
     note.className = 'empty-note';
@@ -493,7 +1512,12 @@ function openModal(cand, pct){
   const pros = (cand.vantagens||[]).map(v=>`<li>${v}</li>`).join('');
   const cons = (cand.desvantagens||[]).map(v=>`<li>${v}</li>`).join('');
 
-  let mandatoHtml = '<p class="no-record">Este(a) candidato(a) não ocupou cargo eletivo anteriormente, segundo o levantamento realizado.</p>';
+  let mandatoHtml;
+  if(!cand.cargoAnterior || /nunca ocupou/i.test(cand.cargoAnterior)){
+    mandatoHtml = '<p class="no-record">Este(a) candidato(a) não ocupou cargo eletivo anteriormente, segundo o levantamento realizado.</p>';
+  } else {
+    mandatoHtml = '<p class="no-record">O levantamento não encontrou uma avaliação detalhada (vantagens/desvantagens) do histórico de gestão deste(a) candidato(a) nas fontes consultadas até o momento.</p>';
+  }
   if(cand.mandatoAnterior){
     const mp = (cand.mandatoAnterior.vantagens||[]).map(v=>`<li>${v}</li>`).join('');
     const mc = (cand.mandatoAnterior.desvantagens||[]).map(v=>`<li>${v}</li>`).join('');
@@ -522,6 +1546,7 @@ function openModal(cand, pct){
       </div>
       <div class="modal-body">
         <span class="match-pill">${pct}% de afinidade com suas respostas</span>
+        ${cand.alerta ? `<div class="alert-box">⚠️ ${cand.alerta}</div>` : ''}
 
         <div class="tabbar">
           <button data-tab="perfil" class="active">Perfil</button>

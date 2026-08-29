@@ -155,6 +155,9 @@
     <div class="region-select" id="region-select">
       <button class="region-btn" data-region="MG"><div class="uf">MG</div><div class="name">Minas Gerais</div></button>
       <button class="region-btn" data-region="SC"><div class="uf">SC</div><div class="name">Santa Catarina</div></button>
+      <button class="region-btn" data-region="SP"><div class="uf">SP</div><div class="name">São Paulo</div></button>
+      <button class="region-btn" data-region="RJ"><div class="uf">RJ</div><div class="name">Rio de Janeiro</div></button>
+      <button class="region-btn" data-region="BA"><div class="uf">BA</div><div class="name">Bahia</div></button>
     </div>
 
     <div class="disclaimer">
@@ -718,7 +721,7 @@ const CANDIDATES = {
       desvantagens:['Nunca ocupou cargo público eletivo.','Propostas específicas e detalhadas não foram localizadas nas fontes consultadas além de sua ligação com o movimento de moradia.'],
       fontes:['https://www.gazetadopovo.com.br/eleicoes/2026/santa-catarina-2026/quem-sao-candidatos-governador-santa-catarina-2026/']
     }
-  ] },
+  ], SP: [], RJ: [], BA: [] },
   senador: { MG: [
     {
       nome:'Carlos Viana', partido:'PSD',
@@ -928,7 +931,7 @@ const CANDIDATES = {
       desvantagens:['Nunca ocupou cargo público eletivo.','Declarou em convenção partidária que ministros do STF "precisam de um freio" e defendeu limitar atribuições do Judiciário.'],
       fontes:['https://ndmais.com.br/politica/pre-candidato-ao-senado-pelo-prd-em-sc-propoe-teto-de-12-nos-juros-rurais-para-socorrer-o-agro-catarinense/']
     }
-  ] },
+  ], SP: [], RJ: [], BA: [] },
   deputado_federal:  { MG: [
     {
       nome:'Nikolas Ferreira', partido:'PL', coligacao:'',
@@ -1125,7 +1128,7 @@ const CANDIDATES = {
       mandatoAnterior:{resumo:'Referente ao mandato de Vereador de Balneário Camboriú (desde 2024):',vantagens:[],desvantagens:['Redução expressiva da produção legislativa em 2026 (2 projetos de lei, contra 12 no ciclo anterior), atribuída ao foco na pré-campanha federal.']},
       fontes:['https://www.poder360.com.br/poder-eleicoes/jair-renan-anuncia-pre-candidatura-a-deputado-federal-por-sc/','https://jovempan.com.br/colunistas/bruno-pinheiro/de-olho-em-brasilia-jair-renan-reduz-atuacao-como-vereador-em-balneario-camboriu/']
     }
-  ] },
+  ], SP: [], RJ: [], BA: [] },
   deputado_estadual: { MG: [
     {
       nome:'Andreia de Jesus', partido:'PT', coligacao:'',
@@ -1290,7 +1293,7 @@ const CANDIDATES = {
       desvantagens:['Posições detalhadas sobre a maioria dos 12 eixos avaliados não foram localizadas nas fontes consultadas; estimadas a partir do perfil partidário.'],
       fontes:['https://www.pepecollaco.com/']
     }
-  ] },
+  ], SP: [], RJ: [], BA: [] },
 };
 const DATASET_META = {
   atualizado_em: '28 de agosto de 2026',
@@ -1300,19 +1303,23 @@ const OFFICE_NOTES = {
   presidente: 'Há 13 candidaturas registradas ao todo (TSE). Além dos 7 candidatos comparados aqui, também estão registrados: Edmilson Costa (PCB), Hertz Dias (PSTU), Samara Martins (UP), Rui Costa Pimenta (PCO), Wilson Grassi Júnior (Democrata) e Clariana Barão (DC) — não incluídos no comparador por não terem plano de governo detalhado disponível nas fontes consultadas.',
   governador: {
     MG: 'Todos os 11 candidatos oficialmente registrados ao governo de Minas Gerais estão incluídos no comparador.',
-    SC: 'Todos os 8 candidatos oficialmente registrados ao governo de Santa Catarina estão incluídos no comparador.'
+    SC: 'Todos os 8 candidatos oficialmente registrados ao governo de Santa Catarina estão incluídos no comparador.',
+    SP: '', RJ: '', BA: ''
   },
   senador: {
     MG: 'De 17 candidatos registrados ao Senado por MG (2 vagas), 8 têm cobertura jornalística suficiente e estão no comparador. Os outros 9 (Ana Luiza do MLB, Arcanjo Pimenta, Fidélis Alcântara, Jordano Metalúrgico, Juiz Ramon Moreira, Manoel Carvalho, Marco Antônio "Superman", Tião Pessoa e Victória Mello) não têm plataforma detalhada disponível nas fontes consultadas. Observação: havia notícias de pressão para que Aécio Neves (PSDB) disputasse uma vaga, mas ele não consta na lista oficial de registrados apurada após o prazo — não incluído.',
-    SC: 'De 13 candidatos registrados ao Senado por SC (2 vagas), 7 têm cobertura jornalística suficiente e estão no comparador. Os outros 6 (Ana Lucia da Silveira Machado, Caroline Sant\'Anna, Joaninha de Oliveira, Marcos Dorval, Marlenne Soccas e Túlio Pfuetzenreiter) não têm plataforma detalhada disponível nas fontes consultadas.'
+    SC: 'De 13 candidatos registrados ao Senado por SC (2 vagas), 7 têm cobertura jornalística suficiente e estão no comparador. Os outros 6 (Ana Lucia da Silveira Machado, Caroline Sant\'Anna, Joaninha de Oliveira, Marcos Dorval, Marlenne Soccas e Túlio Pfuetzenreiter) não têm plataforma detalhada disponível nas fontes consultadas.',
+    SP: '', RJ: '', BA: ''
   },
   deputado_federal: {
     MG: 'MG tem 749 candidatos registrados para 53 vagas de Deputado Federal — é inviável avaliar todos individualmente. Selecionamos 11 nomes de maior relevância e cobertura pública (majoritariamente atuais deputados buscando reeleição).',
-    SC: 'SC tem cerca de 229 candidatos registrados para 16 vagas de Deputado Federal — é inviável avaliar todos individualmente. Selecionamos 12 nomes de maior relevância e cobertura pública (majoritariamente atuais deputados buscando reeleição).'
+    SC: 'SC tem cerca de 229 candidatos registrados para 16 vagas de Deputado Federal — é inviável avaliar todos individualmente. Selecionamos 12 nomes de maior relevância e cobertura pública (majoritariamente atuais deputados buscando reeleição).',
+    SP: '', RJ: '', BA: ''
   },
   deputado_estadual: {
     MG: 'MG tem 988 candidatos registrados para 77 vagas de Deputado Estadual — é inviável avaliar todos individualmente. Selecionamos os 8 nomes com cobertura jornalística mais robusta entre os 68 deputados atuais que buscam reeleição.',
-    SC: 'SC tem cerca de 411 candidatos registrados para 40 vagas de Deputado Estadual — é inviável avaliar todos individualmente. Selecionamos 12 nomes de maior relevância e cobertura pública (majoritariamente atuais deputados buscando reeleição).'
+    SC: 'SC tem cerca de 411 candidatos registrados para 40 vagas de Deputado Estadual — é inviável avaliar todos individualmente. Selecionamos 12 nomes de maior relevância e cobertura pública (majoritariamente atuais deputados buscando reeleição).',
+    SP: '', RJ: '', BA: ''
   }
 };
 
@@ -1323,12 +1330,14 @@ let state = { region:null, idx:0, answers:new Array(QUESTIONS.length).fill(null)
 
 const el = id => document.getElementById(id);
 
+const REGION_NAMES = { MG:'Minas Gerais', SC:'Santa Catarina', SP:'São Paulo', RJ:'Rio de Janeiro', BA:'Bahia' };
+
 document.querySelectorAll('.region-btn').forEach(btn=>{
   btn.addEventListener('click', ()=>{
     document.querySelectorAll('.region-btn').forEach(b=>b.classList.remove('selected'));
     btn.classList.add('selected');
     state.region = btn.dataset.region;
-    el('region-badge').textContent = 'Região: ' + (state.region==='MG' ? 'Minas Gerais' : 'Santa Catarina');
+    el('region-badge').textContent = 'Região: ' + REGION_NAMES[state.region];
     el('btn-start').disabled = false;
   });
 });
@@ -1415,7 +1424,7 @@ function finishQuiz(){
   userScores = computeUserAxisScores();
   el('screen-quiz').classList.add('hidden');
   el('screen-results').classList.remove('hidden');
-  el('results-region-note').textContent = 'Região selecionada: ' + (state.region==='MG' ? 'Minas Gerais' : 'Santa Catarina') + ' · Presidente é o mesmo em qualquer região.';
+  el('results-region-note').textContent = 'Região selecionada: ' + REGION_NAMES[state.region] + ' · Presidente é o mesmo em qualquer região.';
   renderOfficeTabs();
   renderCandList();
 }

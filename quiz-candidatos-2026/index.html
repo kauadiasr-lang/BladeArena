@@ -41,6 +41,10 @@
   #screen-intro p.lead{color:var(--text-dim);margin:0 0 20px;font-size:15px;}
   .disclaimer{background:var(--bg-soft);border:1px solid var(--border);border-radius:10px;padding:14px 16px;font-size:13px;color:var(--text-dim);margin:18px 0;}
   .disclaimer b{color:var(--text);}
+  .resume-banner{background:rgba(47,191,113,.08);border:1px solid var(--accent);border-radius:10px;padding:16px;margin:0 0 20px;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;}
+  .resume-text{font-size:13.5px;color:var(--text-dim);flex:1;min-width:200px;}
+  .resume-text b{display:block;color:var(--text);font-size:14.5px;margin-bottom:3px;}
+  .resume-buttons{display:flex;gap:10px;flex-wrap:wrap;}
   .region-select{display:flex;gap:12px;margin:18px 0 24px;flex-wrap:wrap;}
   .region-btn{flex:1;min-width:140px;background:var(--bg-soft);border:2px solid var(--border);border-radius:12px;padding:16px;text-align:left;cursor:pointer;color:var(--text);transition:.15s;}
   .region-btn:hover{border-color:var(--accent-2);}
@@ -110,7 +114,10 @@
   .tabpane{display:none;}
   .tabpane.active{display:block;}
   .axis-row{margin-bottom:14px;}
-  .axis-row .lbl{display:flex;justify-content:space-between;font-size:11px;color:var(--text-dim);margin-bottom:4px;}
+  .axis-row .lbl{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;font-size:11px;color:var(--text-dim);margin-bottom:4px;}
+  .axis-row .lbl span:nth-child(1){text-align:left;}
+  .axis-row .lbl span:nth-child(2){text-align:center;font-weight:600;}
+  .axis-row .lbl span:nth-child(3){text-align:right;}
   .axis-track{position:relative;height:10px;background:var(--bg-soft);border-radius:999px;}
   .axis-track .mid{position:absolute;left:50%;top:-3px;bottom:-3px;width:1px;background:var(--border);}
   .axis-dot{position:absolute;top:50%;width:12px;height:12px;border-radius:50%;transform:translate(-50%,-50%);border:2px solid var(--bg);}
@@ -148,6 +155,14 @@
   <section id="screen-intro" class="card">
     <h2>Descubra com quais candidatos você mais se identifica</h2>
     <p class="lead">Responda a 50 afirmações sobre temas políticos. Ao final, você verá o candidato mais alinhado com você em cada cargo — Presidente, Governador, Senador, Deputado Federal e Deputado Estadual — com base nas eleições de 2026.</p>
+
+    <div class="resume-banner hidden" id="resume-banner">
+      <div class="resume-text"><b>Você tem um progresso salvo neste aparelho.</b><span id="resume-detail"></span></div>
+      <div class="resume-buttons">
+        <button class="btn btn-primary" id="btn-resume">Continuar de onde parei</button>
+        <button class="btn btn-ghost" id="btn-resume-clear">Começar do zero</button>
+      </div>
+    </div>
 
     <div class="steps">
       <div class="step"><b>1. Escolha sua região</b>Os candidatos a cargos estaduais mudam conforme o estado.</div>
@@ -2342,13 +2357,45 @@ const el = id => document.getElementById(id);
 
 const REGION_NAMES = { MG:'Minas Gerais', SC:'Santa Catarina', SP:'São Paulo', RJ:'Rio de Janeiro', BA:'Bahia' };
 
+/* ============================================================
+   PERSISTÊNCIA (localStorage) — salva o progresso automaticamente
+   ============================================================ */
+const STORAGE_KEY = 'bussola2026_progress_v1';
+
+function saveState(){
+  try{
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({
+      region: state.region, idx: state.idx, answers: state.answers
+    }));
+  }catch(e){ /* localStorage indisponível (modo privado, etc.) — segue sem salvar */ }
+}
+
+function loadSavedState(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(!raw) return null;
+    const parsed = JSON.parse(raw);
+    if(!parsed || !Array.isArray(parsed.answers) || parsed.answers.length !== QUESTIONS.length) return null;
+    if(!REGION_NAMES[parsed.region]) return null;
+    return parsed;
+  }catch(e){ return null; }
+}
+
+function clearSavedState(){
+  try{ localStorage.removeItem(STORAGE_KEY); }catch(e){ /* ignora */ }
+}
+
+function selectRegionUI(region){
+  document.querySelectorAll('.region-btn').forEach(b=>b.classList.toggle('selected', b.dataset.region===region));
+  state.region = region;
+  el('region-badge').textContent = 'Região: ' + REGION_NAMES[region];
+  el('btn-start').disabled = false;
+}
+
 document.querySelectorAll('.region-btn').forEach(btn=>{
   btn.addEventListener('click', ()=>{
-    document.querySelectorAll('.region-btn').forEach(b=>b.classList.remove('selected'));
-    btn.classList.add('selected');
-    state.region = btn.dataset.region;
-    el('region-badge').textContent = 'Região: ' + REGION_NAMES[state.region];
-    el('btn-start').disabled = false;
+    selectRegionUI(btn.dataset.region);
+    saveState();
   });
 });
 
@@ -2356,7 +2403,35 @@ el('btn-start').addEventListener('click', ()=>{
   el('screen-intro').classList.add('hidden');
   el('screen-quiz').classList.remove('hidden');
   renderQuestion();
+  saveState();
 });
+
+(function initResumeBanner(){
+  const saved = loadSavedState();
+  const answeredCount = saved ? saved.answers.filter(a=>a!==null && a!==undefined).length : 0;
+  if(!saved || answeredCount===0) return;
+  el('resume-banner').classList.remove('hidden');
+  const allAnswered = answeredCount === QUESTIONS.length;
+  el('resume-detail').textContent = allAnswered
+    ? `Você já respondeu todas as 50 perguntas (região: ${REGION_NAMES[saved.region]}). Veja seus resultados ou comece de novo.`
+    : `${answeredCount} de ${QUESTIONS.length} perguntas respondidas (região: ${REGION_NAMES[saved.region]}).`;
+  el('btn-resume').textContent = allAnswered ? 'Ver meus resultados' : 'Continuar de onde parei';
+  el('btn-resume').addEventListener('click', ()=>{
+    state = { region: saved.region, idx: Math.min(saved.idx, QUESTIONS.length-1), answers: saved.answers.slice() };
+    selectRegionUI(state.region);
+    if(allAnswered){
+      finishQuiz();
+    } else {
+      el('screen-intro').classList.add('hidden');
+      el('screen-quiz').classList.remove('hidden');
+      renderQuestion();
+    }
+  });
+  el('btn-resume-clear').addEventListener('click', ()=>{
+    clearSavedState();
+    el('resume-banner').classList.add('hidden');
+  });
+})();
 
 function renderQuestion(){
   const q = QUESTIONS[state.idx];
@@ -2386,6 +2461,7 @@ function renderQuestion(){
       if(state.idx < QUESTIONS.length-1){
         state.idx++;
         renderQuestion();
+        saveState();
       } else {
         finishQuiz();
       }
@@ -2397,10 +2473,10 @@ function renderQuestion(){
 }
 
 el('btn-back').addEventListener('click', ()=>{
-  if(state.idx>0){ state.idx--; renderQuestion(); }
+  if(state.idx>0){ state.idx--; renderQuestion(); saveState(); }
 });
 el('btn-skip').addEventListener('click', ()=>{
-  if(state.idx < QUESTIONS.length-1){ state.idx++; renderQuestion(); }
+  if(state.idx < QUESTIONS.length-1){ state.idx++; renderQuestion(); saveState(); }
   else finishQuiz();
 });
 
@@ -2439,6 +2515,8 @@ let currentOffice = 'presidente';
 
 function finishQuiz(){
   userScores = computeUserAxisScores();
+  saveState();
+  el('screen-intro').classList.add('hidden');
   el('screen-quiz').classList.add('hidden');
   el('screen-results').classList.remove('hidden');
   el('results-region-note').textContent = 'Região selecionada: ' + REGION_NAMES[state.region] + ' · Presidente é o mesmo em qualquer região.';
@@ -2620,6 +2698,8 @@ function openModal(cand, pct){
 
 el('btn-restart').addEventListener('click', ()=>{
   state = { region:state.region, idx:0, answers:new Array(QUESTIONS.length).fill(null) };
+  clearSavedState();
+  el('resume-banner').classList.add('hidden');
   el('screen-results').classList.add('hidden');
   el('screen-intro').classList.remove('hidden');
 });

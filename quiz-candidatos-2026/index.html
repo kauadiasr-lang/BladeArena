@@ -1488,6 +1488,14 @@ const CANDIDATES = {
       vantagens:['Presidiu a maior bancada feminina da história da Assembleia Legislativa de MG.','Plataforma consistente em pautas de proteção ambiental, educação pública, saúde e direitos das mulheres e da população LGBTQIAPN+.'],
       desvantagens:['O levantamento não localizou controvérsias específicas e verificáveis sobre seu mandato nas fontes consultadas.'],
       fontes:['https://www.em.com.br/politica/2025/03/7093126-com-foco-em-pauta-ambiental-lohanna-pleiteia-camara-dos-deputados-em-2026.html']
+    },
+    {
+      nome:'Capitão Veloso (Pedro Henrique Veloso Cunha)', partido:'PODE', coligacao:'',
+      cargoAnterior:'Nunca ocupou cargo público eletivo — é sua primeira candidatura. Policial militar, ex-integrante da equipe Tático Móvel em Betim; conhecido nas redes sociais (mais de 600 mil seguidores) por mostrar o dia a dia de operações policiais.',
+      scores:{A1:0.5,A2:0.5,A3:1.5,A4:2,A5:0,A6:1,A7:0,A8:0,A9:0,A10:0,A11:0,A12:0.5},
+      vantagens:['Construiu grande base de apoio popular nas redes sociais (mais de 600 mil seguidores) mostrando o cotidiano de operações policiais.','Formação superior completa, além da carreira na Polícia Militar.'],
+      desvantagens:['Nunca ocupou cargo público eletivo — é sua primeira candidatura em nível federal.','Não foram localizadas propostas de governo detalhadas nas fontes consultadas além do seu histórico profissional.','Segundo levantamento de agosto de 2026, o registro da candidatura constava como "aguardando julgamento" pelo TSE — situação administrativa comum a essa altura do processo eleitoral, geralmente resolvida antes da eleição, mas que ainda não representa aprovação definitiva.'],
+      fontes:['https://portalatalaia.com.br/politica/capitao-veloso-confirma-pre-candidatura-a-deputado-federal/','https://ndmais.com.br/eleicoes/2026/candidatos/mg/deputado-federal/2090-capitao-veloso/']
     }
   ], SC: [
     {
@@ -1968,6 +1976,15 @@ const CANDIDATES = {
       vantagens:['Presidiu a Comissão de Saúde da Assembleia Legislativa de MG (2015–2016).','Foi o 6º deputado estadual mais votado de MG em 2022 (107.236 votos).'],
       desvantagens:['Perfil pragmático e regionalista, sem posições ideológicas fortes documentadas na maioria dos 12 eixos avaliados.'],
       fontes:['https://pt.wikipedia.org/wiki/Arlen_Santiago']
+    },
+    {
+      nome:'Vittorio Medioli', partido:'PL', coligacao:'',
+      cargoAnterior:'Ex-Prefeito de Betim (2017–2024, dois mandatos, reeleito em 2020 com 76,34% dos votos — a maior margem já obtida por um candidato ao Executivo na história da cidade); ex-Deputado Federal por MG (1991–2007, 4 mandatos); fundador do Grupo Sada',
+      scores:{A1:1.5,A2:1,A3:0.5,A4:0.5,A5:0,A6:0,A7:0,A8:0,A9:0,A10:1,A11:0.5,A12:0},
+      vantagens:['Foi reeleito prefeito de Betim em 2020 com 76,34% dos votos, a maior margem já obtida por um candidato ao Executivo na história da cidade.','Fundador do Grupo Sada, hoje com mais de 30 empresas, o que lhe dá experiência de gestão empresarial em grande escala.','Defende um modelo de gestão menos ideológico, focado em resultados concretos e revisão de gastos públicos.'],
+      desvantagens:['Não detalhou propostas específicas sobre segurança pública, costumes, educação ou meio ambiente nas fontes consultadas.','Chegou a cogitar candidatura ao governo de Minas Gerais antes de o PL optar por lançar Flávio Roscoe, o que pode ser lido como indecisão estratégica.'],
+      mandatoAnterior:{resumo:'Referente aos mandatos de Prefeito de Betim (2017–2024):',vantagens:['Reeleito em 2020 com 76,34% dos votos, a maior margem já obtida por um candidato ao Executivo na história de Betim.','Governou por dois mandatos consecutivos (8 anos), com modelo de gestão baseado em austeridade fiscal.'],desvantagens:['O levantamento não localizou controvérsias específicas e verificáveis sobre seus mandatos como prefeito nas fontes consultadas.']},
+      fontes:['https://www.otempo.com.br/politica/2026/3/10/vittorio-medioli-se-filia-ao-pl-e-deve-disputar-vaga-de-deputado-estadual','https://www.otempo.com.br/eleicoes/2026/governadores/2026/6/26/vittorio-medioli-ao-governo-o-plano-do-ex-prefeito-de-betim-para-a-candidatura-em-minas','https://portalimpactto.com.br/noticia/16283/fora-da-disputa-pelo-governo-medioli-anuncia-candidatura-a-uma-cadeira-da-assembleia-legislativa']
     }
   ], SC: [
     {
@@ -2333,14 +2350,14 @@ const OFFICE_NOTES = {
     BA: 'Todos os 10 candidatos oficialmente registrados ao Senado pela Bahia (2 vagas) estão incluídos no comparador.'
   },
   deputado_federal: {
-    MG: 'MG tem 749 candidatos registrados para 53 vagas de Deputado Federal — é inviável avaliar todos individualmente. Selecionamos 11 nomes de maior relevância e cobertura pública (majoritariamente atuais deputados buscando reeleição).',
+    MG: 'MG tem 749 candidatos registrados para 53 vagas de Deputado Federal — é inviável avaliar todos individualmente. Selecionamos 12 nomes de maior relevância e cobertura pública (majoritariamente atuais deputados buscando reeleição, além de nomes de forte repercussão local).',
     SC: 'SC tem cerca de 229 candidatos registrados para 16 vagas de Deputado Federal — é inviável avaliar todos individualmente. Selecionamos 12 nomes de maior relevância e cobertura pública (majoritariamente atuais deputados buscando reeleição).',
     SP: 'SP tem cerca de 1.090 candidatos registrados para 70 vagas de Deputado Federal (o maior colégio do país) — é inviável avaliar todos individualmente. Selecionamos 14 nomes de maior relevância e cobertura pública. Observação: Eduardo Bolsonaro e Carla Zambelli, os mais votados do PL-SP em 2022, não são candidatos em 2026 (o primeiro está fora do país e teve o mandato cassado por faltas; a segunda foi condenada, fugiu do país e renunciou ao mandato).',
     RJ: 'RJ tem cerca de 782 candidatos registrados para 46 vagas de Deputado Federal — é inviável avaliar todos individualmente. Selecionamos 12 nomes de maior relevância e cobertura pública (majoritariamente atuais deputados buscando reeleição).',
     BA: 'BA tem entre 517 e 529 candidatos registrados (fontes divergem) para 39 vagas de Deputado Federal — é inviável avaliar todos individualmente. Selecionamos 12 nomes de maior relevância e cobertura pública. Observação: Otto Alencar Filho, o deputado mais votado da Bahia em 2022, renunciou ao mandato em dezembro de 2025 para assumir vaga no Tribunal de Contas do Estado e não é candidato em 2026.'
   },
   deputado_estadual: {
-    MG: 'MG tem 988 candidatos registrados para 77 vagas de Deputado Estadual — é inviável avaliar todos individualmente. Selecionamos os 8 nomes com cobertura jornalística mais robusta entre os 68 deputados atuais que buscam reeleição.',
+    MG: 'MG tem 988 candidatos registrados para 77 vagas de Deputado Estadual — é inviável avaliar todos individualmente. Selecionamos 9 nomes de maior relevância e cobertura pública, majoritariamente entre os 68 deputados atuais que buscam reeleição, além de nomes de forte repercussão local.',
     SC: 'SC tem cerca de 411 candidatos registrados para 40 vagas de Deputado Estadual — é inviável avaliar todos individualmente. Selecionamos 12 nomes de maior relevância e cobertura pública (majoritariamente atuais deputados buscando reeleição).',
     SP: 'SP tem cerca de 1.390 candidatos registrados para 94 vagas de Deputado Estadual — é inviável avaliar todos individualmente. Selecionamos 9 nomes de maior relevância e cobertura pública.',
     RJ: 'RJ tem cerca de 1.163 candidatos registrados para 70 vagas de Deputado Estadual — é inviável avaliar todos individualmente. Selecionamos 9 nomes de maior relevância e cobertura pública. Observação: Rodrigo Amorim (PL), conhecido nacionalmente por quebrar uma placa em homenagem a Marielle Franco na ALERJ em 2019, foi condenado por violência política de gênero e está inelegível — não incluído como candidato ativo.',

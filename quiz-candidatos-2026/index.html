@@ -65,7 +65,10 @@
   .progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-2));width:0%;transition:width .25s;}
   .progress-label{font-size:12px;color:var(--text-dim);white-space:nowrap;}
   .q-axis-tag{display:inline-block;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--accent-2);background:rgba(47,143,191,.12);border-radius:999px;padding:3px 10px;margin-bottom:14px;}
-  .q-text{font-size:20px;font-weight:600;margin:0 0 26px;min-height:80px;}
+  .q-text{font-size:20px;font-weight:600;margin:0 0 14px;min-height:80px;}
+  .q-gloss{background:var(--bg-soft);border:1px solid var(--border);border-left:3px solid var(--accent-2);border-radius:8px;padding:12px 14px;font-size:13px;color:var(--text-dim);line-height:1.55;margin:0 0 22px;}
+  .q-gloss b{color:var(--text);font-weight:700;}
+  .q-gloss::before{content:"💡 Para quem não é familiarizado com política: ";font-weight:700;color:var(--text);}
   .likert{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:8px;}
   .likert button{background:var(--bg-soft);border:2px solid var(--border);border-radius:10px;padding:14px 6px;color:var(--text);font-size:12px;cursor:pointer;text-align:center;transition:.15s;}
   .likert button:hover{border-color:var(--accent-2);}
@@ -177,6 +180,7 @@
     </div>
     <div class="q-axis-tag" id="q-axis-tag">TEMA</div>
     <p class="q-text" id="q-text">...</p>
+    <div class="q-gloss hidden" id="q-gloss"></div>
     <div class="likert" id="likert"></div>
     <div class="likert-caps"><span>Discordo totalmente</span><span>Concordo totalmente</span></div>
     <div class="btn-row">
@@ -230,68 +234,95 @@ const AXES = [
    -1 concordar empurra p/ esquerda do eixo)
    ============================================================ */
 const QUESTIONS = [
-  {axis:'A1',dir:1, text:'O governo deveria privatizar mais empresas estatais para aumentar a eficiência econômica.'},
-  {axis:'A1',dir:-1,text:'O Estado deve manter o controle de setores estratégicos, como energia e petróleo.'},
-  {axis:'A1',dir:1, text:'Menos burocracia e menos intervenção do governo geram mais crescimento econômico.'},
-  {axis:'A1',dir:-1,text:'O governo deve atuar diretamente na criação de empregos por meio de empresas públicas.'},
+  {axis:'A1',dir:1, text:'O governo deveria privatizar mais empresas estatais para aumentar a eficiência econômica.',
+   gloss:'Privatizar é vender uma empresa que pertence ao governo (estatal) para donos particulares. Exemplos de estatais: Petrobras, Correios, Banco do Brasil.'},
+  {axis:'A1',dir:-1,text:'O Estado deve manter o controle de setores estratégicos, como energia e petróleo.',
+   gloss:'"Setores estratégicos" são áreas consideradas essenciais para o funcionamento do país, como energia, petróleo, água e comunicações.'},
+  {axis:'A1',dir:1, text:'Menos burocracia e menos intervenção do governo geram mais crescimento econômico.',
+   gloss:'Burocracia é o conjunto de regras, documentos e etapas exigidos pelo governo para autorizar algo. Intervenção do governo é quando o Estado interfere diretamente na economia, com leis, regras ou empresas próprias.'},
+  {axis:'A1',dir:-1,text:'O governo deve atuar diretamente na criação de empregos por meio de empresas públicas.',
+   gloss:'Empresa pública é uma empresa criada e administrada pelo próprio governo, em vez de por empresários particulares.'},
 
-  {axis:'A2',dir:-1,text:'Grandes fortunas e lucros de bancos deveriam ser taxados com alíquotas maiores.'},
-  {axis:'A2',dir:1, text:'A carga tributária no Brasil é alta demais e deveria ser reduzida para todos.'},
+  {axis:'A2',dir:-1,text:'Grandes fortunas e lucros de bancos deveriam ser taxados com alíquotas maiores.',
+   gloss:'Alíquota é a porcentagem de imposto cobrada sobre um valor. Uma alíquota maior significa pagar mais imposto sobre aquele dinheiro.'},
+  {axis:'A2',dir:1, text:'A carga tributária no Brasil é alta demais e deveria ser reduzida para todos.',
+   gloss:'Carga tributária é o total de impostos, taxas e contribuições que as pessoas e empresas pagam ao governo.'},
   {axis:'A2',dir:-1,text:'É justo cobrar mais impostos de quem ganha mais para financiar serviços públicos.'},
   {axis:'A2',dir:1, text:'Reduzir impostos sobre empresas estimula investimento e geração de emprego.'},
 
-  {axis:'A3',dir:1, text:'Cidadãos de bem deveriam ter mais facilidade para possuir e portar armas de fogo.'},
+  {axis:'A3',dir:1, text:'Cidadãos de bem deveriam ter mais facilidade para possuir e portar armas de fogo.',
+   gloss:'Posse de arma é o direito de ter uma arma guardada dentro de casa. Porte de arma é a autorização para andar armado em locais públicos.'},
   {axis:'A3',dir:-1,text:'O controle rígido sobre armas de fogo reduz a violência e deveria ser mantido ou ampliado.'},
   {axis:'A3',dir:1, text:'Facilitar o acesso a armas é uma forma legítima de autodefesa da população.'},
-  {axis:'A3',dir:-1,text:'As regras atuais do Estatuto do Desarmamento deveriam ser mantidas ou ficar mais rígidas.'},
+  {axis:'A3',dir:-1,text:'As regras atuais do Estatuto do Desarmamento deveriam ser mantidas ou ficar mais rígidas.',
+   gloss:'O Estatuto do Desarmamento é a lei brasileira (de 2003) que define quem pode ter e portar armas de fogo no país, e em quais condições.'},
 
-  {axis:'A4',dir:1, text:'A maioridade penal deveria ser reduzida para crimes graves.'},
-  {axis:'A4',dir:-1,text:'Investir em ressocialização é mais eficaz do que apenas endurecer penas.'},
+  {axis:'A4',dir:1, text:'A maioridade penal deveria ser reduzida para crimes graves.',
+   gloss:'Maioridade penal é a idade a partir da qual uma pessoa passa a responder por crimes como adulto perante a lei. No Brasil, hoje, é 18 anos.'},
+  {axis:'A4',dir:-1,text:'Investir em ressocialização é mais eficaz do que apenas endurecer penas.',
+   gloss:'Ressocialização é o processo de preparar uma pessoa que cometeu um crime para voltar a viver em sociedade, por meio de educação, trabalho e acompanhamento.'},
   {axis:'A4',dir:1, text:'Penas mais longas e regras prisionais mais rígidas reduzem a criminalidade.'},
   {axis:'A4',dir:-1,text:'O sistema prisional deveria focar mais em reintegrar o preso à sociedade do que em punir.'},
 
   {axis:'A5',dir:-1,text:'Proteger a Amazônia e combater o desmatamento deve ser prioridade, mesmo que limite algumas atividades econômicas.'},
-  {axis:'A5',dir:1, text:'As regras ambientais no Brasil atrapalham o desenvolvimento do agronegócio e da mineração.'},
-  {axis:'A5',dir:-1,text:'O Brasil deveria endurecer a fiscalização ambiental contra garimpo ilegal e desmatamento.'},
-  {axis:'A5',dir:1, text:'Flexibilizar o licenciamento ambiental ajuda a gerar mais empregos e renda no interior do país.'},
+  {axis:'A5',dir:1, text:'As regras ambientais no Brasil atrapalham o desenvolvimento do agronegócio e da mineração.',
+   gloss:'Agronegócio é o conjunto de atividades ligadas à produção agrícola e pecuária em grande escala, da plantação e criação de animais até a exportação.'},
+  {axis:'A5',dir:-1,text:'O Brasil deveria endurecer a fiscalização ambiental contra garimpo ilegal e desmatamento.',
+   gloss:'Garimpo ilegal é a extração de minérios (como ouro) sem autorização do governo, muitas vezes em áreas protegidas ou terras indígenas.'},
+  {axis:'A5',dir:1, text:'Flexibilizar o licenciamento ambiental ajuda a gerar mais empregos e renda no interior do país.',
+   gloss:'Licenciamento ambiental é o processo pelo qual o governo avalia e autoriza atividades que podem afetar o meio ambiente, como construções, mineração ou grandes plantações.'},
 
-  {axis:'A6',dir:-1,text:'A mulher deveria ter direito de decidir sobre interromper a gravidez em mais casos do que a lei permite hoje.'},
+  {axis:'A6',dir:-1,text:'A mulher deveria ter direito de decidir sobre interromper a gravidez em mais casos do que a lei permite hoje.',
+   gloss:'Hoje, o aborto só é permitido no Brasil em situações específicas, como risco de vida para a mãe, gravidez decorrente de estupro ou má-formação grave do feto.'},
   {axis:'A6',dir:1, text:'A família tradicional deve ser defendida e incentivada pelas políticas públicas.'},
   {axis:'A6',dir:-1,text:'O casamento entre pessoas do mesmo sexo é um direito que deve ser garantido e respeitado.'},
   {axis:'A6',dir:1, text:'O uso de drogas, incluindo maconha, deveria continuar sendo proibido e combatido pela lei.'},
 
   {axis:'A7',dir:-1,text:'O governo deveria investir mais recursos nas escolas públicas em vez de incentivar bolsas para escolas privadas.'},
-  {axis:'A7',dir:1, text:'As famílias deveriam poder usar recursos públicos (vouchers) para matricular os filhos em escolas privadas.'},
+  {axis:'A7',dir:1, text:'As famílias deveriam poder usar recursos públicos (vouchers) para matricular os filhos em escolas privadas.',
+   gloss:'Vouchers são vales ou créditos que o governo daria às famílias para pagar escolas particulares, em vez de usar esse dinheiro diretamente nas escolas públicas.'},
   {axis:'A7',dir:-1,text:'Professores devem ter liberdade para discutir temas sociais e políticos em sala de aula.'},
-  {axis:'A7',dir:1, text:'Deveria existir uma lei tipo "Escola sem Partido" para restringir opiniões políticas de professores em aula.'},
+  {axis:'A7',dir:1, text:'Deveria existir uma lei tipo "Escola sem Partido" para restringir opiniões políticas de professores em aula.',
+   gloss:'"Escola sem Partido" é um movimento que defende limitar a manifestação de opiniões políticas, religiosas ou ideológicas dos professores em sala de aula.'},
 
-  {axis:'A8',dir:-1,text:'O SUS deveria receber mais investimento público para se tornar ainda mais forte e universal.'},
+  {axis:'A8',dir:-1,text:'O SUS deveria receber mais investimento público para se tornar ainda mais forte e universal.',
+   gloss:'SUS (Sistema Único de Saúde) é o sistema público e gratuito de saúde do Brasil, usado por quem não tem plano de saúde particular.'},
   {axis:'A8',dir:1, text:'Parcerias com hospitais e planos de saúde privados ajudam a melhorar o atendimento à população.'},
   {axis:'A8',dir:-1,text:'A saúde é um direito que deve ser garantido prioritariamente pelo Estado, não pelo mercado.'},
-  {axis:'A8',dir:1, text:'Incentivos fiscais para quem contrata plano de saúde privado aliviam a pressão sobre o sistema público.'},
+  {axis:'A8',dir:1, text:'Incentivos fiscais para quem contrata plano de saúde privado aliviam a pressão sobre o sistema público.',
+   gloss:'Incentivo fiscal é um benefício (como desconto ou isenção de imposto) que o governo dá para estimular uma escolha, neste caso, contratar um plano de saúde particular.'},
 
-  {axis:'A9',dir:-1,text:'Programas como o Bolsa Família deveriam ser ampliados e ter valores maiores.'},
-  {axis:'A9',dir:1, text:'Programas sociais de transferência de renda deveriam diminuir, priorizando o incentivo à geração de empregos.'},
+  {axis:'A9',dir:-1,text:'Programas como o Bolsa Família deveriam ser ampliados e ter valores maiores.',
+   gloss:'Bolsa Família é o principal programa do governo federal que transfere dinheiro diretamente a famílias de baixa renda.'},
+  {axis:'A9',dir:1, text:'Programas sociais de transferência de renda deveriam diminuir, priorizando o incentivo à geração de empregos.',
+   gloss:'Transferência de renda é quando o governo dá dinheiro diretamente às famílias, como no Bolsa Família, em vez de oferecer serviços ou empregos.'},
   {axis:'A9',dir:-1,text:'O Estado deve garantir uma renda mínima a quem não consegue se sustentar.'},
   {axis:'A9',dir:1, text:'Depender de auxílios do governo por muito tempo desestimula as pessoas a buscarem trabalho.'},
 
-  {axis:'A10',dir:-1,text:'Os direitos trabalhistas da CLT deveriam ser mais protegidos, não flexibilizados.'},
+  {axis:'A10',dir:-1,text:'Os direitos trabalhistas da CLT deveriam ser mais protegidos, não flexibilizados.',
+   gloss:'CLT (Consolidação das Leis do Trabalho) é o conjunto de leis brasileiras que regula os direitos de quem trabalha com carteira assinada, como férias, 13º salário e FGTS.'},
   {axis:'A10',dir:1, text:'A legislação trabalhista deveria ser mais flexível para se adaptar a diferentes tipos de contrato.'},
-  {axis:'A10',dir:-1,text:'A reforma trabalhista de 2017 prejudicou os trabalhadores e deveria ser revista.'},
+  {axis:'A10',dir:-1,text:'A reforma trabalhista de 2017 prejudicou os trabalhadores e deveria ser revista.',
+   gloss:'A reforma trabalhista de 2017 foi uma mudança nas leis do trabalho que tornou mais flexíveis as regras de contratação, demissão e negociação entre patrões e empregados.'},
   {axis:'A10',dir:1, text:'Facilitar a contratação e a demissão ajuda a reduzir o desemprego.'},
 
-  {axis:'A11',dir:-1,text:'A demarcação de terras indígenas deve ser acelerada e respeitada.'},
+  {axis:'A11',dir:-1,text:'A demarcação de terras indígenas deve ser acelerada e respeitada.',
+   gloss:'Demarcação de terras indígenas é o processo oficial pelo qual o governo reconhece e delimita um território como pertencente a um povo indígena.'},
   {axis:'A11',dir:1, text:'A expansão de áreas para agricultura e pecuária é essencial para a economia e não deve ser travada por demarcações.'},
   {axis:'A11',dir:-1,text:'Povos indígenas devem ter prioridade na definição do uso de suas terras tradicionais.'},
   {axis:'A11',dir:1, text:'O agronegócio é o motor da economia brasileira e merece mais apoio do governo.'},
 
-  {axis:'A12',dir:-1,text:'O STF e o TSE têm papel importante para proteger a democracia brasileira e devem ser respeitados.'},
-  {axis:'A12',dir:1, text:'O sistema eleitoral brasileiro, incluindo a urna eletrônica, precisa de mais fiscalização e reformas para gerar confiança.'},
+  {axis:'A12',dir:-1,text:'O STF e o TSE têm papel importante para proteger a democracia brasileira e devem ser respeitados.',
+   gloss:'STF (Supremo Tribunal Federal) é o tribunal mais alto do Brasil, responsável por interpretar a Constituição. TSE (Tribunal Superior Eleitoral) é o órgão que organiza e julga as eleições no país.'},
+  {axis:'A12',dir:1, text:'O sistema eleitoral brasileiro, incluindo a urna eletrônica, precisa de mais fiscalização e reformas para gerar confiança.',
+   gloss:'A urna eletrônica é o equipamento usado para votar no Brasil desde 1996, que registra e conta os votos de forma digital.'},
   {axis:'A12',dir:-1,text:'As decisões do Supremo Tribunal Federal devem ser cumpridas mesmo quando um político discorda delas.'},
-  {axis:'A12',dir:1, text:'O Congresso deveria ter mais poder para revisar decisões do STF.'},
+  {axis:'A12',dir:1, text:'O Congresso deveria ter mais poder para revisar decisões do STF.',
+   gloss:'O Congresso Nacional é o Poder Legislativo do Brasil, formado pela Câmara dos Deputados e pelo Senado Federal — é ali que as leis são discutidas e votadas.'},
 
   {axis:'A9',dir:-1,text:'Ampliar o acesso a creches e moradia popular financiada pelo governo deveria ser prioridade do Estado.'},
-  {axis:'A1',dir:1, text:'Reduzir o número de cargos e o tamanho da máquina pública tornaria o governo mais eficiente.'},
+  {axis:'A1',dir:1, text:'Reduzir o número de cargos e o tamanho da máquina pública tornaria o governo mais eficiente.',
+   gloss:'"Máquina pública" é uma forma de se referir à estrutura do governo: seus órgãos, cargos e funcionários usados para administrar o país.'},
 ];
 
 /* ============================================================
@@ -2332,6 +2363,13 @@ function renderQuestion(){
   const axis = AXES.find(a=>a.id===q.axis);
   el('q-axis-tag').textContent = axis.label;
   el('q-text').textContent = q.text;
+  const glossEl = el('q-gloss');
+  if(q.gloss){
+    glossEl.textContent = q.gloss;
+    glossEl.classList.remove('hidden');
+  } else {
+    glossEl.classList.add('hidden');
+  }
   el('progress-label').textContent = (state.idx+1) + ' / ' + QUESTIONS.length;
   el('progress-fill').style.width = ((state.idx)/QUESTIONS.length*100) + '%';
 

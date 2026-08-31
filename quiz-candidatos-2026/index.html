@@ -6,19 +6,20 @@
 <title>Bússola Eleitoral 2026</title>
 <style>
   :root{
-    --bg:#0f1720;
-    --bg-soft:#16212c;
-    --card:#1c2a37;
-    --card-hover:#233242;
-    --border:#2c3d4d;
-    --text:#eaf0f4;
-    --text-dim:#9fb0bd;
-    --accent:#2fbf71;
-    --accent-2:#2f8fbf;
-    --accent-3:#e0b93c;
-    --danger:#e0603c;
-    --radius:14px;
-    --shadow:0 8px 24px rgba(0,0,0,.35);
+    --bg:#f5f2e9;
+    --bg-soft:#ece5d3;
+    --card:#fffdf7;
+    --card-hover:#f6f0e0;
+    --border:#d6cbac;
+    --text:#26221a;
+    --text-dim:#6e6553;
+    --accent:#355c3f;
+    --accent-2:#93412a;
+    --accent-3:#a5791e;
+    --danger:#9c3a26;
+    --radius:3px;
+    --shadow:0 1px 2px rgba(38,34,26,.12);
+    --font-serif:Georgia,'Iowan Old Style','Palatino Linotype',Palatino,'Times New Roman',serif;
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   }
   *{box-sizing:border-box;}
@@ -27,87 +28,84 @@
   .app{max-width:920px;margin:0 auto;padding:24px 18px 64px;}
   .hidden{display:none !important;}
 
-  header.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:28px;flex-wrap:wrap;}
-  .brand{display:flex;align-items:center;gap:10px;}
-  .brand .logo{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;color:#0b1218;flex-shrink:0;}
-  .brand h1{font-size:18px;margin:0;letter-spacing:.2px;}
-  .brand small{display:block;color:var(--text-dim);font-size:12px;}
-  .badge{font-size:11px;background:var(--card);border:1px solid var(--border);color:var(--text-dim);padding:4px 10px;border-radius:999px;}
+  header.top{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:26px;padding-bottom:14px;border-bottom:2px solid var(--text);flex-wrap:wrap;}
+  .brand h1{font-family:var(--font-serif);font-size:23px;font-weight:700;margin:0;letter-spacing:.2px;}
+  .brand small{display:block;color:var(--text-dim);font-size:12px;margin-top:2px;}
+  .badge{font-size:11px;color:var(--text-dim);padding:3px 0;border-bottom:1px solid var(--border);}
 
   .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px;}
 
   /* INTRO */
-  #screen-intro h2{font-size:26px;margin:0 0 8px;}
+  #screen-intro h2{font-family:var(--font-serif);font-size:25px;font-weight:700;margin:0 0 8px;}
   #screen-intro p.lead{color:var(--text-dim);margin:0 0 20px;font-size:15px;}
-  .disclaimer{background:var(--bg-soft);border:1px solid var(--border);border-radius:10px;padding:14px 16px;font-size:13px;color:var(--text-dim);margin:18px 0;}
+  .disclaimer{background:var(--bg-soft);border:1px solid var(--border);border-left:3px solid var(--text-dim);border-radius:0;padding:14px 16px;font-size:13px;color:var(--text-dim);margin:18px 0;}
   .disclaimer b{color:var(--text);}
-  .resume-banner{background:rgba(47,191,113,.08);border:1px solid var(--accent);border-radius:10px;padding:16px;margin:0 0 20px;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;}
+  .resume-banner{background:var(--bg-soft);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:0;padding:16px;margin:0 0 20px;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;}
   .resume-text{font-size:13.5px;color:var(--text-dim);flex:1;min-width:200px;}
   .resume-text b{display:block;color:var(--text);font-size:14.5px;margin-bottom:3px;}
   .resume-buttons{display:flex;gap:10px;flex-wrap:wrap;}
-  .region-select{display:flex;gap:12px;margin:18px 0 24px;flex-wrap:wrap;}
-  .region-btn{flex:1;min-width:140px;background:var(--bg-soft);border:2px solid var(--border);border-radius:12px;padding:16px;text-align:left;cursor:pointer;color:var(--text);transition:.15s;}
-  .region-btn:hover{border-color:var(--accent-2);}
-  .region-btn.selected{border-color:var(--accent);background:rgba(47,191,113,.08);}
-  .region-btn .uf{font-size:22px;font-weight:800;}
-  .region-btn .name{font-size:13px;color:var(--text-dim);}
-  .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:18px 0 26px;}
-  .step{background:var(--bg-soft);border:1px solid var(--border);border-radius:10px;padding:14px;font-size:13px;color:var(--text-dim);}
-  .step b{display:block;color:var(--text);font-size:14px;margin-bottom:4px;}
+  .region-select{display:flex;gap:10px;margin:18px 0 24px;flex-wrap:wrap;}
+  .region-btn{flex:1;min-width:140px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;text-align:left;cursor:pointer;color:var(--text);transition:.15s;}
+  .region-btn:hover{border-color:var(--text-dim);}
+  .region-btn.selected{border-color:var(--accent);border-width:2px;padding:13px 15px;background:var(--card-hover);}
+  .region-btn .uf{font-family:var(--font-serif);font-size:21px;font-weight:700;}
+  .region-btn .name{font-size:12.5px;color:var(--text-dim);}
+  .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0;margin:18px 0 26px;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .step{background:var(--card);border-left:1px solid var(--border);padding:14px 16px;font-size:13px;color:var(--text-dim);}
+  .step:first-child{border-left:none;}
+  .step b{display:block;color:var(--text);font-size:13.5px;margin-bottom:4px;font-family:var(--font-serif);}
 
-  .btn{appearance:none;border:none;cursor:pointer;border-radius:10px;padding:13px 22px;font-size:15px;font-weight:700;transition:.15s;}
-  .btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#06120c;}
-  .btn-primary:hover{filter:brightness(1.08);}
-  .btn-primary:disabled{opacity:.4;cursor:not-allowed;filter:none;}
+  .btn{appearance:none;cursor:pointer;border-radius:var(--radius);padding:12px 22px;font-size:14.5px;font-weight:600;transition:.15s;}
+  .btn-primary{background:var(--accent);border:1px solid var(--accent);color:#fbf8ef;}
+  .btn-primary:hover{background:#2a4a33;}
+  .btn-primary:disabled{opacity:.4;cursor:not-allowed;}
   .btn-ghost{background:transparent;border:1px solid var(--border);color:var(--text);}
   .btn-ghost:hover{border-color:var(--text-dim);}
   .btn-row{display:flex;gap:10px;justify-content:space-between;margin-top:22px;}
 
   /* QUIZ */
   .progress-wrap{display:flex;align-items:center;gap:12px;margin-bottom:22px;}
-  .progress-bar{flex:1;height:8px;background:var(--bg-soft);border-radius:999px;overflow:hidden;}
-  .progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-2));width:0%;transition:width .25s;}
-  .progress-label{font-size:12px;color:var(--text-dim);white-space:nowrap;}
-  .q-axis-tag{display:inline-block;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--accent-2);background:rgba(47,143,191,.12);border-radius:999px;padding:3px 10px;margin-bottom:14px;}
-  .q-text{font-size:20px;font-weight:600;margin:0 0 14px;min-height:80px;}
-  .q-gloss{background:var(--bg-soft);border:1px solid var(--border);border-left:3px solid var(--accent-2);border-radius:8px;padding:12px 14px;font-size:13px;color:var(--text-dim);line-height:1.55;margin:0 0 22px;}
+  .progress-bar{flex:1;height:4px;background:var(--bg-soft);}
+  .progress-fill{height:100%;background:var(--accent);width:0%;transition:width .25s;}
+  .progress-label{font-size:12px;color:var(--text-dim);white-space:nowrap;font-variant-numeric:tabular-nums;}
+  .q-axis-tag{display:inline-block;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--accent-2);border-bottom:1px solid var(--accent-2);padding-bottom:2px;margin-bottom:16px;}
+  .q-text{font-family:var(--font-serif);font-size:21px;font-weight:700;margin:0 0 14px;min-height:80px;}
+  .q-gloss{background:var(--bg-soft);border:1px solid var(--border);border-left:3px solid var(--text-dim);border-radius:0;padding:12px 14px;font-size:13px;color:var(--text-dim);line-height:1.55;margin:0 0 22px;}
   .q-gloss b{color:var(--text);font-weight:700;}
-  .q-gloss::before{content:"💡 Para quem não é familiarizado com política: ";font-weight:700;color:var(--text);}
+  .q-gloss::before{content:"Em termos simples: ";font-weight:700;color:var(--text);}
   .likert{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:8px;}
-  .likert button{background:var(--bg-soft);border:2px solid var(--border);border-radius:10px;padding:14px 6px;color:var(--text);font-size:12px;cursor:pointer;text-align:center;transition:.15s;}
-  .likert button:hover{border-color:var(--accent-2);}
-  .likert button.picked{border-color:var(--accent);background:rgba(47,191,113,.12);color:var(--accent);font-weight:700;}
+  .likert button{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px 6px;color:var(--text);font-size:12px;cursor:pointer;text-align:center;transition:.15s;}
+  .likert button:hover{border-color:var(--text-dim);}
+  .likert button.picked{border-color:var(--accent);border-width:2px;background:var(--card-hover);color:var(--accent);font-weight:700;}
   .likert-caps{display:flex;justify-content:space-between;font-size:11px;color:var(--text-dim);margin-bottom:22px;padding:0 2px;}
 
   /* RESULTS */
-  .office-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;}
-  .office-tab{background:var(--bg-soft);border:1px solid var(--border);border-radius:999px;padding:9px 16px;font-size:13px;color:var(--text-dim);cursor:pointer;}
-  .office-tab.active{background:var(--accent);color:#06120c;border-color:var(--accent);font-weight:700;}
+  .office-tabs{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:18px;border-bottom:1px solid var(--border);}
+  .office-tab{background:none;border:none;border-bottom:2px solid transparent;padding:9px 0;font-size:13.5px;color:var(--text-dim);cursor:pointer;margin-bottom:-1px;}
+  .office-tab.active{color:var(--text);border-color:var(--accent);font-weight:700;}
   .region-note{font-size:12px;color:var(--text-dim);margin-bottom:16px;}
-  .cand-list{display:flex;flex-direction:column;gap:10px;}
-  .cand-row{display:flex;align-items:center;gap:14px;background:var(--bg-soft);border:1px solid var(--border);border-radius:12px;padding:14px 16px;cursor:pointer;transition:.15s;}
-  .cand-row:hover{background:var(--card-hover);border-color:var(--accent-2);}
-  .cand-rank{width:26px;text-align:center;font-weight:800;color:var(--text-dim);font-size:13px;}
-  .cand-avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#2c3d4d,#1c2a37);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;flex-shrink:0;border:1px solid var(--border);}
+  .cand-list{display:flex;flex-direction:column;}
+  .cand-row{display:flex;align-items:center;gap:14px;background:var(--card);border-bottom:1px solid var(--border);padding:14px 4px;cursor:pointer;transition:.15s;}
+  .cand-row:hover{background:var(--card-hover);}
+  .cand-rank{width:28px;text-align:center;font-weight:700;color:var(--text-dim);font-size:13px;font-family:var(--font-serif);}
   .cand-main{flex:1;min-width:0;}
-  .cand-name{font-weight:700;font-size:15px;}
+  .cand-name{font-weight:700;font-size:15px;font-family:var(--font-serif);}
   .cand-party{font-size:12px;color:var(--text-dim);}
   .cand-match{text-align:right;flex-shrink:0;}
-  .cand-match .pct{font-size:18px;font-weight:800;color:var(--accent);}
+  .cand-match .pct{font-size:17px;font-weight:700;color:var(--accent);font-family:var(--font-serif);}
   .cand-match .lbl{font-size:10px;color:var(--text-dim);text-transform:uppercase;}
-  .empty-note{font-size:13px;color:var(--text-dim);padding:18px;text-align:center;border:1px dashed var(--border);border-radius:10px;}
+  .empty-note{font-size:13px;color:var(--text-dim);padding:18px;text-align:center;border:1px dashed var(--border);}
 
   /* MODAL */
-  .modal-backdrop{position:fixed;inset:0;background:rgba(5,9,13,.72);display:flex;align-items:flex-start;justify-content:center;padding:40px 16px;overflow-y:auto;z-index:50;}
-  .modal{max-width:640px;width:100%;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:0;box-shadow:var(--shadow);}
-  .modal-head{padding:24px;border-bottom:1px solid var(--border);display:flex;gap:16px;align-items:center;}
-  .modal-head .cand-avatar{width:56px;height:56px;font-size:20px;}
-  .modal-head h3{margin:0;font-size:20px;}
-  .modal-head .sub{color:var(--text-dim);font-size:13px;margin-top:2px;}
-  .modal-close{margin-left:auto;background:var(--bg-soft);border:1px solid var(--border);color:var(--text);width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:16px;flex-shrink:0;}
+  .modal-backdrop{position:fixed;inset:0;background:rgba(38,34,26,.55);display:flex;align-items:flex-start;justify-content:center;padding:40px 16px;overflow-y:auto;z-index:50;}
+  .modal{max-width:640px;width:100%;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:0;box-shadow:0 4px 18px rgba(38,34,26,.22);}
+  .modal-head{padding:22px 24px;border-bottom:1px solid var(--border);display:flex;gap:16px;align-items:center;}
+  .modal-head h3{font-family:var(--font-serif);margin:0;font-size:21px;}
+  .modal-head .sub{color:var(--text-dim);font-size:13px;margin-top:3px;}
+  .modal-close{margin-left:auto;background:none;border:1px solid var(--border);color:var(--text);width:30px;height:30px;cursor:pointer;font-size:15px;flex-shrink:0;}
   .modal-body{padding:24px;}
-  .match-pill{display:inline-block;background:rgba(47,191,113,.12);color:var(--accent);border-radius:999px;padding:5px 14px;font-weight:800;font-size:14px;margin-bottom:18px;}
-  .alert-box{background:rgba(224,96,60,.12);border:1px solid var(--danger);color:#f3c8ba;border-radius:10px;padding:12px 14px;font-size:13px;margin:0 0 18px;line-height:1.5;}
+  .match-pill{display:inline-block;border:1px solid var(--accent);color:var(--accent);padding:4px 12px;font-weight:700;font-size:13.5px;margin-bottom:18px;}
+  .alert-box{background:var(--bg-soft);border:1px solid var(--danger);border-left:3px solid var(--danger);color:var(--danger);padding:12px 14px;font-size:13px;margin:0 0 18px;line-height:1.5;}
   .tabbar{display:flex;gap:6px;border-bottom:1px solid var(--border);margin-bottom:18px;}
   .tabbar button{background:none;border:none;color:var(--text-dim);padding:10px 4px;font-size:13px;font-weight:600;cursor:pointer;border-bottom:2px solid transparent;margin-right:14px;}
   .tabbar button.active{color:var(--text);border-color:var(--accent);}
@@ -118,17 +116,17 @@
   .axis-row .lbl span:nth-child(1){text-align:left;}
   .axis-row .lbl span:nth-child(2){text-align:center;font-weight:600;}
   .axis-row .lbl span:nth-child(3){text-align:right;}
-  .axis-track{position:relative;height:10px;background:var(--bg-soft);border-radius:999px;}
-  .axis-track .mid{position:absolute;left:50%;top:-3px;bottom:-3px;width:1px;background:var(--border);}
-  .axis-dot{position:absolute;top:50%;width:12px;height:12px;border-radius:50%;transform:translate(-50%,-50%);border:2px solid var(--bg);}
+  .axis-track{position:relative;height:2px;background:var(--border);}
+  .axis-track .mid{position:absolute;left:50%;top:-4px;bottom:-4px;width:1px;background:var(--text-dim);}
+  .axis-dot{position:absolute;top:50%;width:11px;height:11px;border-radius:50%;transform:translate(-50%,-50%);border:2px solid var(--card);}
   .axis-dot.you{background:var(--accent-3);z-index:2;}
   .axis-dot.cand{background:var(--accent-2);z-index:1;}
   .legend-mini{display:flex;gap:16px;font-size:11px;color:var(--text-dim);margin-bottom:14px;}
   .legend-mini span{display:inline-flex;align-items:center;gap:5px;}
   .dot-swatch{width:9px;height:9px;border-radius:50%;display:inline-block;}
   ul.pros, ul.cons{margin:0 0 16px;padding-left:18px;font-size:13.5px;}
-  ul.pros li{color:#bfe9cf;margin-bottom:6px;}
-  ul.cons li{color:#f0c3b2;margin-bottom:6px;}
+  ul.pros li{color:var(--accent);margin-bottom:6px;}
+  ul.cons li{color:var(--accent-2);margin-bottom:6px;}
   .section-h{font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--text-dim);margin:0 0 10px;font-weight:700;}
   .no-record{font-size:13.5px;color:var(--text-dim);font-style:italic;}
   .sources{font-size:11.5px;color:var(--text-dim);border-top:1px solid var(--border);padding-top:12px;margin-top:6px;word-break:break-word;}
@@ -142,11 +140,8 @@
 
   <header class="top">
     <div class="brand">
-      <div class="logo">B26</div>
-      <div>
-        <h1>Bússola Eleitoral 2026</h1>
-        <small>Quiz de afinidade política — não oficial</small>
-      </div>
+      <h1>Bússola Eleitoral 2026</h1>
+      <small>Quiz de afinidade política, não oficial</small>
     </div>
     <span class="badge" id="region-badge">Nenhuma região selecionada</span>
   </header>
@@ -180,7 +175,7 @@
     </div>
 
     <div class="disclaimer">
-      <b>Sobre os dados:</b> as informações de candidatos foram levantadas em fontes públicas e jornalísticas referentes ao pleito de 2026 e podem não refletir mudanças de última hora. Este quiz é um projeto independente, sem vínculo com o TSE, partidos ou candidatos, com fins educativos/informativos. Para os cargos de Deputado Federal e Deputado Estadual, dado o grande volume de candidatos por estado, apresentamos uma seleção dos nomes com maior relevância e cobertura pública — não a totalidade dos registrados (o número total, quando conhecido, é indicado na tela de resultado).
+      <b>Sobre os dados:</b> levantamos as informações de cada candidato em fontes públicas e jornalísticas sobre a eleição de 2026, e elas podem ficar desatualizadas se algo mudar de última hora. Este quiz não tem relação com o TSE, partidos ou candidatos — é um projeto independente, feito para informar. Para Deputado Federal e Deputado Estadual, o número de candidatos por estado é grande demais para listar todos, então selecionamos os nomes com mais relevância e cobertura pública (o total de registrados, quando conhecido, aparece na tela de resultado).
     </div>
 
     <div class="btn-row" style="justify-content:flex-end;">
@@ -220,7 +215,7 @@
   </section>
 
   <footer class="app-footer">
-    Bússola Eleitoral 2026 · Ferramenta independente e não oficial · Dados de candidatos limitados a Minas Gerais, Santa Catarina, São Paulo, Rio de Janeiro, Bahia e Rio Grande do Sul, eleições de 2026.
+    Bússola Eleitoral 2026 é uma ferramenta independente e não oficial, para a eleição de 2026. Por enquanto cobre Minas Gerais, Santa Catarina, São Paulo, Rio de Janeiro, Bahia e Rio Grande do Sul.
   </footer>
 </div>
 
@@ -2889,10 +2884,6 @@ function renderOfficeTabs(){
   });
 }
 
-function initials(name){
-  return name.split(' ').filter(Boolean).slice(0,2).map(w=>w[0]).join('').toUpperCase();
-}
-
 function getOfficeNote(office){
   const n = OFFICE_NOTES[office];
   if(!n) return '';
@@ -2919,7 +2910,6 @@ function renderCandList(){
     row.className = 'cand-row';
     row.innerHTML = `
       <div class="cand-rank">${i+1}º</div>
-      <div class="cand-avatar">${initials(item.c.nome)}</div>
       <div class="cand-main">
         <div class="cand-name">${item.c.nome}</div>
         <div class="cand-party">${item.c.partido}${item.c.coligacao ? ' · '+item.c.coligacao : ''}</div>
@@ -2958,9 +2948,9 @@ function openModal(cand, pct){
 
   let mandatoHtml;
   if(!cand.cargoAnterior || /nunca ocupou/i.test(cand.cargoAnterior)){
-    mandatoHtml = '<p class="no-record">Este(a) candidato(a) não ocupou cargo eletivo anteriormente, segundo o levantamento realizado.</p>';
+    mandatoHtml = '<p class="no-record">Este(a) candidato(a) nunca ocupou cargo eletivo antes, pelo que encontramos nas fontes.</p>';
   } else {
-    mandatoHtml = '<p class="no-record">O levantamento não encontrou uma avaliação detalhada (vantagens/desvantagens) do histórico de gestão deste(a) candidato(a) nas fontes consultadas até o momento.</p>';
+    mandatoHtml = '<p class="no-record">Não encontramos uma avaliação detalhada (pontos positivos e negativos) do mandato anterior deste(a) candidato(a) nas fontes consultadas.</p>';
   }
   if(cand.mandatoAnterior){
     const mp = (cand.mandatoAnterior.vantagens||[]).map(v=>`<li>${v}</li>`).join('');
@@ -2981,7 +2971,6 @@ function openModal(cand, pct){
   backdrop.innerHTML = `
     <div class="modal">
       <div class="modal-head">
-        <div class="cand-avatar">${initials(cand.nome)}</div>
         <div>
           <h3>${cand.nome}</h3>
           <div class="sub">${cand.partido}${cand.coligacao ? ' · '+cand.coligacao : ''} · ${OFFICE_LABELS[currentOffice]}${currentOffice!=='presidente' ? ' — '+state.region : ''}</div>

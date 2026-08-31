@@ -176,6 +176,7 @@
       <button class="region-btn" data-region="SP"><div class="uf">SP</div><div class="name">São Paulo</div></button>
       <button class="region-btn" data-region="RJ"><div class="uf">RJ</div><div class="name">Rio de Janeiro</div></button>
       <button class="region-btn" data-region="BA"><div class="uf">BA</div><div class="name">Bahia</div></button>
+      <button class="region-btn" data-region="RS"><div class="uf">RS</div><div class="name">Rio Grande do Sul</div></button>
     </div>
 
     <div class="disclaimer">
@@ -968,7 +969,7 @@ const CANDIDATES = {
       desvantagens:['Nunca ocupou cargo público eletivo.'],
       fontes:['https://www.olabahia.com.br/ronaldo-mansur-defende-mudanca-na-seguranca-e-ampliacao-da-rede-de-saude-durante-entrevista-sobre-as-eleicoes-2026/']
     }
-  ] },
+  ], RS: [] },
   senador: { MG: [
     {
       nome:'Carlos Viana', partido:'PSD',
@@ -1394,7 +1395,7 @@ const CANDIDATES = {
       desvantagens:['Nunca ocupou cargo público eletivo.'],
       fontes:['https://candidatos.nexojornal.com.br/2026/ba/gregorio-gould-50002550314/']
     }
-  ] },
+  ], RS: [] },
   deputado_federal:  { MG: [
     {
       nome:'Nikolas Ferreira', partido:'PL', coligacao:'',
@@ -1910,7 +1911,7 @@ const CANDIDATES = {
       desvantagens:['O levantamento não localizou controvérsias específicas e verificáveis sobre seu mandato nas fontes consultadas.'],
       fontes:['https://pt.org.br/afonso-florence/']
     }
-  ] },
+  ], RS: [] },
   deputado_estadual: { MG: [
     {
       nome:'Andreia de Jesus', partido:'PT', coligacao:'',
@@ -2327,7 +2328,7 @@ const CANDIDATES = {
       desvantagens:['O levantamento não localizou controvérsias específicas ou declarações individuais que permitissem ir além da inferência partidária nos 12 eixos avaliados.'],
       fontes:['https://pt.wikipedia.org/wiki/Dr._Diego_Castro']
     }
-  ] },
+  ], RS: [] },
 };
 const DATASET_META = {
   atualizado_em: '28 de agosto de 2026',
@@ -2340,28 +2341,32 @@ const OFFICE_NOTES = {
     SC: 'Todos os 8 candidatos oficialmente registrados ao governo de Santa Catarina estão incluídos no comparador.',
     SP: 'Todos os 7 candidatos oficialmente registrados ao governo de São Paulo estão incluídos no comparador.',
     RJ: 'Todos os 9 candidatos oficialmente registrados ao governo do Rio de Janeiro estão incluídos no comparador. Observação: o atual governador, Cláudio Castro (PL), não é candidato à reeleição — renunciou em março de 2026, véspera de julgamento, e foi declarado inelegível por 8 anos pelo TSE por abuso de poder político-econômico ligado ao "escândalo do Ceperj".',
-    BA: 'Todos os 7 candidatos oficialmente registrados ao governo da Bahia estão incluídos no comparador.'
+    BA: 'Todos os 7 candidatos oficialmente registrados ao governo da Bahia estão incluídos no comparador.',
+    RS: ''
   },
   senador: {
     MG: 'De 17 candidatos registrados ao Senado por MG (2 vagas), 8 têm cobertura jornalística suficiente e estão no comparador. Os outros 9 (Ana Luiza do MLB, Arcanjo Pimenta, Fidélis Alcântara, Jordano Metalúrgico, Juiz Ramon Moreira, Manoel Carvalho, Marco Antônio "Superman", Tião Pessoa e Victória Mello) não têm plataforma detalhada disponível nas fontes consultadas. Observação: havia notícias de pressão para que Aécio Neves (PSDB) disputasse uma vaga, mas ele não consta na lista oficial de registrados apurada após o prazo — não incluído.',
     SC: 'De 13 candidatos registrados ao Senado por SC (2 vagas), 7 têm cobertura jornalística suficiente e estão no comparador. Os outros 6 (Ana Lucia da Silveira Machado, Caroline Sant\'Anna, Joaninha de Oliveira, Marcos Dorval, Marlenne Soccas e Túlio Pfuetzenreiter) não têm plataforma detalhada disponível nas fontes consultadas.',
     SP: 'De 14 a 15 candidatos registrados ao Senado por SP (2 vagas, fontes divergem no total exato), 7 têm cobertura jornalística suficiente e estão no comparador. Os outros 8 (Guto Schiavetto, Dra. Eliana Ferreira, Weller Gonçalves, Petter Maahs, Ednelson Cesaretti, Márcio Alves, Maíra de Souza e William Teixeira) não têm plataforma detalhada disponível nas fontes consultadas.',
     RJ: 'De 16 candidatos registrados ao Senado pelo RJ (2 vagas), 8 têm cobertura jornalística suficiente e estão no comparador. Os outros 8 (Marcos Dias, Luciano Mattos, Hélio Secco, Paula Falcão, Michelly Xavier, Vinícius Benevides, Luiz Eugênio Honorato e Ó Clemente) não têm plataforma detalhada disponível nas fontes consultadas.',
-    BA: 'Todos os 10 candidatos oficialmente registrados ao Senado pela Bahia (2 vagas) estão incluídos no comparador.'
+    BA: 'Todos os 10 candidatos oficialmente registrados ao Senado pela Bahia (2 vagas) estão incluídos no comparador.',
+    RS: ''
   },
   deputado_federal: {
     MG: 'MG tem 749 candidatos registrados para 53 vagas de Deputado Federal — é inviável avaliar todos individualmente. Selecionamos 12 nomes de maior relevância e cobertura pública (majoritariamente atuais deputados buscando reeleição, além de nomes de forte repercussão local).',
     SC: 'SC tem cerca de 229 candidatos registrados para 16 vagas de Deputado Federal — é inviável avaliar todos individualmente. Selecionamos 12 nomes de maior relevância e cobertura pública (majoritariamente atuais deputados buscando reeleição).',
     SP: 'SP tem cerca de 1.090 candidatos registrados para 70 vagas de Deputado Federal (o maior colégio do país) — é inviável avaliar todos individualmente. Selecionamos 14 nomes de maior relevância e cobertura pública. Observação: Eduardo Bolsonaro e Carla Zambelli, os mais votados do PL-SP em 2022, não são candidatos em 2026 (o primeiro está fora do país e teve o mandato cassado por faltas; a segunda foi condenada, fugiu do país e renunciou ao mandato).',
     RJ: 'RJ tem cerca de 782 candidatos registrados para 46 vagas de Deputado Federal — é inviável avaliar todos individualmente. Selecionamos 12 nomes de maior relevância e cobertura pública (majoritariamente atuais deputados buscando reeleição).',
-    BA: 'BA tem entre 517 e 529 candidatos registrados (fontes divergem) para 39 vagas de Deputado Federal — é inviável avaliar todos individualmente. Selecionamos 12 nomes de maior relevância e cobertura pública. Observação: Otto Alencar Filho, o deputado mais votado da Bahia em 2022, renunciou ao mandato em dezembro de 2025 para assumir vaga no Tribunal de Contas do Estado e não é candidato em 2026.'
+    BA: 'BA tem entre 517 e 529 candidatos registrados (fontes divergem) para 39 vagas de Deputado Federal — é inviável avaliar todos individualmente. Selecionamos 12 nomes de maior relevância e cobertura pública. Observação: Otto Alencar Filho, o deputado mais votado da Bahia em 2022, renunciou ao mandato em dezembro de 2025 para assumir vaga no Tribunal de Contas do Estado e não é candidato em 2026.',
+    RS: ''
   },
   deputado_estadual: {
     MG: 'MG tem 988 candidatos registrados para 77 vagas de Deputado Estadual — é inviável avaliar todos individualmente. Selecionamos 9 nomes de maior relevância e cobertura pública, majoritariamente entre os 68 deputados atuais que buscam reeleição, além de nomes de forte repercussão local.',
     SC: 'SC tem cerca de 411 candidatos registrados para 40 vagas de Deputado Estadual — é inviável avaliar todos individualmente. Selecionamos 12 nomes de maior relevância e cobertura pública (majoritariamente atuais deputados buscando reeleição).',
     SP: 'SP tem cerca de 1.390 candidatos registrados para 94 vagas de Deputado Estadual — é inviável avaliar todos individualmente. Selecionamos 9 nomes de maior relevância e cobertura pública.',
     RJ: 'RJ tem cerca de 1.163 candidatos registrados para 70 vagas de Deputado Estadual — é inviável avaliar todos individualmente. Selecionamos 9 nomes de maior relevância e cobertura pública. Observação: Rodrigo Amorim (PL), conhecido nacionalmente por quebrar uma placa em homenagem a Marielle Franco na ALERJ em 2019, foi condenado por violência política de gênero e está inelegível — não incluído como candidato ativo.',
-    BA: 'BA tem entre 521 e 632 candidatos registrados (fontes divergem) para 63 vagas de Deputado Estadual — é inviável avaliar todos individualmente. Selecionamos 12 nomes de maior relevância e cobertura pública (majoritariamente atuais deputados buscando reeleição).'
+    BA: 'BA tem entre 521 e 632 candidatos registrados (fontes divergem) para 63 vagas de Deputado Estadual — é inviável avaliar todos individualmente. Selecionamos 12 nomes de maior relevância e cobertura pública (majoritariamente atuais deputados buscando reeleição).',
+    RS: ''
   }
 };
 
@@ -2372,7 +2377,7 @@ let state = { region:null, idx:0, answers:new Array(QUESTIONS.length).fill(null)
 
 const el = id => document.getElementById(id);
 
-const REGION_NAMES = { MG:'Minas Gerais', SC:'Santa Catarina', SP:'São Paulo', RJ:'Rio de Janeiro', BA:'Bahia' };
+const REGION_NAMES = { MG:'Minas Gerais', SC:'Santa Catarina', SP:'São Paulo', RJ:'Rio de Janeiro', BA:'Bahia', RS:'Rio Grande do Sul' };
 
 /* ============================================================
    PERSISTÊNCIA (localStorage) — salva o progresso automaticamente

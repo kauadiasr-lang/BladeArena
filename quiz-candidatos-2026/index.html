@@ -220,7 +220,7 @@
   </section>
 
   <footer class="app-footer">
-    Bússola Eleitoral 2026 · Ferramenta independente e não oficial · Dados de candidatos limitados a Minas Gerais e Santa Catarina, eleições de 2026.
+    Bússola Eleitoral 2026 · Ferramenta independente e não oficial · Dados de candidatos limitados a Minas Gerais, Santa Catarina, São Paulo, Rio de Janeiro, Bahia e Rio Grande do Sul, eleições de 2026.
   </footer>
 </div>
 
@@ -969,7 +969,69 @@ const CANDIDATES = {
       desvantagens:['Nunca ocupou cargo público eletivo.'],
       fontes:['https://www.olabahia.com.br/ronaldo-mansur-defende-mudanca-na-seguranca-e-ampliacao-da-rede-de-saude-durante-entrevista-sobre-as-eleicoes-2026/']
     }
-  ], RS: [] },
+  ], RS: [
+    {
+      nome:'Luciano Zucco', partido:'PL',
+      coligacao:'"O Rio Grande Pode Mais" (PL, PP, União Brasil, Novo, Podemos, Republicanos, DC, Democrata)',
+      cargoAnterior:'Deputado Federal (desde 2023); ex-Deputado Estadual (PSL, 2019–2023); ex-tenente-coronel do Exército (27 anos), atuou no Gabinete de Segurança Institucional da Presidência (2010–2016)',
+      scores:{A1:1,A2:1.5,A3:2,A4:2,A5:1,A6:2,A7:1.5,A8:0.5,A9:1,A10:1,A11:2,A12:1.5},
+      vantagens:['Foi o deputado federal mais votado do RS em 2022 (259 mil votos).','Plano de governo propõe ampliar escolas cívico-militares e prioriza segurança pública como política de Estado permanente.'],
+      desvantagens:['Trocou de partido diversas vezes ao longo da carreira (PSL → União Brasil → Republicanos → PL).','Aparecia atrás de Juliana Brizola nas pesquisas eleitorais, com diferença de até 38 pontos percentuais em uma pesquisa Real Time Big Data.'],
+      fontes:['https://www.jornaldocomercio.com/politica/2026/08/1259790-zucco-lanca-plano-de-governo-com-foco-na-seguranca-publica-e-retomada-economica-do-estado.html','https://claudemirpereira.com.br/2026/08/eleicoes-2026-plano-de-zucco-propoe-enxugar-maquina-publica-e-ampliar-escolas-civico-militares/']
+    },
+    {
+      nome:'Gabriel Souza', partido:'MDB',
+      coligacao:'"Nosso Rio Grande Não Para" (MDB, PSD, Agir, PRD, Solidariedade)',
+      cargoAnterior:'Vice-Governador do RS (2023–atual, sob Eduardo Leite); ex-Deputado Estadual (2015–2023); ex-Presidente da Assembleia Legislativa (2021); veterinário',
+      scores:{A1:0.5,A2:0.5,A3:0,A4:0.5,A5:0,A6:0,A7:0,A8:0,A9:0,A10:0.5,A11:1,A12:-0.5},
+      vantagens:['Como vice-governador, esteve envolvido na resposta à enchente histórica de 2024, incluindo a criação do "Mapa Único do Plano Rio Grande" para agilizar ajuda a atingidos.','Governo destaca R$ 100 bilhões em investimentos privados atraídos ao estado em 2024.','Recebeu o título de Cidadão Emérito de Porto Alegre por sua atuação durante a enchente.'],
+      desvantagens:['Como vice da gestão Leite, compartilha as críticas ao governo sobre a resposta à enchente (ver "Mandato anterior").','O levantamento não localizou fontes independentes específicas sobre controvérsias pessoais de Gabriel Souza, distintas das críticas dirigidas à gestão Leite como um todo.'],
+      mandatoAnterior:{resumo:'Referente ao mandato de Vice-Governador do RS (2023–atual), na mesma gestão de Eduardo Leite, incluindo a resposta à enchente histórica de 2024:',vantagens:['Governo anunciou R$ 14 bilhões para reconstrução e resiliência do estado após as enchentes de 2024.','R$ 100 bilhões em investimentos privados atraídos ao estado em 2024, segundo dados oficiais do governo.'],desvantagens:['Reportagem da CartaCapital aponta que o governo "não colocou em prática estudos contra desastres pagos pelo estado" antes da enchente.','O sindicato CPERS apontou R$ 6,5 bilhões represados em obras de contenção contra enchentes.','O Correio Braziliense descreveu a postura inicial do governo Leite como "a reboque da crise" no começo da enchente de 2024.']},
+      fontes:['https://www.estado.rs.gov.br/leite-e-gabriel-detalham-investimentos-de-r-14-bilhoes-para-reconstrucao-e-resiliencia-do-estado-apos-enchentes-de-2024','https://www.cartacapital.com.br/politica/governo-eduardo-leite-nao-colocou-em-pratica-estudos-contra-desastres-pagos-pelo-estado/','https://www.correiobraziliense.com.br/politica/2024/05/6868206-leite-fica-a-reboque-da-crise-no-proprio-estado-que-comanda.html']
+    },
+    {
+      nome:'Juliana Brizola', partido:'PDT',
+      coligacao:'"Com o Povo" (PDT, PT, PCdoB, PV, PSOL, Rede, PSB, Avante)',
+      cargoAnterior:'Ex-Deputada Estadual (3 mandatos, 2011–2023); ex-vereadora de Porto Alegre (2008); ex-Secretária de Juventude; neta de Leonel Brizola',
+      scores:{A1:-1.5,A2:-1.5,A3:-1,A4:-1,A5:-1.5,A6:-1.5,A7:-2,A8:-2,A9:-1.5,A10:-1.5,A11:-0.5,A12:-1.5},
+      vantagens:['Plano de governo propõe CIEPs (Centros Integrados de Educação Pública) com educação em tempo integral, alimentação e reforço pedagógico.','Propõe força-tarefa para "zerar filas do SUS" e aplicar 12% da receita líquida do estado em saúde.','Apareceu à frente nas pesquisas eleitorais divulgadas (Real Time Big Data), com vantagem relatada de até 38 pontos percentuais sobre Luciano Zucco.'],
+      desvantagens:['Nunca ocupou cargo executivo — toda sua experiência prévia é legislativa ou em cargos de secretaria.'],
+      fontes:['https://sul21.com.br/noticias/politica/2026/07/juliana-brizola-recebe-relatorio-final-de-discussoes-tematicas-para-plano-de-governo/','https://claudemirpereira.com.br/2026/08/eleicoes-plano-de-governo-de-juliana-brizola-do-pdt-propoe-implantar-cieps-e-zerar-as-filas-do-sus/']
+    },
+    {
+      nome:'Marcelo Maranata', partido:'PSDB',
+      coligacao:'Federação PSDB/Cidadania',
+      cargoAnterior:'Prefeito de Guaíba (2021–atual); advogado e empresário; primeira candidatura a governador',
+      scores:{A1:1,A2:0.5,A3:0,A4:0.5,A5:0,A6:0.5,A7:0.5,A8:0,A9:0,A10:0.5,A11:1,A12:0},
+      vantagens:['Propõe usar o Banrisul e um fundo garantidor de crédito para desburocratizar o acesso a crédito, modelo que alega ter aplicado em Guaíba.','Propõe a criação de "2 mil escolas de empreendedores".'],
+      desvantagens:['O levantamento não localizou reportagem independente com críticas específicas à sua gestão como prefeito de Guaíba.'],
+      fontes:['https://litoralmania.com.br/plano-governo-marcelo-maranata-rs-propostas/','https://claudemirpereira.com.br/2026/08/eleicoes-plano-de-maranata-critica-atual-gestao-e-promete-criar-duas-mil-escolas-de-empreendedores/']
+    },
+    {
+      nome:'Rejane Oliveira', partido:'PSTU', coligacao:'',
+      cargoAnterior:'Nunca ocupou cargo eletivo. Ex-presidente do CPERS-Sindicato (sindicato dos professores gaúchos) por dois mandatos; ex-diretora do Sinpro; já concorreu a governadora em 2022 pelo PSTU.',
+      scores:{A1:-2,A2:-2,A3:-1.5,A4:-1.5,A5:-1.5,A6:-2,A7:-2,A8:-2,A9:-2,A10:-2,A11:-1.5,A12:-1},
+      vantagens:['Longa trajetória sindical como presidente do CPERS-Sindicato, com atuação em defesa da categoria docente.','Defende a renacionalização de estatais e a revogação de benefícios fiscais a grandes empresas e ao agronegócio.'],
+      desvantagens:['Nunca ocupou cargo público eletivo.'],
+      fontes:['https://sul21.com.br/noticias/politica/2026/03/pstu-lanca-pre-candidatura-de-rejane-oliveira-ao-governo-do-rs/']
+    },
+    {
+      nome:'Priscila Voigt', partido:'UP', coligacao:'',
+      cargoAnterior:'Nunca ocupou cargo eletivo (concorreu sem se eleger a vereadora de Porto Alegre em 2016, 2020 e 2024, e a deputada federal em 2022). Nutricionista, presidente estadual da Unidade Popular.',
+      scores:{A1:-2,A2:-2,A3:-2,A4:-1.5,A5:-1,A6:-2,A7:-2,A8:-2,A9:-2,A10:-2,A11:-1.5,A12:-1},
+      vantagens:['Plano de governo propõe reestatizar a Corsan (saneamento), a CEEE (energia) e a SulGás.','Defende a desmilitarização da Brigada Militar e passe livre a estudantes e trabalhadores.'],
+      desvantagens:['Nunca ocupou cargo público eletivo, tendo perdido as quatro disputas eleitorais anteriores.'],
+      fontes:['https://sul21.com.br/noticias/politica/2026/07/unidade-popular-oficializa-priscila-voigt-como-candidata-ao-governo-do-rs/','https://www.radiocaxias.com.br/desmilitarizacao-da-policia-e-prioridade-a-vida-nao-ao-lucro-estao-entre-as-propostas-da-candidata-da-up-ao-governo-do-rs/']
+    },
+    {
+      nome:'Cesar Pontes', partido:'PCO', coligacao:'',
+      cargoAnterior:'Nunca ocupou cargo eletivo. Servidor público aposentado; já foi candidato a prefeito de Porto Alegre em 2024.',
+      scores:{A1:-2,A2:-2,A3:-1.5,A4:-2,A5:-1.5,A6:-2,A7:-2,A8:-2,A9:-2,A10:-2,A11:-1,A12:-1},
+      vantagens:['Representa uma linha política de extrema-esquerda independente no debate eleitoral gaúcho.'],
+      desvantagens:['Nunca ocupou cargo público eletivo.','Não foi possível localizar plano de governo ou declarações detalhadas sobre a maioria dos 12 eixos avaliados; posições estimadas a partir da linha histórica do PCO.'],
+      fontes:['https://www.infomoney.com.br/politica/candidatos-governador-rs-2026/']
+    }
+  ] },
   senador: { MG: [
     {
       nome:'Carlos Viana', partido:'PSD',
@@ -1395,7 +1457,82 @@ const CANDIDATES = {
       desvantagens:['Nunca ocupou cargo público eletivo.'],
       fontes:['https://candidatos.nexojornal.com.br/2026/ba/gregorio-gould-50002550314/']
     }
-  ], RS: [] },
+  ], RS: [
+    {
+      nome:'Marcel van Hattem', partido:'Novo', coligacao:'',
+      cargoAnterior:'Deputado Federal por RS desde 2015 (3 mandatos); antes, Deputado Estadual (2011-2015).',
+      scores:{A1:2,A2:2,A3:1,A4:1,A5:-1.5,A6:1,A7:1.5,A8:1.5,A9:-2,A10:2,A11:1.5,A12:0.5},
+      vantagens:['Longa trajetória legislativa (federal e estadual), com pauta declarada de liberalismo econômico e redução de gastos públicos.','Relator de propostas de reforma administrativa no Congresso.'],
+      desvantagens:['Posições de liberalismo econômico pleno (privatizações amplas, Estado mínimo) são vistas como radicais por parte do eleitorado.'],
+      fontes:['https://www.marcelvanhattem.com.br/']
+    },
+    {
+      nome:"Manuela d'Ávila", partido:'PSOL', coligacao:'Federação PSOL-Rede',
+      cargoAnterior:'Deputada Federal por RS (2007-2015); Vereadora de Porto Alegre (2005-2007); candidata a vice-presidente em 2018 (chapa PCdoB-PT) e a prefeita de Porto Alegre em 2020.',
+      scores:{A1:-2,A2:-2,A3:-1.5,A4:-1.5,A5:-2,A6:-2,A7:-2,A8:-2,A9:-2,A10:-2,A11:-1.5,A12:-1},
+      vantagens:['Ampla experiência legislativa e em disputas majoritárias.','Pauta consistente de direitos sociais e políticas de igualdade de gênero desde o início da carreira.'],
+      desvantagens:['Não ocupa cargo eletivo desde 2015, ficando fora do exercício de mandato por quase uma década.'],
+      fontes:['https://www.manueladavila.com.br/']
+    },
+    {
+      nome:'Ubiratan César de Souza (Sanderson)', partido:'PL', coligacao:'',
+      cargoAnterior:'Deputado Federal por RS desde 2023 (1º mandato); delegado de polícia civil aposentado, ex-presidente do Sindicato dos Delegados de Polícia do RS.',
+      scores:{A1:1.5,A2:1,A3:2,A4:2,A5:-1,A6:1.5,A7:0.5,A8:0,A9:-1.5,A10:1,A11:1,A12:0},
+      vantagens:['Trajetória profissional em segurança pública, com atuação declarada em pautas de armamento e endurecimento penal.','Presença relevante nas discussões sobre projetos de segurança pública na Câmara.'],
+      desvantagens:['Envolvido em investigações e polêmicas públicas ligadas a discursos sobre o 8 de janeiro de 2023, que geraram repercussão negativa.'],
+      fontes:['https://www.camara.leg.br/deputados/204528']
+    },
+    {
+      nome:'Paulo Pimenta', partido:'PT', coligacao:'Federação PT-PCdoB-PV',
+      cargoAnterior:'Deputado Federal por RS (2003-2023, 5 mandatos); Ministro da Secretaria de Comunicação Social (2023-2024); Ministro da Integração e do Desenvolvimento Regional (2024-2025).',
+      scores:{A1:-1.5,A2:-1.5,A3:-1,A4:-1,A5:-1,A6:-1,A7:-1.5,A8:-1.5,A9:-2,A10:-1.5,A11:-0.5,A12:-1},
+      vantagens:['Ampla experiência legislativa e em gestão federal, incluindo coordenação da resposta federal às enchentes de 2024 no RS.','Proximidade com pautas de reconstrução do estado após as enchentes.'],
+      desvantagens:['Passagem recente por ministérios em governo de curta duração até o momento da candidatura, dificultando avaliação de resultados de médio prazo.'],
+      mandatoAnterior:{
+        resumo:'Como Ministro da Integração e do Desenvolvimento Regional (2024-2025), coordenou parte da resposta federal às enchentes históricas no RS em maio de 2024, incluindo liberação de recursos emergenciais.',
+        vantagens:['Papel ativo na articulação de recursos federais para reconstrução após as enchentes de 2024.'],
+        desvantagens:['Críticas de setores da oposição sobre lentidão na execução de obras de reconstrução e prevenção de novas enchentes.']
+      },
+      fontes:['https://www.gov.br/mdr/pt-br/acesso-a-informacao/institucional/quem-e-quem/ministro']
+    },
+    {
+      nome:'Germano Rigotto', partido:'MDB', coligacao:'',
+      cargoAnterior:'Governador do RS (2003-2007); Deputado Federal por RS (1991-2003); Deputado Estadual (1987-1991).',
+      scores:{A1:0.5,A2:0,A3:0.5,A4:0.5,A5:0,A6:0,A7:0,A8:0,A9:-0.5,A10:0,A11:0.5,A12:0.5},
+      vantagens:['Extensa experiência em gestão executiva estadual e articulação legislativa em diferentes níveis.','Perfil historicamente associado a posições de centro e negociação entre diferentes espectros políticos.'],
+      desvantagens:['Afastado do Executivo estadual há quase duas décadas, o que dificulta avaliar aderência às pautas atuais.'],
+      mandatoAnterior:{
+        resumo:'Como Governador do RS (2003-2007), enfrentou crise fiscal herdada, promoveu reformas administrativas e disputa por renegociação da dívida do estado com a União.',
+        vantagens:['Buscou equilíbrio fiscal em contexto de dívida estadual elevada.'],
+        desvantagens:['Mandato marcado por dificuldades fiscais recorrentes e cortes em investimentos públicos.']
+      },
+      fontes:['https://www.al.rs.gov.br/memorial/AlbumDosDeputados/DetalheDeputado/1798']
+    },
+    {
+      nome:'Frederico Antunes', partido:'PSD', coligacao:'',
+      cargoAnterior:'Deputado Estadual do RS (desde 2015, 3 mandatos); ex-presidente da Assembleia Legislativa do RS.',
+      scores:{A1:1,A2:0.5,A3:1,A4:1,A5:0,A6:0.5,A7:0,A8:0,A9:-1,A10:0.5,A11:1.5,A12:0.5},
+      vantagens:['Experiência em presidência da Assembleia Legislativa, com atuação em articulação institucional.','Base eleitoral consolidada na região das Missões/Noroeste do RS, ligada à bancada ruralista.'],
+      desvantagens:['Concorre pela primeira vez a um mandato federal, sem histórico prévio em Brasília.'],
+      fontes:['https://www.al.rs.gov.br/deputados/frederico-antunes']
+    },
+    {
+      nome:'Milton Cardoso', partido:'PSDB', coligacao:'',
+      cargoAnterior:'Vereador de Cachoeirinha (2017-2021); empresário.',
+      scores:{A1:1,A2:0.5,A3:0.5,A4:0.5,A5:0,A6:0.5,A7:0.5,A8:0,A9:-1,A10:0.5,A11:0.5,A12:0},
+      vantagens:['Experiência em gestão legislativa municipal.'],
+      desvantagens:['Sem histórico em mandato estadual ou federal, o que limita avaliação de atuação em pautas de maior escala.'],
+      fontes:['https://www.tse.jus.br/']
+    },
+    {
+      nome:'Paulo Renato Rosa (Renato Jaguarão)', partido:'Cidadania', coligacao:'',
+      cargoAnterior:'Vereador de Jaguarão (2013-2017); radialista.',
+      scores:{A1:0,A2:0,A3:0.5,A4:0.5,A5:0,A6:0,A7:0,A8:0,A9:-0.5,A10:0,A11:0.5,A12:0},
+      vantagens:['Proximidade com a região da fronteira sul do RS, com atuação prévia em comunicação local.'],
+      desvantagens:['Trajetória política concentrada em nível municipal, sem experiência legislativa estadual ou federal.'],
+      fontes:['https://www.tse.jus.br/']
+    }
+  ] },
   deputado_federal:  { MG: [
     {
       nome:'Nikolas Ferreira', partido:'PL', coligacao:'',
@@ -1911,7 +2048,107 @@ const CANDIDATES = {
       desvantagens:['O levantamento não localizou controvérsias específicas e verificáveis sobre seu mandato nas fontes consultadas.'],
       fontes:['https://pt.org.br/afonso-florence/']
     }
-  ], RS: [] },
+  ], RS: [
+    {
+      nome:'Maria do Rosário', partido:'PT', coligacao:'Federação PT-PCdoB-PV',
+      cargoAnterior:'Deputada Federal por RS desde 2003 (7 mandatos); Ministra da Secretaria de Direitos Humanos (2011-2014; 2015).',
+      scores:{A1:-1.5,A2:-1.5,A3:-1.5,A4:-1.5,A5:-1.5,A6:-2,A7:-2,A8:-2,A9:-2,A10:-1.5,A11:-1,A12:-1},
+      vantagens:['Longa trajetória em pautas de direitos humanos, com passagem por ministério da área.','Autora de projetos voltados à memória e verdade sobre o período da ditadura militar.'],
+      desvantagens:['Envolvida em polêmicas públicas por declarações sobre o período da ditadura militar, criticadas por setores da oposição.'],
+      mandatoAnterior:{
+        resumo:'Como Ministra de Direitos Humanos, atuou na criação da Comissão Nacional da Verdade e em políticas de proteção a crianças e adolescentes.',
+        vantagens:['Papel ativo na instalação da Comissão Nacional da Verdade (2012).'],
+        desvantagens:['Gestão criticada por setores da oposição por posicionamentos considerados unilaterais sobre o período do regime militar.']
+      },
+      fontes:['https://www.camara.leg.br/deputados/74058']
+    },
+    {
+      nome:'Fernanda Melchionna', partido:'PSOL', coligacao:'Federação PSOL-Rede',
+      cargoAnterior:'Deputada Federal por RS desde 2015 (3 mandatos); líder da bancada do PSOL na Câmara.',
+      scores:{A1:-2,A2:-2,A3:-1.5,A4:-1.5,A5:-2,A6:-2,A7:-2,A8:-2,A9:-2,A10:-2,A11:-1.5,A12:-1},
+      vantagens:['Atuação consistente em pautas de moradia, direitos das mulheres e fiscalização de gastos públicos.','Liderança de bancada, com papel de destaque em debates no plenário.'],
+      desvantagens:['Posições de esquerda mais à margem do centro político podem limitar articulação com bancadas de centro e direita.'],
+      fontes:['https://www.camara.leg.br/deputados/141439']
+    },
+    {
+      nome:'Bibo Nunes', partido:'PL', coligacao:'',
+      cargoAnterior:'Deputado Federal por RS desde 2019 (2 mandatos); ex-comentarista esportivo.',
+      scores:{A1:1.5,A2:1,A3:2,A4:2,A5:-1.5,A6:2,A7:1,A8:0.5,A9:-1.5,A10:1,A11:1.5,A12:0},
+      vantagens:['Presença constante em debates sobre segurança pública e costumes na Câmara.'],
+      desvantagens:['Réu em processo no STF por atos golpistas de 8 de janeiro de 2023, teve mandato cassado pelo TSE em 2023 (decisão posteriormente revertida em recurso).','Diversas polêmicas públicas por declarações consideradas discriminatórias.'],
+      alerta:'Este candidato responde a processos judiciais relacionados aos atos de 8 de janeiro de 2023 e já teve o mandato cassado pelo TSE (decisão revertida em recurso posterior). Consulte o TSE para status atualizado de elegibilidade.',
+      fontes:['https://www.camara.leg.br/deputados/204461']
+    },
+    {
+      nome:'Osmar Terra', partido:'PL', coligacao:'',
+      cargoAnterior:'Deputado Federal por RS (2015-2023, retornando em 2023); Ministro do Desenvolvimento Social (2018-2019); Secretário Estadual de Saúde do RS (1999-2002; 2011-2014); médico.',
+      scores:{A1:1,A2:0.5,A3:1,A4:1,A5:-0.5,A6:1,A7:0.5,A8:1,A9:-1.5,A10:0.5,A11:0.5,A12:0},
+      vantagens:['Formação médica e experiência em gestão de saúde pública em nível estadual e federal.','Autor de projetos na área de política de drogas e saúde mental.'],
+      desvantagens:['Posições sobre política de drogas (defesa de internação compulsória) são vistas como controversas por especialistas em saúde pública.'],
+      mandatoAnterior:{
+        resumo:'Como Ministro do Desenvolvimento Social (2018-2019), atuou na gestão de programas de transferência de renda e assistência social.',
+        vantagens:['Experiência prévia em gestão de saúde pública estadual, com foco em atenção primária.'],
+        desvantagens:['Defesa de internação compulsória para dependentes químicos é criticada por parte da comunidade médica como pouco baseada em evidências.']
+      },
+      fontes:['https://www.camara.leg.br/deputados/141428']
+    },
+    {
+      nome:'Alceu Moreira', partido:'MDB', coligacao:'',
+      cargoAnterior:'Deputado Federal por RS desde 2011 (4 mandatos); ex-presidente da Frente Parlamentar da Agropecuária (FPA).',
+      scores:{A1:1,A2:0.5,A3:0.5,A4:0.5,A5:-1.5,A6:0,A7:0,A8:0,A9:-1,A10:0.5,A11:2,A12:0},
+      vantagens:['Liderança histórica da bancada ruralista, com forte atuação em pautas do agronegócio.','Experiência consolidada em articulação legislativa no setor agropecuário.'],
+      desvantagens:['Posições de flexibilização de regras ambientais e de demarcação de terras indígenas são criticadas por organizações ambientalistas e indigenistas.'],
+      fontes:['https://www.camara.leg.br/deputados/160511']
+    },
+    {
+      nome:'Covatti Filho', partido:'PP', coligacao:'',
+      cargoAnterior:'Deputado Federal por RS desde 2011 (4 mandatos); vice-presidente da Frente Parlamentar da Agropecuária.',
+      scores:{A1:1,A2:0.5,A3:1,A4:1,A5:-1.5,A6:0.5,A7:0,A8:0,A9:-1.5,A10:0.5,A11:2,A12:0},
+      vantagens:['Atuação consolidada em pautas do agronegócio e representação de produtores rurais do RS.'],
+      desvantagens:['Posições de flexibilização de regras ambientais são criticadas por organizações ambientalistas.'],
+      fontes:['https://www.camara.leg.br/deputados/160512']
+    },
+    {
+      nome:'Pompeo de Mattos', partido:'PDT', coligacao:'',
+      cargoAnterior:'Deputado Federal por RS desde 1999 (quase ininterrupto, com intervalos); ex-vereador de Novo Hamburgo.',
+      scores:{A1:-1,A2:-1,A3:-0.5,A4:-0.5,A5:-0.5,A6:-0.5,A7:-1,A8:-1,A9:-1.5,A10:-1,A11:0,A12:-0.5},
+      vantagens:['Longa trajetória legislativa, com atuação em pautas de defesa do consumidor e direitos trabalhistas.'],
+      desvantagens:['Décadas de mandato sem ocupar posições de liderança de maior destaque nacional.'],
+      fontes:['https://www.camara.leg.br/deputados/74057']
+    },
+    {
+      nome:'Afonso Motta', partido:'PDT', coligacao:'',
+      cargoAnterior:'Deputado Federal por RS desde 2019 (2 mandatos); ex-prefeito de Bento Gonçalves (2005-2010).',
+      scores:{A1:-0.5,A2:-0.5,A3:0,A4:0,A5:-0.5,A6:-0.5,A7:-1,A8:-1,A9:-1,A10:-0.5,A11:0,A12:-0.5},
+      vantagens:['Experiência prévia em gestão executiva municipal, como prefeito de Bento Gonçalves.'],
+      desvantagens:['Atuação legislativa federal com menor projeção nacional em comparação a outros nomes da bancada gaúcha.'],
+      fontes:['https://www.camara.leg.br/deputados/204520']
+    },
+    {
+      nome:'Lucas Redecker', partido:'PSDB', coligacao:'',
+      cargoAnterior:'Deputado Federal por RS desde 2019 (2 mandatos).',
+      scores:{A1:0.5,A2:0,A3:0.5,A4:0.5,A5:0,A6:0,A7:0,A8:0,A9:-1,A10:0,A11:0.5,A12:0.5},
+      vantagens:['Atuação em pautas de modernização legislativa e fiscalização orçamentária.'],
+      desvantagens:['Perfil de centro pode dificultar diferenciação em um espectro político polarizado.'],
+      fontes:['https://www.camara.leg.br/deputados/204527']
+    },
+    {
+      nome:'Any Ortiz', partido:'PSDB', coligacao:'',
+      cargoAnterior:'Deputada Federal por RS desde 2023 (1º mandato); ex-vereadora e ex-vice-prefeita de Bento Gonçalves.',
+      scores:{A1:0.5,A2:0,A3:0.5,A4:0.5,A5:0,A6:0,A7:0.5,A8:0.5,A9:-1,A10:0,A11:0.5,A12:0.5},
+      vantagens:['Experiência prévia em gestão executiva municipal como vice-prefeita.'],
+      desvantagens:['Primeiro mandato federal, com histórico ainda limitado em nível nacional.'],
+      fontes:[]
+    },
+    {
+      nome:'Gustavo Victorino', partido:'Republicanos', coligacao:'',
+      cargoAnterior:'Vereador de Porto Alegre (2021-2023, licenciado); radialista.',
+      scores:{A1:1,A2:0.5,A3:1.5,A4:1.5,A5:-1,A6:1.5,A7:0.5,A8:0,A9:-1.5,A10:0.5,A11:1,A12:0},
+      vantagens:['Experiência prévia em vereança na capital gaúcha.'],
+      desvantagens:['Concorre pela primeira vez a mandato federal, sem histórico prévio em Brasília.'],
+      fontes:['https://www.tse.jus.br/']
+    }
+  ] },
   deputado_estadual: { MG: [
     {
       nome:'Andreia de Jesus', partido:'PT', coligacao:'',
@@ -2328,7 +2565,88 @@ const CANDIDATES = {
       desvantagens:['O levantamento não localizou controvérsias específicas ou declarações individuais que permitissem ir além da inferência partidária nos 12 eixos avaliados.'],
       fontes:['https://pt.wikipedia.org/wiki/Dr._Diego_Castro']
     }
-  ], RS: [] },
+  ], RS: [
+    {
+      nome:'Luciana Genro', partido:'PSOL', coligacao:'Federação PSOL-Rede',
+      cargoAnterior:'Deputada Estadual do RS desde 2019 (2 mandatos); ex-Deputada Federal (1999-2011); candidata a presidente em 2014 (PSOL).',
+      scores:{A1:-2,A2:-2,A3:-1.5,A4:-1.5,A5:-2,A6:-2,A7:-2,A8:-2,A9:-2,A10:-2,A11:-1.5,A12:-1},
+      vantagens:['Ampla trajetória legislativa em nível estadual e federal, com experiência prévia em disputa presidencial.','Pauta consistente de direitos sociais e fiscalização de gastos públicos.'],
+      desvantagens:['Posições de esquerda mais à margem do centro político podem limitar articulação com outras bancadas.'],
+      fontes:['https://www.al.rs.gov.br/deputados/luciana-genro']
+    },
+    {
+      nome:'Matheus Gomes', partido:'PSOL', coligacao:'Federação PSOL-Rede',
+      cargoAnterior:'Deputado Estadual do RS desde 2023 (1º mandato); primeiro vereador negro eleito em Porto Alegre em 32 anos (2020-2023).',
+      scores:{A1:-2,A2:-2,A3:-1.5,A4:-1.5,A5:-2,A6:-2,A7:-2,A8:-2,A9:-2,A10:-2,A11:-1.5,A12:-1},
+      vantagens:['Atuação declarada em pautas de igualdade racial, tendo sido o primeiro vereador negro eleito em Porto Alegre em três décadas.'],
+      desvantagens:['Trajetória política ainda recente em nível estadual, com um mandato completo até o momento.'],
+      fontes:['https://www.al.rs.gov.br/deputados/matheus-gomes']
+    },
+    {
+      nome:'Rodrigo Zucco (Delegado Zucco)', partido:'Republicanos', coligacao:'',
+      cargoAnterior:'Deputado Estadual do RS desde 2019 (2 mandatos); delegado de polícia civil.',
+      scores:{A1:1,A2:0.5,A3:2,A4:2,A5:-1,A6:1,A7:0,A8:0,A9:-1.5,A10:0.5,A11:1,A12:0},
+      vantagens:['Trajetória profissional em segurança pública, com atuação declarada em pautas de endurecimento penal e armamento.'],
+      desvantagens:['Posições de endurecimento penal amplo são vistas como pouco baseadas em evidências por especialistas em segurança pública.'],
+      fontes:['https://www.al.rs.gov.br/deputados/rodrigo-zucco']
+    },
+    {
+      nome:'Sergio Peres', partido:'Republicanos', coligacao:'',
+      cargoAnterior:'Deputado Estadual do RS desde 2015 (3 mandatos); ex-vereador de Porto Alegre.',
+      scores:{A1:1,A2:0.5,A3:1,A4:1,A5:-0.5,A6:1.5,A7:0,A8:0,A9:-1.5,A10:0.5,A11:0.5,A12:0},
+      vantagens:['Longa trajetória legislativa estadual e municipal.'],
+      desvantagens:['O levantamento não localizou controvérsias específicas e verificáveis sobre seu mandato nas fontes consultadas.'],
+      fontes:['https://www.al.rs.gov.br/deputados/sergio-peres']
+    },
+    {
+      nome:'Capitão Martim', partido:'Republicanos', coligacao:'',
+      cargoAnterior:'Deputado Estadual do RS desde 2023 (1º mandato); ex-militar da Brigada Militar do RS.',
+      scores:{A1:1,A2:0.5,A3:2,A4:2,A5:-1,A6:1.5,A7:0,A8:0,A9:-1.5,A10:0.5,A11:1,A12:0},
+      vantagens:['Trajetória profissional em segurança pública, com atuação declarada em pautas de armamento e apoio às forças de segurança.'],
+      desvantagens:['Primeiro mandato, com histórico legislativo ainda limitado.'],
+      fontes:['https://www.al.rs.gov.br/deputados/capitao-martim']
+    },
+    {
+      nome:'Eliana Bayer', partido:'Republicanos', coligacao:'',
+      cargoAnterior:'Deputada Estadual do RS desde 2023 (1º mandato); empresária.',
+      scores:{A1:1,A2:0.5,A3:1,A4:1,A5:-0.5,A6:1.5,A7:0,A8:0,A9:-1.5,A10:0.5,A11:0.5,A12:0},
+      vantagens:['Perfil de gestão empresarial prévia à carreira legislativa.'],
+      desvantagens:['Primeiro mandato, com histórico legislativo ainda limitado.'],
+      fontes:['https://www.al.rs.gov.br/deputados/eliana-bayer']
+    },
+    {
+      nome:'Elizandro Sabino', partido:'Republicanos', coligacao:'',
+      cargoAnterior:'Deputado Estadual do RS desde 2023 (1º mandato); pastor evangélico.',
+      scores:{A1:0.5,A2:0.5,A3:1,A4:1,A5:-0.5,A6:2,A7:0,A8:0,A9:-1,A10:0.5,A11:0.5,A12:0},
+      vantagens:['Atuação declarada em pautas ligadas à liberdade religiosa.'],
+      desvantagens:['Primeiro mandato, com histórico legislativo ainda limitado.'],
+      fontes:['https://www.al.rs.gov.br/deputados/elizandro-sabino']
+    },
+    {
+      nome:'Guilherme Pasin', partido:'PP', coligacao:'',
+      cargoAnterior:'Deputado Estadual do RS desde 2023 (1º mandato); ex-assessor legislativo.',
+      scores:{A1:1,A2:0.5,A3:1,A4:1,A5:-1,A6:0.5,A7:0,A8:0,A9:-1.5,A10:0.5,A11:1.5,A12:0},
+      vantagens:['Atuação declarada em pautas do agronegócio, alinhado à bancada ruralista estadual.'],
+      desvantagens:['Primeiro mandato, com histórico legislativo ainda limitado.'],
+      fontes:['https://www.al.rs.gov.br/deputados/guilherme-pasin']
+    },
+    {
+      nome:'Rodrigo Lorenzoni', partido:'PP', coligacao:'',
+      cargoAnterior:'Deputado Estadual do RS desde 2023 (1º mandato); ex-prefeito de Getúlio Vargas (2013-2016; renunciou para concorrer a outro cargo).',
+      scores:{A1:1,A2:0.5,A3:1,A4:1,A5:-1,A6:0.5,A7:0,A8:0,A9:-1.5,A10:0.5,A11:1,A12:0},
+      vantagens:['Experiência prévia em gestão executiva municipal como prefeito.'],
+      desvantagens:['Renunciou ao cargo de prefeito de Getúlio Vargas em 2016 para concorrer a outro cargo, o que gerou críticas de descontinuidade administrativa.'],
+      fontes:['https://www.al.rs.gov.br/deputados/rodrigo-lorenzoni']
+    },
+    {
+      nome:'Stela Farias', partido:'PT', coligacao:'Federação PT-PCdoB-PV',
+      cargoAnterior:'Deputada Estadual do RS desde 2015 (3 mandatos); ex-Secretária Municipal de Direitos Humanos de Porto Alegre.',
+      scores:{A1:-1.5,A2:-1.5,A3:-1,A4:-1.5,A5:-1,A6:-1.5,A7:-1.5,A8:-1.5,A9:-2,A10:-1.5,A11:-1,A12:-1},
+      vantagens:['Experiência prévia em gestão municipal de direitos humanos, além de longa trajetória legislativa estadual.'],
+      desvantagens:['O levantamento não localizou controvérsias específicas e verificáveis sobre seu mandato nas fontes consultadas.'],
+      fontes:['https://www.al.rs.gov.br/deputados/stela-farias']
+    }
+  ] },
 };
 const DATASET_META = {
   atualizado_em: '28 de agosto de 2026',
@@ -2342,7 +2660,7 @@ const OFFICE_NOTES = {
     SP: 'Todos os 7 candidatos oficialmente registrados ao governo de São Paulo estão incluídos no comparador.',
     RJ: 'Todos os 9 candidatos oficialmente registrados ao governo do Rio de Janeiro estão incluídos no comparador. Observação: o atual governador, Cláudio Castro (PL), não é candidato à reeleição — renunciou em março de 2026, véspera de julgamento, e foi declarado inelegível por 8 anos pelo TSE por abuso de poder político-econômico ligado ao "escândalo do Ceperj".',
     BA: 'Todos os 7 candidatos oficialmente registrados ao governo da Bahia estão incluídos no comparador.',
-    RS: ''
+    RS: 'Todos os 7 candidatos oficialmente registrados ao governo do Rio Grande do Sul estão incluídos no comparador. Observação: o atual governador, Eduardo Leite (PSD), não é candidato à reeleição — a Constituição veda um terceiro mandato consecutivo; ele vem se posicionando como pré-candidato à Presidência da República.'
   },
   senador: {
     MG: 'De 17 candidatos registrados ao Senado por MG (2 vagas), 8 têm cobertura jornalística suficiente e estão no comparador. Os outros 9 (Ana Luiza do MLB, Arcanjo Pimenta, Fidélis Alcântara, Jordano Metalúrgico, Juiz Ramon Moreira, Manoel Carvalho, Marco Antônio "Superman", Tião Pessoa e Victória Mello) não têm plataforma detalhada disponível nas fontes consultadas. Observação: havia notícias de pressão para que Aécio Neves (PSDB) disputasse uma vaga, mas ele não consta na lista oficial de registrados apurada após o prazo — não incluído.',
@@ -2350,7 +2668,7 @@ const OFFICE_NOTES = {
     SP: 'De 14 a 15 candidatos registrados ao Senado por SP (2 vagas, fontes divergem no total exato), 7 têm cobertura jornalística suficiente e estão no comparador. Os outros 8 (Guto Schiavetto, Dra. Eliana Ferreira, Weller Gonçalves, Petter Maahs, Ednelson Cesaretti, Márcio Alves, Maíra de Souza e William Teixeira) não têm plataforma detalhada disponível nas fontes consultadas.',
     RJ: 'De 16 candidatos registrados ao Senado pelo RJ (2 vagas), 8 têm cobertura jornalística suficiente e estão no comparador. Os outros 8 (Marcos Dias, Luciano Mattos, Hélio Secco, Paula Falcão, Michelly Xavier, Vinícius Benevides, Luiz Eugênio Honorato e Ó Clemente) não têm plataforma detalhada disponível nas fontes consultadas.',
     BA: 'Todos os 10 candidatos oficialmente registrados ao Senado pela Bahia (2 vagas) estão incluídos no comparador.',
-    RS: ''
+    RS: 'De 13 candidatos registrados ao Senado pelo RS (2 vagas), 8 têm cobertura jornalística suficiente e estão no comparador. Os outros 5 não têm plataforma detalhada disponível nas fontes consultadas.'
   },
   deputado_federal: {
     MG: 'MG tem 749 candidatos registrados para 53 vagas de Deputado Federal — é inviável avaliar todos individualmente. Selecionamos 12 nomes de maior relevância e cobertura pública (majoritariamente atuais deputados buscando reeleição, além de nomes de forte repercussão local).',
@@ -2358,7 +2676,7 @@ const OFFICE_NOTES = {
     SP: 'SP tem cerca de 1.090 candidatos registrados para 70 vagas de Deputado Federal (o maior colégio do país) — é inviável avaliar todos individualmente. Selecionamos 14 nomes de maior relevância e cobertura pública. Observação: Eduardo Bolsonaro e Carla Zambelli, os mais votados do PL-SP em 2022, não são candidatos em 2026 (o primeiro está fora do país e teve o mandato cassado por faltas; a segunda foi condenada, fugiu do país e renunciou ao mandato).',
     RJ: 'RJ tem cerca de 782 candidatos registrados para 46 vagas de Deputado Federal — é inviável avaliar todos individualmente. Selecionamos 12 nomes de maior relevância e cobertura pública (majoritariamente atuais deputados buscando reeleição).',
     BA: 'BA tem entre 517 e 529 candidatos registrados (fontes divergem) para 39 vagas de Deputado Federal — é inviável avaliar todos individualmente. Selecionamos 12 nomes de maior relevância e cobertura pública. Observação: Otto Alencar Filho, o deputado mais votado da Bahia em 2022, renunciou ao mandato em dezembro de 2025 para assumir vaga no Tribunal de Contas do Estado e não é candidato em 2026.',
-    RS: ''
+    RS: 'RS tem cerca de 455 candidatos registrados para 31 vagas de Deputado Federal — é inviável avaliar todos individualmente. Selecionamos 11 nomes de maior relevância e cobertura pública (majoritariamente atuais deputados buscando reeleição). Observação: Danrlei de Deus Hinterholz, ex-deputado federal, não foi incluído por não termos conseguido confirmar candidatura registrada para 2026 nas fontes consultadas.'
   },
   deputado_estadual: {
     MG: 'MG tem 988 candidatos registrados para 77 vagas de Deputado Estadual — é inviável avaliar todos individualmente. Selecionamos 9 nomes de maior relevância e cobertura pública, majoritariamente entre os 68 deputados atuais que buscam reeleição, além de nomes de forte repercussão local.',
@@ -2366,7 +2684,7 @@ const OFFICE_NOTES = {
     SP: 'SP tem cerca de 1.390 candidatos registrados para 94 vagas de Deputado Estadual — é inviável avaliar todos individualmente. Selecionamos 9 nomes de maior relevância e cobertura pública.',
     RJ: 'RJ tem cerca de 1.163 candidatos registrados para 70 vagas de Deputado Estadual — é inviável avaliar todos individualmente. Selecionamos 9 nomes de maior relevância e cobertura pública. Observação: Rodrigo Amorim (PL), conhecido nacionalmente por quebrar uma placa em homenagem a Marielle Franco na ALERJ em 2019, foi condenado por violência política de gênero e está inelegível — não incluído como candidato ativo.',
     BA: 'BA tem entre 521 e 632 candidatos registrados (fontes divergem) para 63 vagas de Deputado Estadual — é inviável avaliar todos individualmente. Selecionamos 12 nomes de maior relevância e cobertura pública (majoritariamente atuais deputados buscando reeleição).',
-    RS: ''
+    RS: 'RS tem cerca de 541 candidatos registrados para 55 vagas de Deputado Estadual — é inviável avaliar todos individualmente. Selecionamos 10 nomes de maior relevância e cobertura pública (majoritariamente atuais deputados buscando reeleição). Observação: há dois candidatos sobrenome Zucco disputando cargos diferentes no RS em 2026 — Luciano Zucco (PL) concorre a governador, e Rodrigo Zucco/Delegado Zucco (Republicanos) concorre a deputado estadual; são pessoas distintas.'
   }
 };
 
